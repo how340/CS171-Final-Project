@@ -16,8 +16,9 @@ Promise.all(promises)
 // initMainPage
 function initMainPage(dataArray) {
 
-  console.log(dataArray)
-  myvis = new internetLangVis('internetLangVis', dataArray[0]);
+  myvis = new InternetLangVis('internetLang', dataArray[0]);
 
+  
 
 }
+
