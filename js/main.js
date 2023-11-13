@@ -1,26 +1,23 @@
-console.log("let's get started!")
+// load data using promises
+let promises = [
 
-let svg = d3.select('body').append('svg').attr('width', 1000).attr('height', 1000)
+  d3.csv("data/internet_language_data.csv"),
 
+];
 
-updateVisualization([10, 20, 30]);
-updateVisualization([40, 50]);
+Promise.all(promises)
+  .then(function (data) {
+      initMainPage(data)
+  })
+  .catch(function (err) {
+      console.log(err)
+  });
 
-function updateVisualization(data) {
-    console.log("completed run")
-  let circles = svg.selectAll("circle")
-      .data(data)
-    .enter().append("circle")
-      .attr("r", 10)
-      .attr("cx", function(d, index) {
-        return (index * 30) + 10;
-      })
-      .attr("cy", 20)
-      .attr("fill", function(d){
-        if(d > 30)
-          return "blue";
-        else
-          return "red";
-      })
+// initMainPage
+function initMainPage(dataArray) {
+
+  console.log(dataArray)
+  myvis = new internetLangVis('internetLangVis', dataArray[0]);
+
 
 }
