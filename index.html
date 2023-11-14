@@ -21,7 +21,17 @@
 
 		<!-- Container for online language presence Visualization -->
 		<div class="container-fluid" style="height: 70vh; padding-top: 1vh">
+
+			<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
+				<option value="Population" selected>Default</option>
+				<option value="contentPercent" selected>Percent of Internet Content</option>
+				<option value="internetUser">Population of Internet Users</option>
+				<option value="wikiViews">Daily View of Wikipedia</option>
+				<!-- Add more categories as needed -->
+			</select>
+
 			<div class="row" style="height:40vh">
+
 				<div class="col-12" id="internetLang"></div>
 			</div>
 		</div>

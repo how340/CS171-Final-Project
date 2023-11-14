@@ -16,9 +16,14 @@ Promise.all(promises)
 // initMainPage
 function initMainPage(dataArray) {
 
-  myvis = new InternetLangVis('internetLang', dataArray[0]);
+  internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
-  
+
 
 }
 
+
+
+function internetLanguageVisOnChange(){
+  internetLanguageVis.wrangleData();
+}
