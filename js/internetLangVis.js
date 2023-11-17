@@ -7,7 +7,6 @@ class InternetLangVis {
         this.initVis()
     }
 
-
     initVis(){
         let vis = this;
 
