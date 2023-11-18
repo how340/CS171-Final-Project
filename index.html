@@ -21,49 +21,69 @@
 	<!-- SOME SAMPLE HTML HERE - DELETE EVERYTHING INSIDE THE BODY EXCEPT THE SCRIPTS ON THE BOTTOM TO START FROM SCRATCH -->
 	<!-- DON'T WRITE CSS IN YOUR HTML LIKE WE DID HERE - THE INLINE CSS SHOULD HELP YOU TO UNDERSTAND THE BEHAVIOR OF THE ELEMENTS BETTER -
 		 WHEN SUBMITTING, WE ALWAYS EXPECT CLEAR SEPARATION OF HTML, CSS, AND JS INTO THE PROPER FILES -->
-	<body style="padding: 5vh">
+	<body style="padding: 1vh">
+		
+		<div class="container" style="width: 100%;">
+			<div class="child">
+				<!-- quizlet clone -->
+				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
+					<div class="row" style="height: 70%;">
+						<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
+						<button class="col-1" id="left-arrow"  onclick="moveLeft()"><i class="fas fa-arrow-left"></i></button>
 
-		<!-- quizlet clone -->
-		<div class="container-fluid" style="height: 60vh; padding-top: 1vh">
-			<div class="row" style="height: 70%;">
-				<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
-				<button class="col-1" id="left-arrow"  onclick="moveLeft()"><i class="fas fa-arrow-left"></i></button>
-
-				<div class="slider col-10" >
-					<div class="card" id="slider-vis1"> Quiz question 1 </div>
-					<div class="card" id="slider-vis2"> Quiz question 2 </div>
-					<div class="card" id="slider-vis3"> Quiz question 3 </div>
-					<div class="card" id="slider-vis4"> Quiz question 4 </div>
+						<div class="slider col-10" >
+							<div class="card" id="slider-vis1"> Quiz question 1 </div>
+							<div class="card" id="slider-vis2"> Quiz question 2 </div>
+							<div class="card" id="slider-vis3"> Quiz question 3 </div>
+							<div class="card" id="slider-vis4"> Quiz question 4 </div>
+						</div>
+			
+						<button class="col-1" id="right-arrow"  onclick="moveRight()"><i class="fas fa-arrow-right"></i></button>
+					</div>
+					<div class="row">
+						<div class="navigation-button">
+							<span class="dot active" onclick="changeSlide(0)"></span>
+							<span class="dot" onclick="changeSlide(1)"></span>
+							<span class="dot" onclick="changeSlide(2)"></span>
+							<span class="dot" onclick="changeSlide(3)"></span>
+						</div>
+					</div>
+			
 				</div>
-	
-				<button class="col-1" id="right-arrow"  onclick="moveRight()"><i class="fas fa-arrow-right"></i></button>
 			</div>
-			<div class="row">
-				<div class="navigation-button">
-					<span class="dot active" onclick="changeSlide(0)"></span>
-					<span class="dot" onclick="changeSlide(1)"></span>
-					<span class="dot" onclick="changeSlide(2)"></span>
-					<span class="dot" onclick="changeSlide(3)"></span>
+
+
+			<div class="child">
+				<!-- Container for online language presence Visualization -->
+				<div class="container-fluid display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
+					<div class="row">
+						<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
+							<option value="Population" selected>Default</option>
+							<option value="contentPercent" selected>Percent of Internet Content</option>
+							<option value="internetUser">Population of Internet Users</option>
+							<option value="wikiViews">Daily View of Wikipedia</option>
+							<!-- Add more categories as needed -->
+						</select>
+					</div>
+					<div class="row" style="height:40vh">
+
+						<div class="col-12" id="internetLang"></div>
+					</div>
 				</div>
 			</div>
-	
-		</div>
-		  
-		<!-- Container for online language presence Visualization -->
-		<div class="container-fluid" style="height: 70vh; padding-top: 1vh">
-			<div class="row">
-				<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
-					<option value="Population" selected>Default</option>
-					<option value="contentPercent" selected>Percent of Internet Content</option>
-					<option value="internetUser">Population of Internet Users</option>
-					<option value="wikiViews">Daily View of Wikipedia</option>
-					<!-- Add more categories as needed -->
-				</select>
-			</div>
-			<div class="row" style="height:40vh">
 
-				<div class="col-12" id="internetLang"></div>
+
+			<!-- vertical navigation bar -->
+			<div id="fp-nav" class="fp-right">
+				<ul>	
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+				</ul>
 			</div>
+
 		</div>
 
 <!-- - - - - - - - - - - - >
@@ -90,6 +110,8 @@
 
 	<script src="js/internetLangVis.js"></script>
 
-	<script src="js/panels.js"></script>
+	<script src="js/horizontal-panel.js"></script>
+
+	<script src="js/vertical-scroll.js"></script>
 	</body>
 </html>
