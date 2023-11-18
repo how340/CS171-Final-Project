@@ -12,6 +12,10 @@
 
 		<!-- GOOGLE FONTS -->
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,400italic,300italic' rel='stylesheet' type='text/css'>
+
+		<!-- Font awesome icons-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 	</head>
 
 	<!-- SOME SAMPLE HTML HERE - DELETE EVERYTHING INSIDE THE BODY EXCEPT THE SCRIPTS ON THE BOTTOM TO START FROM SCRATCH -->
@@ -19,17 +23,43 @@
 		 WHEN SUBMITTING, WE ALWAYS EXPECT CLEAR SEPARATION OF HTML, CSS, AND JS INTO THE PROPER FILES -->
 	<body style="padding: 5vh">
 
+		<!-- quizlet clone -->
+		<div class="container-fluid" style="height: 60vh; padding-top: 1vh">
+			<div class="row" style="height: 70%;">
+				<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
+				<button class="col-1" id="left-arrow"  onclick="moveLeft()"><i class="fas fa-arrow-left"></i></button>
+
+				<div class="slider col-10" >
+					<div class="card" id="slider-vis1"> Quiz question 1 </div>
+					<div class="card" id="slider-vis2"> Quiz question 2 </div>
+					<div class="card" id="slider-vis3"> Quiz question 3 </div>
+					<div class="card" id="slider-vis4"> Quiz question 4 </div>
+				</div>
+	
+				<button class="col-1" id="right-arrow"  onclick="moveRight()"><i class="fas fa-arrow-right"></i></button>
+			</div>
+			<div class="row">
+				<div class="navigation-button">
+					<span class="dot active" onclick="changeSlide(0)"></span>
+					<span class="dot" onclick="changeSlide(1)"></span>
+					<span class="dot" onclick="changeSlide(2)"></span>
+					<span class="dot" onclick="changeSlide(3)"></span>
+				</div>
+			</div>
+	
+		</div>
+		  
 		<!-- Container for online language presence Visualization -->
 		<div class="container-fluid" style="height: 70vh; padding-top: 1vh">
-
-			<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
-				<option value="Population" selected>Default</option>
-				<option value="contentPercent" selected>Percent of Internet Content</option>
-				<option value="internetUser">Population of Internet Users</option>
-				<option value="wikiViews">Daily View of Wikipedia</option>
-				<!-- Add more categories as needed -->
-			</select>
-
+			<div class="row">
+				<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
+					<option value="Population" selected>Default</option>
+					<option value="contentPercent" selected>Percent of Internet Content</option>
+					<option value="internetUser">Population of Internet Users</option>
+					<option value="wikiViews">Daily View of Wikipedia</option>
+					<!-- Add more categories as needed -->
+				</select>
+			</div>
 			<div class="row" style="height:40vh">
 
 				<div class="col-12" id="internetLang"></div>
@@ -59,5 +89,7 @@
 	<script src="js/main.js"></script>
 
 	<script src="js/internetLangVis.js"></script>
+
+	<script src="js/panels.js"></script>
 	</body>
 </html>
