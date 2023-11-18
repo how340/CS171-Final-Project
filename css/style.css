@@ -1,7 +1,78 @@
 
 body {
     font-family: 'Lato', sans-serif;
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center content horizontally */
 
+}
+
+.display-block{
+    height: 100vh; /* this is tentative value */
+    width: 100%;
+}
+
+/***************************************************************
+***************  Formatting for scroll snapping ****************
+***************************************************************/
+
+.container {
+    max-height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+.child {
+    scroll-snap-align: start;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+  }
+  
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.container{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/***************************************************************
+******************    Verical navigation bar    ****************
+***************************************************************/
+
+.fp-right {
+    position: fixed;
+    right: 3%;
+    top: 45%;
+    width: 3vw; /* Adjust width as needed */
+    height: 100%;
+    margin: auto;
+    margin-right: 2%;
+    z-index: 200; /* Make this element to always appear top */
+} 
+
+.vertical-dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 10px ;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: block;
+}
+
+.active,
+.vertical-dot:hover {
+    background-color: #717171;
 }
 
 /***************************************************************
