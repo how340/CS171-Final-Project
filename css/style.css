@@ -38,11 +38,16 @@ body::-webkit-scrollbar {
 body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    font-family: Helvetica, sans-serif;
 }
 
 .container{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+h3 {
+    text-align: center;
 }
 
 /***************************************************************
