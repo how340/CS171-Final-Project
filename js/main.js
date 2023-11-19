@@ -1,8 +1,8 @@
 // load data using promises
 let promises = [
-
-  d3.csv("data/internet_language_data.csv"),
-
+    d3.csv("data/internet_language_data.csv"),
+    d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json"),
+    d3.csv("data/us-lang-data.csv")
 ];
 
 // init global vars & switches
@@ -10,6 +10,10 @@ let internetLanguageVis,
     myRadarChart,
     myRadarConfig,
     myScatterPlot,
+    myMapVis,
+    myBarVis,
+    sliderValue,
+    selectedYear,
     eventHandler;
 
 // initialize radar/scatter data - could just put this in a separate json
@@ -69,6 +73,9 @@ Promise.all(promises)
 // initMainPage
 function initMainPage(dataArray) {
 
+    // IF THINGS FAIL TO LOAD, log dataArray to see the ordering of the promise data
+    console.log("dataarray", dataArray);
+
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
     // define radar configuration
@@ -76,8 +83,12 @@ function initMainPage(dataArray) {
         levels: 5,
         roundStrokes: true
     };
-    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[1], eventHandler)
-    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[1])
+    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[3], eventHandler)
+    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[3])
+
+    // US Map Data
+    myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
+    myBarVis = new BarVis('barDiv', dataArray[2]);
 
 
 
@@ -88,3 +99,42 @@ function initMainPage(dataArray) {
 function internetLanguageVisOnChange(){
   internetLanguageVis.wrangleData();
 }
+
+
+
+function updateSliderDisplay(value) {
+    // Update the display
+    var output = document.getElementById("rangeValue");
+    output.textContent = getOrdinal(value);
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    var slider = document.getElementById("customRange");
+    var yearSelect = document.getElementById("yearSelect"); // Add this line to get the yearSelect dropdown
+
+    // Set the initial values of the slider and dropdown
+    sliderValue = slider.value;
+    selectedYear = yearSelect.value; // Get the selected year from the dropdown
+
+    // Set initial displays
+    updateSliderDisplay(sliderValue);
+
+    // Attach event listener to slider
+    slider.oninput = function() {
+        sliderValue = this.value;
+        updateSliderDisplay(sliderValue);
+
+        // Update visualization with new slider value
+        myMapVis.wrangleData();
+        myBarVis.wrangleData();
+    };
+
+    // Attach event listener to yearSelect dropdown
+    yearSelect.onchange = function() {
+        selectedYear = this.value; // Update the selected year when the dropdown changes
+
+        // Update visualization with new selected year
+        myMapVis.wrangleData();
+        myBarVis.wrangleData();
+    };
+});
