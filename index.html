@@ -52,43 +52,6 @@
 				</div>
 			</div>
 
-
-			<div class="child">
-				<!-- Container for online language presence Visualization -->
-				<div class="container-fluid display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
-					<div class="row">
-						<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
-							<option value="Population" selected>Default</option>
-							<option value="contentPercent" selected>Percent of Internet Content</option>
-							<option value="internetUser">Population of Internet Users</option>
-							<option value="wikiViews">Daily View of Wikipedia</option>
-							<!-- Add more categories as needed -->
-						</select>
-					</div>
-					<div class="row" style="height:40vh">
-
-						<div class="col-12" id="internetLang"></div>
-					</div>
-				</div>
-			</div>
-
-			<div class="child">
-				<!-- Container for Translation Performance & internet composition -->
-				<!-- TODO: Trigger animation when you scroll to this part -->
-				<!-- Why is everything green? -->
-				<div class="display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
-					<h3>Multilingual translation performance worsens with less training data</h3>
-					<div class="row" style="height:40vh">
-						<div class = "col"  style="height: 100vh;">
-							<div class="row" id="radarDiv"  style="height: 100vh"></div>
-						</div>
-						<div class = "col"  style="height: 100vh;">
-							<div class="row" id="scatterDiv" style="height: 100vh"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<div class="child">
 				<!-- US MAP -->
 				<h3>Most Spoken Languages in US (Besides English)</h3>
@@ -132,6 +95,44 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="child">
+				<!-- Container for online language presence Visualization -->
+				<div class="container-fluid display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
+					<div class="row">
+						<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
+							<option value="Population" selected>Default</option>
+							<option value="contentPercent" selected>Percent of Internet Content</option>
+							<option value="internetUser">Population of Internet Users</option>
+							<option value="wikiViews">Daily View of Wikipedia</option>
+							<!-- Add more categories as needed -->
+						</select>
+					</div>
+					<div class="row" style="height:40vh">
+
+						<div class="col-12" id="internetLang"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="child">
+				<!-- Container for Translation Performance & internet composition -->
+				<!-- TODO: Trigger animation when you scroll to this part -->
+				<!-- Why is everything green? -->
+				<div class="display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
+					<h3>Multilingual translation performance worsens with less training data</h3>
+					<div class="row" style="height:40vh">
+						<div class = "col"  style="height: 100vh;">
+							<div class="row" id="radarDiv"  style="height: 100vh"></div>
+						</div>
+						<div class = "col"  style="height: 100vh;">
+							<div class="row" id="scatterDiv" style="height: 100vh"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 
 
 			<!-- vertical navigation bar -->
