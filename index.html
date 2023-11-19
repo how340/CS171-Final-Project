@@ -89,6 +89,50 @@
 				</div>
 			</div>
 
+			<div class="child">
+				<!-- US MAP -->
+				<h3>Most Spoken Languages in US (Besides English)</h3>
+				<div class="container mx-auto">
+					<!-- Slider Row with Padding Bottom -->
+					<div class="row justify-content-center pb-3">
+						<div class="col-md-7">
+							<div class="form-group">
+								<label for="customRange"></label>
+								<input type="range" class="custom-range" id="customRange" min="1" max="15" value="3">
+
+								<label for="yearSelect">Show me the </label>
+								<span id="rangeValue">1st</span>
+								<span> most spoken language in each state in the year </span>
+								<select class="form-control" id="yearSelect">
+									<option value="2016">2016</option>
+									<option value="2017">2017</option>
+									<option value="2018">2018</option>
+									<option value="2019">2019</option>
+									<option value="2020">2020</option>
+									<option value="2021" selected>2021</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<!-- Map and Bar Div Row -->
+					<div class="row justify-content-center pb-3">
+						<!-- Map Div -->
+						<div class="col-md-6">
+							<div id="mapDiv" style="width: 100%; border: thin solid grey; border-radius: 5px;">
+								<!-- Map content goes here -->
+							</div>
+						</div>
+						<!-- Bar Div -->
+						<div class="col-md-3">
+							<div id="barDiv" style="width: 100%; border: thin solid grey; border-radius: 5px;">
+								<!-- Bar content goes here -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 
 			<!-- vertical navigation bar -->
 			<div id="fp-nav" class="fp-right">
@@ -123,6 +167,10 @@
 
 
 	<!-- own js files -->
+	<script src="js/helpers.js"></script>
+	<script src="js/mapVis.js"></script>
+	<script src="js/barVis.js"></script>
+
 	<script src="js/main.js"></script>
 
 	<script src="js/internetLangVis.js"></script>

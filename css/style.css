@@ -150,3 +150,18 @@ slider banner navigation dots
 .dot:hover {
     background-color: #717171;
 }
+
+/***************************************************************
+***************      US Language Map Styling    ****************
+***************************************************************/
+
+#rangeValue {
+    color: deeppink;
+}
+
+#yearSelect {
+    font-size: 12px;
+    height: 30px;
+    display: inline-block;
+    width: 70px;
+}
