@@ -124,7 +124,7 @@ class MapVis {
         // Filter the data by the selected year
         vis.filteredData = vis.usaData.filter(item => item.year == selectedYear);
         //vis.filteredData = vis.usaData;
-        console.log("filtereddata", vis.filteredData);
+        // console.log("filtereddata", vis.filteredData);
 
 
         // Assuming vis.usaData is already loaded with CSV data
@@ -191,7 +191,7 @@ class MapVis {
             return vis.colorScale(language);
         }
 
-        console.log("unique langs", vis.stateInfoObject);
+        // console.log("unique langs", vis.stateInfoObject);
 
         vis.state
             .transition()
@@ -268,7 +268,7 @@ class MapVis {
         // Initial color update
         updateColors();
 
-        console.log("you're doing okay");
+        // console.log("you're doing okay");
 
     }
 

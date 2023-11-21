@@ -76,6 +76,7 @@ function initMainPage(dataArray) {
     // IF THINGS FAIL TO LOAD, log dataArray to see the ordering of the promise data
     console.log("dataarray", dataArray);
 
+    quiz1 = new Quiz1('quiz-1')
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
     // define radar configuration

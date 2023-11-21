@@ -23,32 +23,20 @@
 		 WHEN SUBMITTING, WE ALWAYS EXPECT CLEAR SEPARATION OF HTML, CSS, AND JS INTO THE PROPER FILES -->
 	<body style="padding: 1vh">
 		
-		<div class="container" style="width: 100%;">
+		<div class="container">
 			<div class="child">
 				<!-- quizlet clone -->
 				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
 					<div class="row" style="height: 70%;">
+						<div>How many languages do you think exists in the following regions: the US, the Americas (North and South America), and the entire world. 
+							Drag the bars to your answers and click submit.
+						</div>
 						<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
-						<button class="col-1" id="left-arrow"  onclick="moveLeft()"><i class="fas fa-arrow-left"></i></button>
-
-						<div class="slider col-10" >
-							<div class="card" id="slider-vis1"> Quiz question 1 </div>
-							<div class="card" id="slider-vis2"> Quiz question 2 </div>
-							<div class="card" id="slider-vis3"> Quiz question 3 </div>
-							<div class="card" id="slider-vis4"> Quiz question 4 </div>
-						</div>
-			
-						<button class="col-1" id="right-arrow"  onclick="moveRight()"><i class="fas fa-arrow-right"></i></button>
+						<!-- Not going to do sliding pages for the quizzes, instead, we are just gonna do a straightforward implementation scatter through the presentation.-->
+						<div class="col-auto" id="quiz-1"  style="height: 70%; width: 100%"></div>
+					
+						<div id="quiz-1-text"><button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button></div>
 					</div>
-					<div class="row">
-						<div class="navigation-button">
-							<span class="dot active" onclick="changeSlide(0)"></span>
-							<span class="dot" onclick="changeSlide(1)"></span>
-							<span class="dot" onclick="changeSlide(2)"></span>
-							<span class="dot" onclick="changeSlide(3)"></span>
-						</div>
-					</div>
-			
 				</div>
 			</div>
 
@@ -168,6 +156,7 @@
 
 
 	<!-- own js files -->
+	<script src="js/quiz1.js"></script>
 	<script src="js/helpers.js"></script>
 	<script src="js/mapVis.js"></script>
 	<script src="js/barVis.js"></script>
