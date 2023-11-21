@@ -173,7 +173,7 @@ class BarVis {
         // Slice the array to get the top ten languages
         vis.topTenLanguages = vis.languageArray.slice(0, 10);
 
-        console.log("DEBUG:", vis.topTenLanguages);
+        // console.log("DEBUG:", vis.topTenLanguages);
 
         //Calculate the maximum `numSpeakers`
         vis.maxNumSpeakers = d3.max(Object.values(vis.stateInfoObject)
@@ -182,7 +182,7 @@ class BarVis {
                 return languageInfo ? [+languageInfo.numSpeakers] : []; // Convert to a number if the category exists
             }));
 
-        console.log("maxnumspeakers", vis.maxNumSpeakers);
+        // console.log("maxnumspeakers", vis.maxNumSpeakers);
 
 
 
@@ -252,10 +252,10 @@ class BarVis {
             return vis.colorScale(language);
         }
 
-        console.log("unique langs", vis.stateInfoObject);
+        // console.log("unique langs", vis.stateInfoObject);
 
 
-        console.log("you're doing great");
+        // console.log("you're doing great");
 
     }
 

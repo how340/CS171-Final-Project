@@ -47,6 +47,33 @@ class Quiz1 {
                 .attr("class", "axis y-axis")
                 .call(vis.yAxis);
 
+        // initiate brush areas for creating user defined bar heights. 
+
+        vis.newHeight = 100
+        vis.drag = d3.drag()
+                    // .on("start", (event, d) => {
+                    //     d3.select(this).raise().attr("stroke", "black")
+                    // })
+                    .on("drag", (event, d) => {
+                        vis.newHeight = event.y
+                        console.log(vis.newHeight)
+                        vis.updateVis()
+                    })
+                    // .on("end", (event, d) => {
+                    //     d3.select(this).attr("stroke", null);
+                    // });
+
+        // create bars. 
+        vis.bar = vis.svg.append('rect')
+                .attr('x', 30)
+                .attr('y', 0)
+                .style('fill', 'lightyellow')
+                .attr("stroke", "black")
+                .attr('width', 20)
+                .attr('height', vis.height - vis.newHeight)
+                .attr('y',  vis.newHeight)
+                .call(vis.drag)
+            
 
         vis.wrangleData()
     }
@@ -60,10 +87,12 @@ class Quiz1 {
 
     updateVis(){
         let vis = this
-
+        console.log('updating Vis')
         vis.xScale.domain(vis.data.map(d=>d.region))
         vis.yScale.domain([0, d3.max(vis.data, d=>d.count)])
 
+        vis.bar.attr('height', vis.height - vis.newHeight)
+        vis.bar.attr('y', vis.newHeight)
 
         // call the axes and append to the svg to make sure axes are on top
         vis.svg.select(".x-axis").transition().duration(vis.transition_speed).call(vis.xAxis);
