@@ -28,11 +28,14 @@
 				<!-- quizlet clone -->
 				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
 					<div class="row" style="height: 70%;">
+						<div>How many languages do you think exists in the following regions: the US, the Americas (North and South America), and the entire world. 
+							Drag the bars to your answers and click submit.
+						</div>
 						<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
 						<!-- Not going to do sliding pages for the quizzes, instead, we are just gonna do a straightforward implementation scatter through the presentation.-->
 						<div class="col-auto" id="quiz-1"  style="height: 70%; width: 100%"></div>
 					
-						<div><button type="button">Submit results</button></div>
+						<div id="quiz-1-text"><button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button></div>
 					</div>
 				</div>
 			</div>
