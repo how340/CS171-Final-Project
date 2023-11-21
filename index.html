@@ -21,19 +21,19 @@
 	<!-- SOME SAMPLE HTML HERE - DELETE EVERYTHING INSIDE THE BODY EXCEPT THE SCRIPTS ON THE BOTTOM TO START FROM SCRATCH -->
 	<!-- DON'T WRITE CSS IN YOUR HTML LIKE WE DID HERE - THE INLINE CSS SHOULD HELP YOU TO UNDERSTAND THE BEHAVIOR OF THE ELEMENTS BETTER -
 		 WHEN SUBMITTING, WE ALWAYS EXPECT CLEAR SEPARATION OF HTML, CSS, AND JS INTO THE PROPER FILES -->
-	<body style="padding: 1vh">
+	<body>
 		
-		<div class="container">
+		<div class="container-fluid" id="'outer-container">
 			<div class="child">
 				<!-- quizlet clone -->
-				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
-					<div class="row" style="height: 70%;">
+				<div class="container-fluid display-block justify-content-center"> <!-- styling here for debugging purposes-->
+					<div class="row justify-content-center" style="height: 70%;">
 						<div>How many languages do you think exists in the following regions: the US, the Americas (North and South America), and the entire world. 
 							Drag the bars to your answers and click submit.
 						</div>
 						<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
 						<!-- Not going to do sliding pages for the quizzes, instead, we are just gonna do a straightforward implementation scatter through the presentation.-->
-						<div class="col-auto" id="quiz-1"  style="height: 70%; width: 100%"></div>
+						<div class="col-auto justify-content-center" id="quiz-1"></div>
 					
 						<div id="quiz-1-text"><button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button></div>
 					</div>
@@ -43,7 +43,7 @@
 			<div class="child">
 				<!-- US MAP -->
 				<h3>Most Spoken Languages in US (Besides English)</h3>
-				<div class="container mx-auto">
+				<div class="container-fluid display-block mx-auto">
 					<!-- Slider Row with Padding Bottom -->
 					<div class="row justify-content-center pb-3">
 						<div class="col-md-7">
@@ -86,7 +86,7 @@
 
 			<div class="child">
 				<!-- Container for online language presence Visualization -->
-				<div class="container-fluid display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
+				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
 					<div class="row">
 						<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
 							<option value="Population" selected>Default</option>
@@ -107,7 +107,7 @@
 				<!-- Container for Translation Performance & internet composition -->
 				<!-- TODO: Trigger animation when you scroll to this part -->
 				<!-- Why is everything green? -->
-				<div class="display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
+				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
 					<h3>Multilingual translation performance worsens with less training data</h3>
 					<div class="row" style="height:40vh">
 						<div class = "col"  style="height: 100vh;">
@@ -119,9 +119,6 @@
 					</div>
 				</div>
 			</div>
-
-
-
 
 			<!-- vertical navigation bar -->
 			<div id="fp-nav" class="fp-right">
