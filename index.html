@@ -25,6 +25,19 @@
 		
 		<div class="container" style="width: 100%;">
 			<div class="child">
+				<!-- Container for Translation Performance & internet composition -->
+				<!-- TODO: Trigger animation when you scroll to this part -->
+				<!-- Why is everything green? -->
+				<div class="display-block"> <!-- styling here for debugging purposes-->
+					<div class="row" style="height:40vh">
+						<div class = "col"  style="height: 100vh;">
+							<div class="row" id="treeGlobeDiv"  style="height: 100vh"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="child">
 				<!-- quizlet clone -->
 				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
 					<div class="row" style="height: 70%;">
@@ -98,7 +111,7 @@
 
 			<div class="child">
 				<!-- Container for online language presence Visualization -->
-				<div class="container-fluid display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
+				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
 					<div class="row">
 						<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
 							<option value="Population" selected>Default</option>
@@ -119,7 +132,7 @@
 				<!-- Container for Translation Performance & internet composition -->
 				<!-- TODO: Trigger animation when you scroll to this part -->
 				<!-- Why is everything green? -->
-				<div class="display-block" style=" background-color:cadetblue"> <!-- styling here for debugging purposes-->
+				<div class="display-block"> <!-- styling here for debugging purposes-->
 					<h3>Multilingual translation performance worsens with less training data</h3>
 					<div class="row" style="height:40vh">
 						<div class = "col"  style="height: 100vh;">
@@ -175,6 +188,7 @@
 	<script src="js/main.js"></script>
 
 	<script src="js/internetLangVis.js"></script>
+	<script src="js/treeGlobeVis.js"></script>
 	<script src="js/radarChart.js"></script>
 	<script src="js/scatterPlot.js"></script>
 
