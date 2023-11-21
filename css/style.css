@@ -1,28 +1,44 @@
 
 body {
     font-family: 'Lato', sans-serif;
-    display: flex; /* Enable flexbox */
     justify-content: center; /* Center content horizontally */
-
+    margin: None;
+    background-color: antiquewhite;
 }
 
+/***************************************************************
+*********************  page format set up  *********************
+***************************************************************/
 .display-block{
     height: 100vh; /* this is tentative value */
     width: 100%;
+
+}
+
+#outer-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /***************************************************************
 ***************  Formatting for scroll snapping ****************
 ***************************************************************/
 
-.container {
-    max-height: 100vh;
+.container-fluid {
+    height: 100vh;
+    width: 100%;
+
+    /* The following setting allows for scroll snapping for each page container */
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
 }
 
 .child {
+    /* The following setting allows for scroll snapping for each page container */
     scroll-snap-align: start;
+    height: auto;
+    width: 100%;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -30,7 +46,7 @@ body::-webkit-scrollbar {
     display: none;
   }
   
-.container::-webkit-scrollbar {
+.container-fluid::-webkit-scrollbar {
     display: none;
 }
 
@@ -41,7 +57,7 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
-.container{
+.container-fluid{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
