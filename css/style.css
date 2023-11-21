@@ -3,7 +3,7 @@ body {
     font-family: 'Lato', sans-serif;
     justify-content: center; /* Center content horizontally */
     margin: None;
-    background-color: antiquewhite;
+    background-color: #f7f2c1;
 }
 
 /***************************************************************
@@ -165,6 +165,15 @@ slider banner navigation dots
 .active,
 .dot:hover {
     background-color: #717171;
+}
+
+/***************************************************************
+***************      Quiz 1 Styling    ****************
+***************************************************************/
+
+#quiz-1{
+    height: 70%;
+    width: 100%;
 }
 
 /***************************************************************
