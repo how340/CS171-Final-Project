@@ -93,6 +93,7 @@ function initMainPage(dataArray) {
 
     //donut vis on percentage of endanged language
     myDonutVis = new DonutVis('donut')
+
 }
 
 

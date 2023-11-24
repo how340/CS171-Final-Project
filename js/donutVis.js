@@ -3,6 +3,7 @@ class DonutVis{
         this.parentElement = parentElement
         this.transition_speed = 1200
         
+        // this.all_data = data
         this.data = [
             {"status":"extinct", "count":360, 'color':'red', 'order':6}, 
             {"status":'dying',"count":918, 'color':'red', 'order':5}, 
@@ -52,6 +53,8 @@ class DonutVis{
         let vis = this
 
         vis.data.sort((a, b) => b.order - a.order);
+
+
         vis.updateVis()
 
     }
