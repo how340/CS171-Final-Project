@@ -1,19 +1,19 @@
-/* * * * * * * * * * * * * *
-*       Radar Chart        *
-* * * * * * * * * * * * * */
-// Code adapted from Nadieh Bremer:
-// https://gist.github.com/nbremer/21746a9668ffdf6d8242
-
-
 class TreeGlobeVis {
     constructor(parentElement, ethnoData, geoData, eventHandler) {
         this.parentElement = parentElement;
         this.ethnoData = ethnoData;
         this.geoData = geoData;
         this.eventHandler = eventHandler;
+        this.currentSelection = {'longitude': 0, 'latitude': 0};
+        this.sources = new Set()
+        // initialize starting points
+        this.ethnoData.links.forEach((d) => {if(d.source === -1){this.sources.add(d.target)}})
+        // https://observablehq.com/@d3/color-schemes
+        this.color = ["#440154","#482475","#414487","#355f8d","#2a788e","#21918c","#22a884","#44bf70","#7ad151","#bddf26","#fde725", "#fde725", "#fde725", "#fde725", "#fde725", "#fde725"]
 
         this.initVis()
     }
+
 
     initVis() {
         let vis = this;
@@ -29,16 +29,24 @@ class TreeGlobeVis {
             .attr("height", vis.height)
             .attr('transform', `translate (${vis.margin.left}, ${vis.margin.top})`);
 
-
+        // tooltip
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'subgroupTooltip')
 
         //d3.geoOrthographic()
         vis.rotate = [0, 0]
         vis.zoom = vis.height / 600;
 
-
         vis.projection = d3.geoOrthographic() // d3.geoStereographic()
             .translate([vis.width / 2, vis.height / 2])
             .scale(249.5 * vis.zoom) // 249.5 is default. so multiply that by your zoom
+            .rotate(vis.rotate);
+
+        // slightly above the globe
+        vis.linkProjection = d3.geoOrthographic() // d3.geoStereographic()
+            .translate([vis.width / 2, vis.height / 2])
+            .scale(251 * vis.zoom)
             .rotate(vis.rotate);
 
         // path provider
@@ -98,6 +106,31 @@ class TreeGlobeVis {
                     vis.path = d3.geoPath().projection(vis.projection);
                     d3.selectAll(".country").attr("d", vis.path)
                     d3.selectAll(".graticule").attr("d", vis.path)
+
+                    // Update the nodes
+                    d3.selectAll(".subgroup")
+                        .attr('cx', d => vis.projection([d.longitude, d.latitude])[0])
+                        .attr('cy', d => vis.projection([d.longitude, d.latitude])[1])
+
+
+                    // update the links
+                    d3.selectAll(".link")
+                        .attr("x1", function(d) { if(d.source !== -1) {
+                            let sourceCoords = [vis.displayNodeData[d.source].longitude, vis.displayNodeData[d.source].latitude]
+                            return vis.projection(sourceCoords)[0];
+                        } })
+                        .attr("y1", function(d) { if(d.source !== -1) {
+                            let sourceCoords = [vis.displayNodeData[d.source].longitude, vis.displayNodeData[d.source].latitude]
+                            return vis.projection(sourceCoords)[1];
+                        } })
+                        .attr("x2", function(d) { if(d.source !== -1) {
+                            let targetCoords = [vis.displayNodeData[d.target].longitude, vis.displayNodeData[d.target].latitude]
+                            return vis.projection(targetCoords)[0]; //3 is radius of dots
+                        } })
+                        .attr("y2", function(d) { if(d.source !== -1) {
+                            let targetCoords = [vis.displayNodeData[d.target].longitude, vis.displayNodeData[d.target].latitude]
+                            return vis.projection(targetCoords)[1];
+                        } })
                 })
         );
 
@@ -105,9 +138,35 @@ class TreeGlobeVis {
     }
 
     wrangleData() {
+        /*
+        sources -- set of node ids clicked on
+         */
         let vis = this;
 
-        vis.displayData = []
+        // for node visualization
+        vis.displayNode = []
+        vis.ethnoData.nodes.forEach(d => {
+            if(vis.sources.has(d.id)){
+                vis.displayNode.push(d)
+            }
+        })
+
+        // for node links
+        vis.displayNodeData = {}
+        // filter data such that we only display what we click on
+        vis.ethnoData.nodes.forEach(d => {
+            if(vis.sources.has(d.id)){
+                vis.displayNodeData[d.id] = d
+            }
+        })
+        // might be nice to have a length of path from root to node so we can
+        // do neat colour gradient things...
+        vis.displayLinkData = []
+        vis.ethnoData.links.forEach(d => {
+            if(vis.sources.has(d.target) && !vis.displayLinkData.includes(d) && d.source !== -1) {
+                vis.displayLinkData.push(d)
+            }
+        })
 
         vis.updateVis();
     }
@@ -115,13 +174,115 @@ class TreeGlobeVis {
     updateVis() {
         let vis = this;
 
-    }
+        // links
+        let links = vis.svg.selectAll(".link")
+            .data(vis.displayLinkData, d => d.target)
 
-    // Tweening a path
-    // https://stackoverflow.com/questions/53927191/why-are-points-missing-in-zooming-in-on-a-tweened-line
-    tweenDash() {
-        let l = this.getTotalLength(),
-            i = d3.interpolateString("0," + l, l + "," + l);
-        return function(t) { return i(t); };
+        links.exit().remove()
+        links.enter().append("line")
+            .attr("class", "link")
+            // init position
+            .attr("x1", function(d) { if(d.source !== -1) {
+                console.log()
+                let sourceCoords = [vis.currentSelection.longitude, vis.currentSelection.latitude]
+                return vis.projection(sourceCoords)[0];
+            } })
+            .attr("y1", function(d) { if(d.source !== -1) {
+                let sourceCoords = [vis.currentSelection.longitude, vis.currentSelection.latitude]
+                return vis.projection(sourceCoords)[1];
+            } })
+            .attr("x2", function(d) { if(d.source !== -1) {
+                console.log()
+                let sourceCoords = [vis.currentSelection.longitude, vis.currentSelection.latitude]
+                return vis.projection(sourceCoords)[0];
+            } })
+            .attr("y2", function(d) { if(d.source !== -1) {
+                let sourceCoords = [vis.currentSelection.longitude, vis.currentSelection.latitude]
+                return vis.projection(sourceCoords)[1];
+            } })
+
+            // UPDATE + animate
+            .merge(links)
+            .transition()
+            .duration(500)
+
+            // new position
+            .attr("x1", function(d) { if(d.source !== -1) {
+                console.log()
+                let sourceCoords = [vis.displayNodeData[d.source].longitude, vis.displayNodeData[d.source].latitude]
+                return vis.projection(sourceCoords)[0];
+            } })
+            .attr("y1", function(d) { if(d.source !== -1) {
+                let sourceCoords = [vis.displayNodeData[d.source].longitude, vis.displayNodeData[d.source].latitude]
+                return vis.projection(sourceCoords)[1];
+            } })
+            .attr("x2", function(d) { if(d.source !== -1) {
+                let targetCoords = [vis.displayNodeData[d.target].longitude, vis.displayNodeData[d.target].latitude]
+                return vis.projection(targetCoords)[0]; //3 is radius of dots
+            } })
+            .attr("y2", function(d) { if(d.source !== -1) {
+                let targetCoords = [vis.displayNodeData[d.target].longitude, vis.displayNodeData[d.target].latitude]
+                return vis.projection(targetCoords)[1];
+            } })
+            .style("stroke", d => vis.color[d.length])
+            .style("opacity", 0.5)
+            .attr("stroke-width", 3)
+
+        // nodes
+        let subgroups = vis.svg.selectAll('.subgroup').data(vis.displayNode, d => d.id)
+        subgroups.exit().remove()
+        subgroups.enter().append('circle')
+            .attr('class', 'subgroup')
+            .style("fill", d => vis.color[d.length])
+            .style("fill-opacity", 0.5)
+            .attr('cx', vis.projection([vis.currentSelection.longitude, vis.currentSelection.latitude])[0])
+            .attr('cy', vis.projection([vis.currentSelection.longitude, vis.currentSelection.latitude])[1])
+            .on('click', function(event, dSelect) {
+
+                d3.select(this)
+                    .style("fill", d => vis.color[d.length])
+                    .style("fill-opacity", 1)
+
+                vis.ethnoData.links.forEach(function(d){
+                    // add next ids if not in sources and extends from current node
+                    if (!vis.sources.has(d.target) && dSelect.id === d.source) {
+                        vis.sources.add(d.target)
+                    }
+                })
+                vis.currentSelection = dSelect; // use for transitions
+                console.log(vis.currentSelection)
+                vis.wrangleData()
+            })
+            .on('mouseover', function(even, d){
+                d3.select(this)
+                    .attr("stroke", 'black')
+
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX + 20 + "px")
+                    .style("top", event.pageY + "px")
+                    .html(`
+                            <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
+                                <h3>${d.name}<h3>
+                                <h4> Country: ${d.country}</h4>     
+                                <h4> EGIDS Score: ${d.score}</h4>                 
+                            </div>`);
+            })
+            .on('mouseout', function (event, d) {
+                d3.select(this)
+                    .attr("stroke", 'transparent')
+
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0 + "px")
+                    .style("top", 0 + "px")
+            })
+            .merge(subgroups)
+            .transition()
+            .duration(500)
+            .attr('cx', d => vis.projection([d.longitude, d.latitude])[0])
+            .attr('cy', d => vis.projection([d.longitude, d.latitude])[1])
+            .attr('r', 6)
+
     }
 }

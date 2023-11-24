@@ -4,6 +4,7 @@ let promises = [
     d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json"),
     d3.csv("data/us-lang-data.csv"),
     d3.json("data/world-110m.json"),
+    d3.json("data/ethno_links.json")
 ];
 
 // init global vars & switches
@@ -82,22 +83,20 @@ function initMainPage(dataArray) {
 
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
+    // US Map Data
+    myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
+    myBarVis = new BarVis('barDiv', dataArray[2]);
+
+    // treeglobe map
+    myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', dataArray[4], dataArray[3], eventHandler)
+
     // define radar configuration
     myRadarConfig = {
         levels: 5,
         roundStrokes: true
     };
-    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[4], eventHandler)
-    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[4])
-
-    // treeglobe map
-    myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', myEthnoData, dataArray[3], eventHandler)
-
-    // US Map Data
-    myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
-    myBarVis = new BarVis('barDiv', dataArray[2]);
-
-
+    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[5], eventHandler)
+    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[5])
 
 }
 
