@@ -85,6 +85,26 @@
 			</div>
 
 			<div class="child">
+				<div class="container-fluid display-block">
+					<div class="row"></div>
+					<div class="row" style="height: 90vh;">
+						<div class="col-3" style="font-size: smaller;">Based on our dataset, there is a total of 7500 languages worldwide. However, many of these languages are 
+							on the verge of collapse and extinction. Languages are split into different categories based on their frequency of usage. 
+							Here are the categorizations: 
+							1. Institutional: A developed language that is widely used by communities and institutions to exchange ideas across a large population. 
+							2. Developing: Languages that are in standardized forms and used by some. However, these languages are not yet widespread or sustainable.
+							3. Vigorous: Languages that are not developing, but they still enjoy vigorous face-to-face use in daily life by all generations. 
+							4. In trouble: language is used by all generations, but not transmitted to new generations. 
+							5. Dying: Only the grandparents in the family are using the language, and newer generation is not learning the language.
+							6. Extinct: The language is no longer used by anyone. 
+
+						</div>
+						<div class="col-9" id="donut"> Click on the donut to see examples of these languages</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="child">
 				<!-- Container for online language presence Visualization -->
 				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
 					<div class="row">
@@ -96,9 +116,16 @@
 							<!-- Add more categories as needed -->
 						</select>
 					</div>
-					<div class="row" style="height:40vh">
+					<div class="row" style="height:90vh">
 
-						<div class="col-12" id="internetLang"></div>
+						<div class="col-9" id="internetLang"></div>
+						<div class="col-3">The online world is vastly different from the real world. The content on the internet
+							is mostly biased toward english speaking audiences, and the amount of content online is not directly proportional
+							with the population that speaks a specifc language. Here are the breakdown of the content available on the internet
+							based on the study conducted by <a href ="https://w3techs.com/technologies/overview/content_language">W3techs</a>. 
+							* the percent of content by language is explained <a href = "https://w3techs.com/technologies">here</a>. It is essentially the percent of 
+							popular websites that uses a specifc language. 
+						</div>
 					</div>
 				</div>
 			</div>
@@ -153,12 +180,14 @@
 
 
 	<!-- own js files -->
+	<script src="js/main.js"></script>
+
+
 	<script src="js/quiz1.js"></script>
 	<script src="js/helpers.js"></script>
 	<script src="js/mapVis.js"></script>
 	<script src="js/barVis.js"></script>
-
-	<script src="js/main.js"></script>
+	<script src="js/donutVis.js"></script>
 
 	<script src="js/internetLangVis.js"></script>
 	<script src="js/radarChart.js"></script>
