@@ -81,6 +81,7 @@ function initMainPage(dataArray) {
     // IF THINGS FAIL TO LOAD, log dataArray to see the ordering of the promise data
     console.log("dataarray", dataArray);
 
+    quiz1 = new Quiz1('quiz-1')
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
     // US Map Data
@@ -98,6 +99,9 @@ function initMainPage(dataArray) {
     myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[5], eventHandler)
     myScatterPlot = new ScatterPlot('scatterDiv', dataArray[5])
 
+
+    //donut vis on percentage of endanged language
+    myDonutVis = new DonutVis('donut')
 }
 
 
