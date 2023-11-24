@@ -91,8 +91,8 @@ function initMainPage(dataArray) {
     myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
     myBarVis = new BarVis('barDiv', dataArray[2]);
 
-
-
+    //donut vis on percentage of endanged language
+    myDonutVis = new DonutVis('donut')
 }
 
 

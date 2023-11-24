@@ -11,7 +11,7 @@ class InternetLangVis {
         let vis = this;
 
         // use the dynamic margin convention 
-        vis.margin = {top: 20, right: 60, bottom: 20, left: 100};
+        vis.margin = {top: 20, right: 70, bottom: 20, left: 100};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -33,8 +33,8 @@ class InternetLangVis {
                 .range([vis.height, 0]); 
 
         vis.xAxis = d3.axisBottom(vis.xScale);
-        vis.yAxis = d3.axisLeft(vis.yScale);
-        vis.yAxis2nd = d3.axisRight(vis.yScale2nd)
+        vis.yAxis = d3.axisRight(vis.yScale);
+        vis.yAxis2nd = d3.axisLeft(vis.yScale2nd)
 
         // append axes 
         vis.svg.append("g")
@@ -43,11 +43,27 @@ class InternetLangVis {
             .call(vis.xAxis);
         vis.svg.append("g")
             .attr("class", "axis y-axis")
-            .call(vis.yAxis);
+            .call(vis.yAxis)
+            .attr('transform', `translate(${vis.width}, 0)`);
         vis.svg.append("g")
             .attr("class", "axis y-axis-2nd")
-            .call(vis.yAxis2nd)
-            .attr('transform', `translate(${vis.width}, 0)`);
+            .call(vis.yAxis2nd);
+
+
+        vis.dynamicY = vis.svg.append("text")
+                            .attr("transform", "rotate(-90)")
+                            .attr("y", 0 - vis.margin.left)
+                            .attr("x", 0 - (vis.height / 2))
+                            .attr("dy", "1em")
+                            .style("text-anchor", "middle")
+
+        vis.svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", vis.width + vis.margin.right - 30)
+                .attr("x", 0 - (vis.height / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("population")
 
         vis.wrangleData() 
     }
@@ -154,6 +170,9 @@ class InternetLangVis {
             .attr("stroke", "black")
         
         pop.exit().remove();
+
+
+        vis.dynamicY.text(`${category}`)
 
         // call the axes and append to the svg to make sure axes are on top
         vis.svg.select(".x-axis").transition().duration(vis.transition_speed).call(vis.xAxis);
