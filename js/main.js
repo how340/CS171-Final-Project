@@ -2,11 +2,14 @@
 let promises = [
     d3.csv("data/internet_language_data.csv"),
     d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json"),
-    d3.csv("data/us-lang-data.csv")
+    d3.csv("data/us-lang-data.csv"),
+    d3.json("data/world-110m.json"),
+    d3.json("data/ethno_links.json")
 ];
 
 // init global vars & switches
 let internetLanguageVis,
+    myTreeGlobeVis,
     myRadarChart,
     myRadarConfig,
     myScatterPlot,
@@ -61,6 +64,8 @@ let nmtData = [
     ]
 ];
 
+let myEthnoData; // placeholder for ethnologue data
+
 Promise.all(promises)
   .then(function (data) {
       data.push(nmtData)
@@ -79,17 +84,21 @@ function initMainPage(dataArray) {
     quiz1 = new Quiz1('quiz-1')
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
+    // US Map Data
+    myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
+    myBarVis = new BarVis('barDiv', dataArray[2]);
+
+    // treeglobe map
+    myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', dataArray[4], dataArray[3], eventHandler)
+
     // define radar configuration
     myRadarConfig = {
         levels: 5,
         roundStrokes: true
     };
-    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[3], eventHandler)
-    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[3])
+    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[5], eventHandler)
+    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[5])
 
-    // US Map Data
-    myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
-    myBarVis = new BarVis('barDiv', dataArray[2]);
 
     //donut vis on percentage of endanged language
     myDonutVis = new DonutVis('donut')
