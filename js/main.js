@@ -118,13 +118,13 @@ function internetLanguageVisOnChange(){
 
 function updateSliderDisplay(value) {
     // Update the display
-    var output = document.getElementById("rangeValue");
+    let output = document.getElementById("rangeValue");
     output.textContent = getOrdinal(value);
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    var slider = document.getElementById("customRange");
-    var yearSelect = document.getElementById("yearSelect"); // Add this line to get the yearSelect dropdown
+    let slider = document.getElementById("customRange");
+    let yearSelect = document.getElementById("yearSelect"); // Add this line to get the yearSelect dropdown
 
     // Set the initial values of the slider and dropdown
     sliderValue = slider.value;
