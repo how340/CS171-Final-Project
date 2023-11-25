@@ -60,12 +60,12 @@ function transition(){
 //place holder for visualizations. Import these visualization/items from other files. 
 
 // Append an SVG element to the div
-let svg =  d3.select("#slider-vis1").append('svg')
+let svg1 =  d3.select("#slider-vis1").append('svg')
                    .attr('width', 400)   // Set the width of the SVG
                    .attr('height', 200); // Set the height of the SVG
 
 // Append a rectangle to the SVG
-svg.append('rect')
+svg1.append('rect')
    .attr('width', 100)    // Set the width of the rectangle
    .attr('height', 50) 
    .attr('fill', 'blue'); // Set the fill color of the rectangle
