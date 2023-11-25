@@ -19,7 +19,7 @@ class TreeGlobeVis {
         let vis = this;
 
         // define dimensions
-        vis.margin = {top: 20, right: 20, bottom: 20, left: 20};
+        vis.margin = {top: 0, right: 20, bottom: 100, left: 0};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -38,7 +38,7 @@ class TreeGlobeVis {
         vis.rotate = [0, 0]
         vis.zoom = vis.height / 600;
 
-        vis.projection = d3.geoOrthographic() // d3.geoStereographic()
+        vis.projection =  d3.geoStereographic()
             .translate([vis.width / 2, vis.height / 2])
             .scale(249.5 * vis.zoom) // 249.5 is default. so multiply that by your zoom
             .rotate(vis.rotate);
@@ -60,7 +60,7 @@ class TreeGlobeVis {
                 {type: "Sphere"}
             )
             .attr("class", "graticule")
-            .attr('fill', 'floralwhite')
+            .attr('fill', 'oldlace')
             .attr("stroke", "rgba(129,129,129,0.35)")
             .attr("d", vis.path);
 
@@ -68,7 +68,7 @@ class TreeGlobeVis {
         vis.svg.append("path") // grid (graticule) + overlay
             .datum(d3.geoGraticule())
             .attr("class", "graticule")
-            .attr('fill', 'floralwhite')
+            .attr('fill', 'oldlace')
             .attr("stroke", "rgba(129,129,129,0.35)")
             .attr("d", vis.path);
 
@@ -263,9 +263,9 @@ class TreeGlobeVis {
                     .style("top", event.pageY + "px")
                     .html(`
                             <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                                <h3>${d.name}<h3>
-                                <h4> Country: ${d.country}</h4>     
-                                <h4> EGIDS Score: ${d.score}</h4>                 
+                                <h4> Language Subgroup: ${d.name}<h4>
+                                <h5> Most Frequent Country: ${d.country}</h5>     
+                                <h5> Most Frequent EGIDS Score: ${d.score}</h5>                 
                             </div>`);
             })
             .on('mouseout', function (event, d) {
@@ -284,5 +284,17 @@ class TreeGlobeVis {
             .attr('cy', d => vis.projection([d.longitude, d.latitude])[1])
             .attr('r', 6)
 
+    }
+
+    resetTree(){
+        let vis = this;
+        vis.sources = new Set()
+        // initialize starting points
+        vis.ethnoData.links.forEach((d) => {if(d.source === -1){this.sources.add(d.target)}})
+        vis.svg.selectAll('.subgroup')
+            .style("fill", d => vis.color[d.length])
+            .style("fill-opacity", 0.5)
+
+        vis.wrangleData()
     }
 }
