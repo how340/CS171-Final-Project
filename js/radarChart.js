@@ -316,6 +316,8 @@ class RadarChart {
 
                 if (d.type === "LLM") {
                     inputText = d.axis + " BLEU Score: " + format(d.value)
+                } else if (d.type === "ChatGPT") {
+                    inputText = d.axis + " BLEU Score: " + format(d.value)
                 } else if (d.type === "Internet") {
                     inputText = d.axis + " Internet Makeup %: " + format(d.value)
                 }
