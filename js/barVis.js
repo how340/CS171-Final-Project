@@ -82,12 +82,8 @@ class BarVis {
         //console.log("usadata", vis.usaData);
         selectedYear = selectedYear.trim().toString();
 
-
         // Filter the data by the selected year
         vis.filteredData = vis.usaData.filter(item => item.year == selectedYear);
-        //vis.filteredData = vis.usaData;
-        //console.log("filtereddata", vis.filteredData);
-
 
         // Assuming vis.usaData is already loaded with CSV data
         vis.stateInfoObject = {};
@@ -116,8 +112,6 @@ class BarVis {
             vis.stateInfoObject[item.state] = stateInfo;
         });
 
-
-
         function getAllUniqueLanguages() {
             const uniqueLanguages = new Set();
 
@@ -139,11 +133,6 @@ class BarVis {
         languages = getAllUniqueLanguages(sliderValue);
         // Assign each language a color
         vis.colorScale.domain(languages);
-
-
-
-
-
 
         vis.allLanguages = [...new Set(Object.values(vis.stateInfoObject)
             .flatMap(stateInfo => {
@@ -182,13 +171,20 @@ class BarVis {
                 return languageInfo ? [+languageInfo.numSpeakers] : []; // Convert to a number if the category exists
             }));
 
-        // console.log("maxnumspeakers", vis.maxNumSpeakers);
-
-
-
-
         vis.updateVis();
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     updateVis() {
         let vis = this;

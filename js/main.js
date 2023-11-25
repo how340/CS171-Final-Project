@@ -13,8 +13,9 @@ let internetLanguageVis,
     myRadarChart,
     myRadarConfig,
     myScatterPlot,
+    populationIllustration,
     myMapVis,
-    myBarVis,
+    // myBarVis,
     sliderValue,
     selectedYear,
     eventHandler;
@@ -84,9 +85,12 @@ function initMainPage(dataArray) {
     quiz1 = new Quiz1('quiz-1')
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
+    // Usage:
+    populationIllustration = new PopulationIllustration("population-transition");
+
     // US Map Data
     myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
-    myBarVis = new BarVis('barDiv', dataArray[2]);
+    //myBarVis = new BarVis('barDiv', dataArray[2]);
 
     // treeglobe map
     myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', dataArray[4], dataArray[3], eventHandler)
@@ -136,7 +140,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // Update visualization with new slider value
         myMapVis.wrangleData();
-        myBarVis.wrangleData();
+        //myBarVis.wrangleData();
     };
 
     // Attach event listener to yearSelect dropdown
@@ -145,6 +149,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // Update visualization with new selected year
         myMapVis.wrangleData();
-        myBarVis.wrangleData();
+        //myBarVis.wrangleData();
     };
 });

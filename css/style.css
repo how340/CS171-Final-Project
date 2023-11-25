@@ -177,6 +177,17 @@ slider banner navigation dots
 }
 
 /***************************************************************
+***************US Multilingual Proportion Styling****************
+***************************************************************/
+
+#population-transition {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set the height to 100% of the viewport height */
+}
+
+/***************************************************************
 ***************      US Language Map Styling    ****************
 ***************************************************************/
 
