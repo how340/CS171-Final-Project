@@ -74,7 +74,7 @@ class MapVis {
         // Draw state boundaries on the map
         vis.state = vis.svg.append('g')
             .attr('class', 'state-boundaries')
-            .attr('stroke', '#444')
+            .attr('stroke', 'white')
             .attr('fill', '#CCC') // Set fill to 'none' for state boundaries
             .selectAll('path')
             .data(vis.stateMap) // Use vis.stateMap.features to bind data
@@ -103,10 +103,33 @@ class MapVis {
             .attr("id", "mapTooltip")
             .style("opacity", 0);
 
+        // horizontal bar tooltip container
+        vis.horizontalBarTooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .attr("id", "horizontalBarTooltip")
+            .style("opacity", 0);
+
 
         //color scale
-        vis.colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+        vis.colorScale = d3.scaleOrdinal([
+            "#f77189", "#dc8932", "#ae9d31", "#77ab31", "#33b07a",
+            "#36ada4", "#38a9c5", "#6e9bf4", "#cc7af4", "#f565cc",
+            "#19122b", "#17344c", "#185b48", "#3c7632", "#7e7a36",
+            "#bc7967", "#d486af", "#caa9e7", "#c2d2f3", "#d6f0ef",
+            "#5673e0", "#7597f6", "#94b6ff", "#b5cdfa", "#d1dae9",
+            "#e8d6cc", "#f5c1a9", "#f6a283", "#ea7b60", "#d44e41",
+            "#482173", "#433e85", "#38588c", "#2d708e", "#25858e",
+            "#1e9b8a", "#2ab07f", "#52c569", "#86d549", "#c2df23",
+            "#66c2a5", "#fc8d62", "#8da0cb"
+        ]);
 
+        // Set the width of the horizontal bar
+        vis.totalHorizontalBarWidth = vis.viewpoint.width;
+
+        // Create a group for the horizontal bar below the map
+        vis.horizontalBarSvg = vis.svg.append('g')
+            .attr("transform", `translate(0, ${vis.viewpoint.height - 150})`) // Adjust 20 to your desired margin
+            .attr("class", "horizontal-bar");
 
 
         this.wrangleData();
@@ -177,6 +200,48 @@ class MapVis {
         // Assign each language a color
         vis.colorScale.domain(languages);
 
+
+        vis.allLanguages = [...new Set(Object.values(vis.stateInfoObject)
+            .flatMap(stateInfo => {
+                const languageInfoArray = stateInfo.languages[sliderValue];
+                return languageInfoArray;
+            })
+        )];
+
+        vis.languageTotals = {};
+
+        vis.allLanguages.forEach(item => {
+            if (vis.languageTotals[item.language]) {
+                // If the language already exists in the object, add to its numSpeakers
+                vis.languageTotals[item.language] += parseInt(item.numSpeakers);
+            } else {
+                // If the language does not exist, add it to the object
+                vis.languageTotals[item.language] = parseInt(item.numSpeakers);
+            }
+        });
+
+        // Convert the object into an array of [language, numSpeakers] pairs
+        vis.languageArray = Object.entries(vis.languageTotals);
+
+        // Sort the array by numSpeakers in descending order
+        vis.languageArray.sort((a, b) => b[1] - a[1]);
+
+        // Slice the array to get the top ten languages
+        vis.topTenLanguages = vis.languageArray.slice(0, 10);
+
+        // console.log("DEBUG:", vis.topTenLanguages);
+
+        //Calculate the maximum `numSpeakers`
+        vis.maxNumSpeakers = d3.max(Object.values(vis.stateInfoObject)
+            .flatMap(stateInfo => {
+                const languageInfo = stateInfo.languages[sliderValue];
+                return languageInfo ? [+languageInfo.numSpeakers] : []; // Convert to a number if the category exists
+            }));
+
+        vis.totalNumberSpeakers = vis.languageArray.reduce((accumulator, currentValue) => {
+            return accumulator + currentValue[1];
+        }, 0);
+
         vis.updateVis();
     }
 
@@ -210,7 +275,7 @@ class MapVis {
                 hoveredState = d.properties.name;
             d3.select(this)
                 .attr('stroke-width', '2px')
-                .attr('stroke', 'black')
+                .attr('stroke', 'white')
                 .style("fill", "rgb(215,84,35)"); // Hover color
 
             //debug
@@ -223,9 +288,9 @@ class MapVis {
                 .style("top", event.pageY + "px")
                 .html(`
                     <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                        <h4>${vis.stateInfoObject[d.properties.name].state}</h4>
-                        <h5>${getOrdinal(sliderValue)} Ranking Language: ${vis.stateInfoObject[d.properties.name].languages[sliderValue].language}</h5>
-                        <h5>Speaker Population: ${numberWithCommas(vis.stateInfoObject[d.properties.name].languages[sliderValue].numSpeakers)}</h5>
+                        In ${vis.stateInfoObject[d.properties.name].state}, the ${getOrdinal(sliderValue)} most spoken language is 
+                        ${vis.stateInfoObject[d.properties.name].languages[sliderValue].language}. ${numberWithCommas(vis.stateInfoObject[d.properties.name].languages[sliderValue].numSpeakers)}
+                        residents speak it.
                     </div>`);
         })
             .on("mouseout", function(event, d) {
@@ -233,7 +298,7 @@ class MapVis {
                     hoveredState = null;
                 }
                 d3.select(this)
-                    .attr('stroke-width', '1px')
+                    .attr('stroke-width', '0.5px')
                     //.style("fill", '#CCC'); // Reset color
                     .style("fill", setColor(d));
 
@@ -244,6 +309,75 @@ class MapVis {
                     .style("top", 0)
                     .html(``);
             });
+
+        // Data for the horizontal bar
+        vis.horizontalBarData = vis.languageArray.map(subArray => subArray[1]);
+
+        // Calculate total sum of the data
+        let totalSum = vis.horizontalBarData.reduce((acc, val) => acc + val, 0);
+
+        // Calculate width of each segment
+        let segmentWidths = vis.horizontalBarData.map(value => (value / totalSum) * vis.totalHorizontalBarWidth);
+
+        // Select or append rectangles for each segment
+        let bars = vis.horizontalBarSvg.selectAll("rect")
+            .data(vis.languageArray); // Bind the entire subArray to have access to the language
+
+        bars.enter().append("rect")
+            .merge(bars)
+            .transition()
+            .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0)) // Calculate x position
+            .attr("y", 0)
+            .attr("width", (d, i) => segmentWidths[i]) // Use the corresponding width
+            .attr("height", 50)
+            .attr("stroke", "white")
+            .attr("stroke-width", 1)
+            .attr("fill", d => vis.colorScale(d[0])); // Use the first element (language) for color
+
+        vis.horizontalBarSvg.selectAll("rect")
+            .on("mouseover", function(event, d) {
+                // Actions to perform on mouseover (e.g., change color, display tooltip, etc.)
+                d3.select(this)
+                    .attr("stroke-width", 2)
+                    .style("cursor", "default");
+
+                // Show tooltip
+                vis.horizontalBarTooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX + 20 + "px")
+                    .style("top", event.pageY + "px")
+                    .html(`
+                    <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
+                        ${d}
+                    </div>`);
+            })
+            .on("mouseout", function(event, d) {
+                // Actions to perform on mouseout (e.g., revert color, hide tooltip, etc.)
+                d3.select(this)
+                    .attr("stroke-width", 1)
+                    .style("cursor", "default");
+
+                // Example: Hiding a tooltip
+                vis.horizontalBarTooltip
+                    .style("opacity", 0);
+            });
+            // .on("mouseover", function(event, d) {
+            //     console.log("mouseover", d);
+            // })
+            // .on("mouseout", function(event, d) {
+            //     console.log("mouseout", d);
+            // });
+
+        // Exit
+        bars.exit()
+            .transition()
+            .duration(750)
+            .style("opacity", 0)
+            .remove();
+
+
+
+
 
         // Call this function to update the colors when slider value changes
         // Function to update colors
@@ -267,6 +401,8 @@ class MapVis {
 
         // Initial color update
         updateColors();
+
+
 
         // console.log("you're doing okay");
 
