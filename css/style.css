@@ -184,6 +184,11 @@ slider banner navigation dots
     width: 100%;
 }
 
+#quiz-1-button{
+    margin:auto;
+    width: 20%;
+}
+
 /***************************************************************
 ***************US Multilingual Proportion Styling****************
 ***************************************************************/

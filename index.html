@@ -67,15 +67,24 @@
 			<div class="child">
 				<!-- quizlet clone -->
 				<div class="container-fluid display-block justify-content-center"> <!-- styling here for debugging purposes-->
-					<div class="row justify-content-center" style="height: 70%;">
-						<div>How many languages do you think exists in the following regions: the US, the Americas (North and South America), and the entire world. 
-							Drag the bars to your answers and click submit.
+
+					<div class="row" style="margin-top: 5%;">
+						<div>How many languages do you think exists in 
+							<strong>the US, the Americas (North and South America), and the entire world</strong> ?
+							Drag the bars to match your predictions and click submit to check the answers!
 						</div>
+					</div>
+					<div class="row justify-content-center" style="height: 60%; margin-top: 5%;">
+						
 						<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
 						<!-- Not going to do sliding pages for the quizzes, instead, we are just gonna do a straightforward implementation scatter through the presentation.-->
-						<div class="col-auto justify-content-center" id="quiz-1"></div>
-					
-						<div id="quiz-1-text"><button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button></div>
+						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-1"></div></div>
+						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-2"></div></div>
+						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-3"></div></div>
+					</div>
+					<div class="row justify-content-center">
+						<button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button>
+						<div class="col-auto" id="quiz-1-text"></div>
 					</div>
 				</div>
 			</div>
