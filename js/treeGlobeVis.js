@@ -303,9 +303,9 @@ class TreeGlobeVis {
                     .style("top", event.pageY + "px")
                     .html(`
                             <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                                <h4> Language Subgroup: ${d.name}<h4>
-                                <h5> Most Frequent Country: ${d.country}</h5>     
-                                <h5> Most Frequent EGIDS Score: ${d.score}</h5>                 
+                                <h4> Language Subgroup: <strong>${d.name}</strong><h4>
+                                <h5> Most Frequent Country:  <strong>${d.country}</strong></h5>     
+                                <h5> Most Frequent Endangerment Score:  <strong>${d.score}</strong></h5>                 
                             </div>`);
             })
             .on('mouseout', function (event, d) {
