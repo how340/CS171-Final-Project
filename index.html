@@ -69,7 +69,7 @@
 				<div class="container-fluid display-block justify-content-center"> <!-- styling here for debugging purposes-->
 
 					<div class="row" style="margin-top: 5%;">
-						<div>How many languages do you think exists in 
+						<div style="text-align: center">How many languages do you think exists in
 							<strong>the US, the Americas (North and South America), and the entire world</strong> ?
 							Drag the bars to match your predictions and click submit to check the answers!
 						</div>
@@ -270,16 +270,19 @@
 			<div class="child">
 				<!-- Container for Translation Performance & internet composition -->
 				<!-- TODO: Trigger animation when you scroll to this part -->
-				<!-- Why is everything green? -->
 				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
-					<h3>Multilingual translation performance worsens with less training data</h3>
-					<div class="row" style="height:40vh">
-						<div class = "col"  style="height: 100vh;">
-							<div class="row" id="radarDiv"  style="height: 100vh"></div>
+					<h3>Multilingual Translation <strong>Worsens with Rare Language Families</strong></h3>
+					<p style="text-align: center"><em>Performance is measured using BLEU, a translation precision metric (higher is better). Blue is the internet makeup %, red is the average performance of 9 popular LLMs, and yellow is the performance of ChatGPT.<br> Hover points on the Radar Chart (left) to get granular details.</em></p>
+					<div class="row" style="height: 80vh">
+						<div class = "col">
+							<div id="radarDiv"  style="height: 100vh"></div>
 						</div>
-						<div class = "col"  style="height: 100vh;">
-							<div class="row" id="scatterDiv" style="height: 100vh"></div>
+						<div class = "col">
+							<div id="scatterDiv" style="height: 100vh"></div>
 						</div>
+					</div>
+					<div class="row">
+						<p style="text-align: center">This means, modern LLMs have a bias towards popular languages (like the Indo-European family). With these tools becoming more prevalent in the modern era, the downward trend in linguistic diversity is reinforced!</p>
 					</div>
 				</div>
 			</div>
@@ -294,7 +297,6 @@
 			<div class="child">
 				<div class="display-block">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3>What Can you do about it</h3>
 						<span>
 							Incorporate Language Preservation Participate or contribute to research and digital resources
 						</span>
