@@ -29,6 +29,12 @@ class TreeGlobeVis {
             .attr("height", vis.height)
             .attr('transform', `translate (${vis.margin.left}, ${vis.margin.top})`);
 
+        vis.svg.append("rect")
+            .attr("class", "border")
+            .attr("width", vis.width)
+            .attr("height", vis.height)
+            .style("fill", "lightgrey")
+
         // tooltip
         vis.tooltip = d3.select("body").append('div')
             .attr('class', "tooltip")
