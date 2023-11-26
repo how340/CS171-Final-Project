@@ -184,6 +184,11 @@ slider banner navigation dots
     width: 100%;
 }
 
+#quiz-1-button{
+    margin:auto;
+    width: 20%;
+}
+
 /***************************************************************
 ***************US Multilingual Proportion Styling****************
 ***************************************************************/
@@ -209,6 +214,16 @@ slider banner navigation dots
     display: inline-block;
     width: 70px;
 }
+
+
+
+/***************************************************************
+*******    Internet Language Content Styling    ****************
+***************************************************************/
+
+#interntLang-select {
+    margin:auto;
+    width: 25%;
 
 .tooltip {
     position: absolute;

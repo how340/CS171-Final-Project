@@ -67,15 +67,24 @@
 			<div class="child">
 				<!-- quizlet clone -->
 				<div class="container-fluid display-block justify-content-center"> <!-- styling here for debugging purposes-->
-					<div class="row justify-content-center" style="height: 70%;">
-						<div>How many languages do you think exists in the following regions: the US, the Americas (North and South America), and the entire world. 
-							Drag the bars to your answers and click submit.
+
+					<div class="row" style="margin-top: 5%;">
+						<div>How many languages do you think exists in 
+							<strong>the US, the Americas (North and South America), and the entire world</strong> ?
+							Drag the bars to match your predictions and click submit to check the answers!
 						</div>
+					</div>
+					<div class="row justify-content-center" style="height: 60%; margin-top: 5%;">
+						
 						<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
 						<!-- Not going to do sliding pages for the quizzes, instead, we are just gonna do a straightforward implementation scatter through the presentation.-->
-						<div class="col-auto justify-content-center" id="quiz-1"></div>
-					
-						<div id="quiz-1-text"><button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button></div>
+						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-1"></div></div>
+						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-2"></div></div>
+						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-3"></div></div>
+					</div>
+					<div class="row justify-content-center">
+						<button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button>
+						<div class="col-auto" id="quiz-1-text"></div>
 					</div>
 				</div>
 			</div>
@@ -162,19 +171,51 @@
 			<div class="child">
 				<div class="container-fluid display-block">
 					<div class="row"></div>
-					<div class="row" style="height: 90vh;">
-						<div class="col-3" style="font-size: smaller;">Based on our dataset, there is a total of 7500 languages worldwide. However, many of these languages are 
-							on the verge of collapse and extinction. Languages are split into different categories based on their frequency of usage. 
-							Here are the categorizations: 
-							1. Institutional: A developed language that is widely used by communities and institutions to exchange ideas across a large population. 
-							2. Developing: Languages that are in standardized forms and used by some. However, these languages are not yet widespread or sustainable.
-							3. Vigorous: Languages that are not developing, but they still enjoy vigorous face-to-face use in daily life by all generations. 
-							4. In trouble: language is used by all generations, but not transmitted to new generations. 
-							5. Dying: Only the grandparents in the family are using the language, and newer generation is not learning the language.
-							6. Extinct: The language is no longer used by anyone. 
+					<div class="row" style="height: 90vh; margin-top: 3%;">
+						<div class="col-4" style="font-size: smaller;">
+							<p>There is a total of 7500 languages worldwide. However, many of these languages are 
+								on the verge of collapse and extinction. Languages are split into different categories based on their frequency of usage. 
+							</p>
+							
+							<p>The wellbeing of a language can be understood as follows: </p>
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">Language Classification</th>
+										<th scope="col">Definition</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id="institutional">
+										<th scope="row">Institutional</th>
+										<td>A developed language that is widely used by communities and institutions to exchange ideas across a large population. </td>
+									</tr>
+									<tr id="developing">
+										<th scope="row">Developing</th>
+										<td>Languages that are in standardized forms and used by some. However, these languages are not yet widespread or sustainable.</td>
+
+									</tr>
+									<tr id="vigorous">
+										<th scope="row">Vigorous</th>
+										<td>Languages that are not developing, but they still enjoy vigorous face-to-face use in daily life by all generations. </td>
+									</tr>
+									<tr id="in_trouble">
+										<th scope="row" >In trouble</th>
+										<td>language is used by all generations, but not transmitted to new generations.</td>
+									</tr>
+									<tr id="dying">
+										<th scope="row">Dying</th>
+										<td>Only the grandparents in the family are using the language, and newer generation is not learning the language.</td>
+									</tr>
+									<tr id="extinct">
+										<th scope="row">Extinct</th>
+										<td>The language is no longer used by anyone. </td>
+									</tr>
+								</tbody>
+							</table>
 
 						</div>
-						<div class="col-9" id="donut"> Click on the donut to see examples of these languages</div>
+						<div class="col-8" id="donut"> Hover on the donut to see examples of these languages</div>
 
 					</div>
 				</div>
@@ -189,24 +230,32 @@
 			<div class="child">
 				<!-- Container for online language presence Visualization -->
 				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
-					<div class="row">
+					<div class="row" id="interntLang-select" style="margin-top: 3%">
 						<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
-							<option value="Population" selected>Default</option>
+							<!-- <option value="Population" selected>Default</option> -->
 							<option value="contentPercent" selected>Percent of Internet Content</option>
 							<option value="internetUser">Population of Internet Users</option>
 							<option value="wikiViews">Daily View of Wikipedia</option>
 							<!-- Add more categories as needed -->
 						</select>
 					</div>
-					<div class="row" style="height:90vh">
+					<div class="row" style="height:80vh; margin-top: 3%;" >
 
-						<div class="col-8" id="internetLang" style="margin-right: 5%;"></div>
-						<div class="col-3">The online world is vastly different from the real world. The content on the internet
-							is mostly biased toward english speaking audiences, and the amount of content online is not directly proportional
-							with the population that speaks a specifc language. Here are the breakdown of the content available on the internet
-							based on the study conducted by <a href ="https://w3techs.com/technologies/overview/content_language">W3techs</a>. 
-							* the percent of content by language is explained <a href = "https://w3techs.com/technologies">here</a>. It is essentially the percent of 
-							popular websites that uses a specifc language. 
+						<div class="col-md-8" id="internetLang"></div>
+						<div class="col-md-4">
+							<div>The online world is vastly <strong>different</strong> from the real world. The content on the internet
+								is mostly biased toward english speaking audiences, and the amount of content online is not directly proportional
+								with the population that speaks a specifc language.
+							</div> 
+							<div>
+								The content available on the internet based on the study conducted by <a href ="https://w3techs.com/technologies/overview/content_language">W3techs</a>. 
+							</div>
+							<div>
+								<strong style="font-size: small;">
+								* the percent of content by language is explained <a href = "https://w3techs.com/technologies">here</a>. 
+								This metric essentially the represent the percentage of popular websites that is based in a specifc language.
+								</strong>
+							</div>
 						</div>
 					</div>
 				</div>

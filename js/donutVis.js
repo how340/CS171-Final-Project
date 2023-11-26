@@ -6,7 +6,7 @@ class DonutVis{
         this.data = [
             {"status":"extinct", "count":360, 'color':'red', 'order':6}, 
             {"status":'dying',"count":918, 'color':'red', 'order':5}, 
-            {"status":"institutioinal", "count":572, 'color':'green', 'order':1}, 
+            {"status":"institutional", "count":572, 'color':'green', 'order':1}, 
             {"status":"in_trouble", "count":1495, 'color':'red', 'order':4}, 
             {"status":"vigorous", "count":2468, 'color':'orange', 'order':3},
             {"status":'developing',"count":1644, 'color':'green', 'order':2}
@@ -45,6 +45,11 @@ class DonutVis{
                     .domain(vis.data.map(d => d.status))
                     .range(d3.schemeBlues[6]);
 
+        vis.tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .attr("id", "donutTooltip")
+            .style("opacity", 0);
+
         vis.wrangleData()
     }
 
@@ -59,6 +64,7 @@ class DonutVis{
     updateVis(){
         let vis = this
 
+        let total = d3.sum(vis.data, d=>d.count)
         let arcs = vis.svg.append("g")
             .selectAll("whatever")
             .data(vis.pie(vis.data))
@@ -80,5 +86,40 @@ class DonutVis{
             .text(d => d.data.status) 
             .style("fill", "black")
             .style("font-size", "12px");
+
+            arcs.selectAll("path")
+            .on("mouseover", function(event, d) {
+                // Actions to perform on mouseover (e.g., change color, display tooltip, etc.)
+                d3.select(this)
+                    .attr("stroke-width", 3)
+                    .style("cursor", "default");
+
+                // console.log(d)
+                //tooltip
+                vis.tooltip
+                .style("opacity", 1)
+                .style("left", event.pageX + 20 + "px")
+                .style("top", event.pageY + "px")
+                .html(`
+                    <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
+                        <div>Languages in this category: ${d.value}</div>
+                        <div>Percent of global languages: ${Math.round(d.value/total *100)}%</div>
+                    </div>`);
+
+                let row = document.getElementById(d.data.status)
+                row.style.backgroundColor = 'grey'
+            })
+            .on("mouseout", function(event, d) {
+                // Actions to perform on mouseout (e.g., revert color, hide tooltip, etc.)
+                d3.select(this)
+                    .attr("stroke-width", 1)
+                    .style("cursor", "default");
+
+                vis.tooltip
+                    .style("opacity", 0)
+                let row = document.getElementById(d.data.status)
+                
+                row.style.backgroundColor = 'oldlace'
+            });
     }
 }

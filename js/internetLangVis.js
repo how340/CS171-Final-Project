@@ -11,7 +11,7 @@ class InternetLangVis {
         let vis = this;
 
         // use the dynamic margin convention 
-        vis.margin = {top: 20, right: 70, bottom: 20, left: 100};
+        vis.margin = {top: 20, right: 100, bottom: 100, left: 100};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -51,19 +51,44 @@ class InternetLangVis {
 
 
         vis.dynamicY = vis.svg.append("text")
-                            .attr("transform", "rotate(-90)")
-                            .attr("y", 0 - vis.margin.left)
-                            .attr("x", 0 - (vis.height / 2))
+                            .attr("y", -20)
+                            .attr("x", -40)
                             .attr("dy", "1em")
                             .style("text-anchor", "middle")
 
         vis.svg.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", vis.width + vis.margin.right - 30)
-                .attr("x", 0 - (vis.height / 2))
+                // .attr("transform", `translate(${vis.width}, ${vis.margin.top})`)
+                .attr("x", vis.width + 40)
+                .attr("y", -20)
                 .attr("dy", "1em")
                 .style("text-anchor", "middle")
                 .text("population")
+
+        //legend
+
+        let rightOffset = 150
+        let topOffset = 20
+        vis.svg.append('rect')
+            .attr('x', vis.width - rightOffset)
+            .attr('y', topOffset)
+            .attr('width', 20)
+            .attr('height', 20)
+            .style('fill', 'lightgrey');
+
+        vis.svg.append('rect')
+            .attr('x', vis.width - rightOffset)
+            .attr('y', topOffset + 25)
+            .attr('width', 20)
+            .attr('height', 20)
+            .style('fill', 'green');
+
+        vis.legend1 = vis.svg.append('text')
+                .attr('x', vis.width - rightOffset + 25)
+                .attr('y', topOffset + 10)
+        
+        vis.legend2 = vis.svg.append('text')
+                .attr('x', vis.width - rightOffset + 25)
+                .attr('y', topOffset + 35)
 
         vis.wrangleData() 
     }
@@ -97,6 +122,9 @@ class InternetLangVis {
         let vis = this;
         let category =  document.getElementById('internetLangVisCategory').value
         
+        //legend
+        vis.legend1.text("population")
+        vis.legend2.text(category)
         // update domain values
         vis.xScale.domain(vis.displayData.map(d=>d.Language))
         vis.yScale.domain([0, d3.max(vis.displayData, d=>d.Population)])
@@ -112,14 +140,16 @@ class InternetLangVis {
         .attr('y', vis.height) 
         .attr('height', 0) 
         .attr('width', vis.xScale.bandwidth())
-        .attr('fill', 'rgb(19, 109, 112)')
+        .attr('fill', 'lightgrey')
+        .attr("opacity", "0")
         .merge(bars) 
         .transition().duration(vis.transition_speed)
         .attr('x', d => vis.xScale(d.Language)) 
         .attr('y', d => vis.yScale(d.Population)) 
         .attr('height', d => vis.height - vis.yScale(d.Population)) 
         .attr('width', vis.xScale.bandwidth())
-        .attr('fill', 'rgb(19, 109, 112)')
+        .attr('fill', 'lightgrey')
+        .attr("opacity", "0.5")
 
         bars.exit().remove();
 
@@ -135,7 +165,7 @@ class InternetLangVis {
             .attr("x2", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("y1", vis.height)
             .attr("y2", vis.height)
-            .attr("stroke", "grey")
+            .attr("stroke", "#69b3a2")
             .attr("stroke-width", "0")
             .merge(lines) 
             .transition().duration(vis.transition_speed)
@@ -143,7 +173,7 @@ class InternetLangVis {
             .attr("x2", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("y1", vis.height)
             .attr("y2", d=> vis.yScale2nd(d[category]))//make dynamic 
-            .attr("stroke", "grey")
+            .attr("stroke", "#69b3a2")
             .attr("stroke-width", "10")
                 
         lines.exit().remove();
@@ -171,11 +201,16 @@ class InternetLangVis {
         
         pop.exit().remove();
 
-
         vis.dynamicY.text(`${category}`)
 
         // call the axes and append to the svg to make sure axes are on top
-        vis.svg.select(".x-axis").transition().duration(vis.transition_speed).call(vis.xAxis);
+        vis.svg.select(".x-axis").transition().duration(vis.transition_speed).call(vis.xAxis)
+        .selectAll(".tick text")  // Selects all text elements within the axis' ticks
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-45)");;
+
         vis.svg.select(".y-axis").transition().duration(vis.transition_speed).call(vis.yAxis);
         vis.svg.select(".y-axis-2nd").transition().duration(vis.transition_speed).call(vis.yAxis2nd);
 
