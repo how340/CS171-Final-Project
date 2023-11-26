@@ -11,6 +11,7 @@ class UsMapVis {
         this.usaData = usaData
         this.displayData = [];
 
+        this.highlightedLanguage = null;
         // parse date method
         //this.parseDate = d3.timeParse("%m/%d/%Y");
 
@@ -112,15 +113,11 @@ class UsMapVis {
 
         //color scale
         vis.colorScale = d3.scaleOrdinal([
-            "#f77189", "#dc8932", "#ae9d31", "#77ab31", "#33b07a",
-            "#36ada4", "#38a9c5", "#6e9bf4", "#cc7af4", "#f565cc",
-            "#19122b", "#17344c", "#185b48", "#3c7632", "#7e7a36",
-            "#bc7967", "#d486af", "#caa9e7", "#c2d2f3", "#d6f0ef",
-            "#5673e0", "#7597f6", "#94b6ff", "#b5cdfa", "#d1dae9",
-            "#e8d6cc", "#f5c1a9", "#f6a283", "#ea7b60", "#d44e41",
-            "#482173", "#433e85", "#38588c", "#2d708e", "#25858e",
-            "#1e9b8a", "#2ab07f", "#52c569", "#86d549", "#c2df23",
-            "#66c2a5", "#fc8d62", "#8da0cb"
+            "#33b07a", "#36ada4", "#38a9c5", "#6e9bf4", "#cc7af4", "#f565cc",
+            "#17344c", "#185b48", "#3c7632", "#7e7a36", "#bc7967", "#d486af",
+            "#caa9e7", "#c2d2f3", "#d6f0ef", "#5673e0", "#7597f6", "#94b6ff",
+            "#b5cdfa", "#d1dae9", "#e8d6cc", "#f5c1a9", "#f6a283", "#ea7b60",
+            "#d44e41", "#482173", "#433e85", "#38588c", "#2d708e", "#25858e"
         ]);
 
         // Set the width of the horizontal bar
@@ -272,11 +269,28 @@ class UsMapVis {
         // Add hover effects to the country paths
         vis.state
             .on("mouseover", function(event, d) {
-                hoveredState = d.properties.name;
+            //     hoveredState = d.properties.name;
+            // d3.select(this)
+            //     .attr('stroke-width', '2px')
+            //     .attr('stroke', 'white')
+            //     .style("fill", "rgb(215,84,35)"); // Hover color
+
+        // Set the highlighted language
+        vis.highlightedLanguage = vis.stateInfoObject[d.properties.name].languages[sliderValue].language;
+
+        // Apply highlighting logic
+        vis.state.each(function(stateData) {
             d3.select(this)
-                .attr('stroke-width', '2px')
-                .attr('stroke', 'white')
-                .style("fill", "rgb(215,84,35)"); // Hover color
+                .style("fill", stateData.properties.name === d.properties.name
+                || vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language === vis.highlightedLanguage
+                    ? vis.colorScale(vis.highlightedLanguage)
+                    : "#CCC"); // Gray out non-matching states
+        });
+
+                vis.state.transition().duration(300).style("fill", function(stateData) {
+                    const stateLanguage = vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language;
+                    return stateLanguage === vis.highlightedLanguage ? vis.colorScale(vis.highlightedLanguage) : "#CCC";
+                });
 
             //debug
             //console.log(vis.stateInfoObject[d.properties.name].languages[sliderValue].language);
@@ -287,20 +301,32 @@ class UsMapVis {
                 .style("left", event.pageX + 20 + "px")
                 .style("top", event.pageY + "px")
                 .html(`
-                    <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
+                    <div>
                         In ${vis.stateInfoObject[d.properties.name].state}, the ${getOrdinal(sliderValue)} most spoken language is 
                         ${vis.stateInfoObject[d.properties.name].languages[sliderValue].language}. ${numberWithCommas(vis.stateInfoObject[d.properties.name].languages[sliderValue].numSpeakers)}
                         residents speak it.
                     </div>`);
         })
             .on("mouseout", function(event, d) {
-                if (hoveredState === d.properties.name) {
-                    hoveredState = null;
-                }
-                d3.select(this)
-                    .attr('stroke-width', '0.5px')
-                    //.style("fill", '#CCC'); // Reset color
-                    .style("fill", setColor(d));
+                // if (hoveredState === d.properties.name) {
+                //     hoveredState = null;
+                // }
+                // d3.select(this)
+                //     .attr('stroke-width', '0.5px')
+                //     //.style("fill", '#CCC'); // Reset color
+                //     .style("fill", setColor(d));
+
+        // Reset the highlighted language
+        vis.highlightedLanguage = null;
+
+        // Restore original style
+        vis.state.each(function(stateData) {
+            d3.select(this).style("fill", setColor(stateData));
+        });
+
+                vis.state.transition().duration(300).style("fill", function(stateData) {
+                    return setColor(stateData);
+                });
 
                 // Hide tooltip
                 vis.tooltip
@@ -337,9 +363,26 @@ class UsMapVis {
         vis.horizontalBarSvg.selectAll("rect")
             .on("mouseover", function(event, d) {
                 // Actions to perform on mouseover (e.g., change color, display tooltip, etc.)
-                d3.select(this)
-                    .attr("stroke-width", 2)
-                    .style("cursor", "default");
+                // d3.select(this)
+                //     .attr("stroke-width", 2)
+                //     .style("cursor", "default");
+
+                // Set the highlighted language to the language of the hovered bar
+                vis.highlightedLanguage = d[0]; // Assuming d[0] contains the language name
+
+                // Apply highlighting logic to states
+                vis.state.each(function(stateData) {
+                    const stateLanguage = vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language;
+                    d3.select(this)
+                        .style("fill", stateLanguage === vis.highlightedLanguage
+                            ? vis.colorScale(vis.highlightedLanguage)
+                            : "#CCC"); // Gray out non-matching states
+                });
+
+                vis.state.transition().duration(300).style("fill", function(stateData) {
+                    const stateLanguage = vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language;
+                    return stateLanguage === vis.highlightedLanguage ? vis.colorScale(vis.highlightedLanguage) : "#CCC";
+                });
 
                 // Show tooltip
                 vis.horizontalBarTooltip
@@ -347,15 +390,27 @@ class UsMapVis {
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
                     .html(`
-                    <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
+                    <div>
                         ${d}
                     </div>`);
             })
             .on("mouseout", function(event, d) {
                 // Actions to perform on mouseout (e.g., revert color, hide tooltip, etc.)
-                d3.select(this)
-                    .attr("stroke-width", 1)
-                    .style("cursor", "default");
+                // d3.select(this)
+                //     .attr("stroke-width", 1)
+                //     .style("cursor", "default");
+
+                // Reset the highlighted language
+                vis.highlightedLanguage = null;
+
+                // Restore original style for states
+                vis.state.each(function(stateData) {
+                    d3.select(this).style("fill", setColor(stateData));
+                });
+
+                vis.state.transition().duration(300).style("fill", function(stateData) {
+                    return setColor(stateData);
+                });
 
                 // Example: Hiding a tooltip
                 vis.horizontalBarTooltip
