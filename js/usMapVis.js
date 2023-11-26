@@ -1,9 +1,9 @@
 /* * * * * * * * * * * * * *
-*          MapVis          *
+*          UsMapVis          *
 * * * * * * * * * * * * * */
 let languages;
 
-class MapVis {
+class UsMapVis {
 
     constructor(parentElement, geoData, usaData) {
         this.parentElement = parentElement;
