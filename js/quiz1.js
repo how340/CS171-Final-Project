@@ -283,18 +283,12 @@ class Quiz1 {
 
         let mean_diff = (diff1 + diff2 + diff3)/3
 
-        console.log(diff1)
-        console.log(diff2)
-        console.log(diff3)
-        console.log(mean_diff)
-
-
-        if(mean_diff < 0.05){
+        if(mean_diff < 0.10){
             newParagraph.textContent = `
             Your answer is so close to the actual numbers, good job! You clearly have a very good understanding of the linguistic 
             facts in the world!
         `;
-        } else if (mean_diff < 0.15){
+        } else if (mean_diff < 0.20){
             newParagraph.textContent = `
             You are not that far off from the reality! It is often very hard to estimate the extent of linguistic diversity as most of
             us only speak some of the most popular languages. 

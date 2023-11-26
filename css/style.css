@@ -225,6 +225,9 @@ slider banner navigation dots
     margin:auto;
     width: 25%;
 
+#internetLangText div{
+    margin:2%;
+}
 .tooltip {
     position: absolute;
     text-align: center;

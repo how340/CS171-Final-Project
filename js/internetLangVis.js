@@ -65,7 +65,6 @@ class InternetLangVis {
                 .text("population")
 
         //legend
-
         let rightOffset = 150
         let topOffset = 20
         vis.svg.append('rect')
@@ -80,7 +79,7 @@ class InternetLangVis {
             .attr('y', topOffset + 25)
             .attr('width', 20)
             .attr('height', 20)
-            .style('fill', 'green');
+            .style('fill', '#69b3a2');
 
         vis.legend1 = vis.svg.append('text')
                 .attr('x', vis.width - rightOffset + 25)
@@ -149,7 +148,7 @@ class InternetLangVis {
         .attr('height', d => vis.height - vis.yScale(d.Population)) 
         .attr('width', vis.xScale.bandwidth())
         .attr('fill', 'lightgrey')
-        .attr("opacity", "0.5")
+        .attr("opacity", "0.7")
 
         bars.exit().remove();
 
