@@ -3,6 +3,7 @@ let promises = [
     d3.csv("data/internet_language_data.csv"),
     d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json"),
     d3.csv("data/us-lang-data.csv"),
+    d3.csv("data/us-endangered-languages.csv"),
     d3.json("data/world-110m.json"),
     d3.json("data/ethno_links.json")
 ];
@@ -15,7 +16,7 @@ let internetLanguageVis,
     myScatterPlot,
     populationIllustration,
     myMapVis,
-    // myBarVis,
+    myEndangerMapVis,
     sliderValue,
     selectedYear,
     eventHandler;
@@ -89,11 +90,14 @@ function initMainPage(dataArray) {
     populationIllustration = new PopulationIllustration("population-transition");
 
     // US Map Data
-    myMapVis = new MapVis('mapDiv', dataArray[1], dataArray[2]);
+    myMapVis = new UsMapVis('mapDiv', dataArray[1], dataArray[2]);
     //myBarVis = new BarVis('barDiv', dataArray[2]);
 
+    // endangered US languages data
+    myEndangerMapVis = new EndangerMapVis('endangerMapDiv', dataArray[1], dataArray[3]);
+
     // treeglobe map
-    myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', dataArray[4], dataArray[3], eventHandler)
+    myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', dataArray[5], dataArray[4], eventHandler)
 
     // define radar configuration
     myRadarConfig = {

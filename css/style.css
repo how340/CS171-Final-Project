@@ -216,6 +216,7 @@ slider banner navigation dots
 }
 
 
+
 /***************************************************************
 *******    Internet Language Content Styling    ****************
 ***************************************************************/
@@ -223,4 +224,14 @@ slider banner navigation dots
 #interntLang-select {
     margin:auto;
     width: 25%;
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
