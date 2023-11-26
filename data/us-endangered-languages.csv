@@ -1,23 +1,23 @@
 language,Country_Name,Num_Speakers,Latitude,Longitude,EGIDS,Is_Written,Institutional,Developing,In_Trouble,Dying,Extinct,Language_Status
-Eastern Abenaki,United States,,44.9423,-68.7328,9,F,0,0,0,1,0,Dying
+Eastern Abenaki,United States,5.0,44.9423,-68.7328,9,F,0,0,0,1,0,Dying
 Achumawi,United States,10.0,41.105,-121.1838,8b,F,0,0,0,1,0,Dying
 Ahtena,United States,80.0,61.2589,-144.4034,8a,F,0,0,0,1,0,Dying
 Alabama,United States,250.0,30.7687,-94.6379,7,F,0,0,1,0,0,In_Trouble
 Aleut,United States,155.0,55.069,166.2263,7,T,0,0,1,0,0,In_Trouble
 Jicarilla Apache,United States,300.0,36.7879,-107.0304,7,T,0,0,1,0,0,In_Trouble
 Kiowa Apache,United States,3.0,34.907,-98.249,8b,F,0,0,0,1,0,Dying
-Lipan Apache,United States,,33.1513,-105.799,9,F,0,0,0,1,0,Dying
+Lipan Apache,United States,5.0,33.1513,-105.799,9,F,0,0,0,1,0,Dying
 Mescalero-Chiricahua Apache,United States,1500.0,33.1227,-105.5561,6b,T,0,0,1,0,0,In_Trouble
 Western Apache,United States,14000.0,33.8739,-110.1556,6b,T,0,0,1,0,0,In_Trouble
 Arikara,United States,10.0,47.5196,-102.2828,8b,F,0,0,0,1,0,Dying
 Arapaho,United States,1000.0,43.4352,-108.8162,6b,T,0,0,1,0,0,In_Trouble
 American Sign Language,United States,271550.0,38.9087,-76.9926,5,T,0,1,0,0,0,Developing
 Gros Ventre,United States,10.0,48.4857,-108.7522,8b,F,0,0,0,1,0,Dying
-Atsugewi,United States,,40.8824,-122.6661,9,F,0,0,0,1,0,Dying
-Barbareño,United States,,34.4227,-119.7039,9,F,0,0,0,1,0,Dying
+Atsugewi,United States,5.0,40.8824,-122.6661,9,F,0,0,0,1,0,Dying
+Barbareño,United States,5.0,34.4227,-119.7039,9,F,0,0,0,1,0,Dying
 Caddo,United States,25.0,35.1825,-98.2633,8a,F,0,0,0,1,0,Dying
-Lower Chehalis,United States,,46.3227,-123.9724,9,F,0,0,0,1,0,Dying
-Catawba,United States,,34.9361,-81.0272,9,F,0,0,0,1,0,Dying
+Lower Chehalis,United States,5.0,46.3227,-123.9724,9,F,0,0,0,1,0,Dying
+Catawba,United States,5.0,34.9361,-81.0272,9,F,0,0,0,1,0,Dying
 Chinook,United States,7.0,45.1729,-119.1656,8b,F,0,0,0,1,0,Dying
 Cahuilla,United States,35.0,33.533,-116.6905,8a,F,0,0,0,1,0,Dying
 Chinook Wawa,United States,1.0,44.98,-123.8928,8b,T,0,0,0,1,0,Dying
@@ -25,93 +25,93 @@ Choctaw,United States,10400.0,33.905,-94.8092,6b,T,0,0,1,0,0,In_Trouble
 Cherokee,United States,10400.0,35.4697,-83.1326,6b,T,0,0,1,0,0,In_Trouble
 Cheyenne,United States,2100.0,45.5259,-106.6982,6b,T,0,0,1,0,0,In_Trouble
 Chickasaw,United States,600.0,33.9442,-97.1216,8a,F,0,0,0,1,0,Dying
-Chimariko,United States,0.0,41.2215,-123.7603,x10,F,0,0,0,0,1,Extinct
+Chimariko,United States,3.0,41.2215,-123.7603,x10,F,0,0,0,0,1,Extinct
 Chippewa,United States,5000.0,47.3527,-94.3011,7,T,0,0,1,0,0,In_Trouble
-Upper Chehalis,United States,,46.4111,-122.9949,9,F,0,0,0,1,0,Dying
+Upper Chehalis,United States,5.0,46.4111,-122.9949,9,F,0,0,0,1,0,Dying
 Koasati,United States,200.0,30.4072,-92.7022,7,T,0,0,1,0,0,In_Trouble
 Clallam,United States,6.0,48.0683,-123.5152,9,F,0,0,0,1,0,Dying
 Columbia-Wenatchi,United States,40.0,48.242,-118.4614,8a,F,0,0,0,1,0,Dying
 Comanche,United States,100.0,34.5599,-98.427,8a,T,0,0,0,1,0,Dying
-Coquille,United States,0.0,43.0734,-124.1517,x10,F,0,0,0,0,1,Extinct
+Coquille,United States,3.0,43.0734,-124.1517,x10,F,0,0,0,0,1,Extinct
 Cowlitz,United States,110.0,46.132,-122.8642,8b,F,0,0,0,1,0,Dying
 Coeur d’Alene,United States,2.0,47.2958,-116.7151,8b,F,0,0,0,1,0,Dying
 Michif,United States,725.0,48.833,-99.8,7,F,0,0,1,0,0,In_Trouble
 Crow,United States,3000.0,45.3997,-107.757,6b,T,0,0,1,0,0,In_Trouble
-Cruzeño,United States,,34.3821,-119.4574,9,F,0,0,0,1,0,Dying
-Coast Miwok,United States,,38.0005,-122.7255,9,F,0,0,0,1,0,Dying
+Cruzeño,United States,5.0,34.3821,-119.4574,9,F,0,0,0,1,0,Dying
+Coast Miwok,United States,5.0,38.0005,-122.7255,9,F,0,0,0,1,0,Dying
 Central Sierra Miwok,United States,12.0,38.0914,-120.2473,8b,F,0,0,0,1,0,Dying
 Southern Ohlone,United States,1.0,36.5935,-121.4813,8b,F,0,0,0,1,0,Dying
-Northern Ohlone,United States,,36.5935,-121.4813,9,F,0,0,0,1,0,Dying
-Coos,United States,,43.406,-124.2402,9,F,0,0,0,1,0,Dying
+Northern Ohlone,United States,5.0,36.5935,-121.4813,9,F,0,0,0,1,0,Dying
+Coos,United States,5.0,43.406,-124.2402,9,F,0,0,0,1,0,Dying
 Chetco,United States,5.0,42.687,-124.367,8b,F,0,0,0,1,0,Dying
-Chitimacha,United States,,30.3386,-90.9123,9,F,0,0,0,1,0,Dying
-Cupeño,United States,,33.364,-117.0756,9,F,0,0,0,1,0,Dying
+Chitimacha,United States,5.0,30.3386,-90.9123,9,F,0,0,0,1,0,Dying
+Cupeño,United States,5.0,33.364,-117.0756,9,F,0,0,0,1,0,Dying
 Dakota,United States,290.0,45.1012,-100.7049,8a,T,0,0,0,1,0,Dying
-Pidgin Delaware,United States,0.0,39.5866,-75.3909,x10,F,0,0,0,0,1,Extinct
+Pidgin Delaware,United States,3.0,39.5866,-75.3909,x10,F,0,0,0,0,1,Extinct
 Pacific Gulf Yupik,United States,200.0,60.3695,-148.9529,7,T,0,0,1,0,0,In_Trouble
-North Alaskan Inupiatun,United States,,70.0063,-147.4538,6b,T,0,0,1,0,0,In_Trouble
+North Alaskan Inupiatun,United States,5.0,70.0063,-147.4538,6b,T,0,0,1,0,0,In_Trouble
 Northwest Alaska Inupiatun,United States,5580.0,65.4684,-164.9635,6b,T,0,0,1,0,0,In_Trouble
-Esselen,United States,,36.2221,-121.5555,9,F,0,0,0,1,0,Dying
+Esselen,United States,5.0,36.2221,-121.5555,9,F,0,0,0,1,0,Dying
 Central Siberian Yupik,United States,1200.0,63.4308,-170.2717,5,T,0,1,0,0,0,Developing
 Central Yupik,United States,10000.0,60.8953,-161.8849,6b,T,0,0,1,0,0,In_Trouble
-Eyak,United States,,60.2165,-143.3935,9,F,0,0,0,1,0,Dying
+Eyak,United States,5.0,60.2165,-143.3935,9,F,0,0,0,1,0,Dying
 Kalispel-Pend d’Oreille,United States,64.0,47.5972,-114.1857,8b,F,0,0,0,1,0,Dying
 Cajun French,United States,25600.0,29.9914,-92.7588,7,F,0,0,1,0,0,In_Trouble
-Galice,United States,0.0,42.5733,-123.6017,x10,F,0,0,0,0,1,Extinct
+Galice,United States,3.0,42.5733,-123.6017,x10,F,0,0,0,0,1,Extinct
 Sea Island Creole English,United States,350.0,33.0618,-80.412,5,T,0,1,0,0,0,Developing
 Han,United States,19.0,64.8652,-141.2872,8b,T,0,0,0,1,0,Dying
 Hawaiian,United States,2000.0,19.6002,-155.5197,2,T,1,0,0,0,0,Institutional
 Hidatsa,United States,200.0,47.7921,-102.6555,7,F,0,0,1,0,0,In_Trouble
 Holikachuk,United States,6.0,62.7242,-159.8654,8b,F,0,0,0,1,0,Dying
 Hopi,United States,6780.0,35.7819,-110.545,6b,T,0,0,1,0,0,In_Trouble
-Hawaii Sign Language,United States,,21.6311,-158.0018,8b,F,0,0,0,1,0,Dying
+Hawaii Sign Language,United States,5.0,21.6311,-158.0018,8b,F,0,0,0,1,0,Dying
 Hupa,United States,38.0,41.0999,-123.6857,8b,F,0,0,0,1,0,Dying
 Hawai’i Pidgin,United States,1000000.0,19.6002,-155.5197,5,T,0,1,0,0,0,Developing
 Degexit’an,United States,40.0,62.1057,-159.9371,8a,T,0,0,0,1,0,Dying
-Ineseño,United States,,34.5942,-120.1371,9,F,0,0,0,1,0,Dying
-Iowa-Oto,United States,,35.9761,-97.3336,9,F,0,0,0,1,0,Dying
+Ineseño,United States,5.0,34.5942,-120.1371,9,F,0,0,0,1,0,Dying
+Iowa-Oto,United States,5.0,35.9761,-97.3336,9,F,0,0,0,1,0,Dying
 Eastern Keres,United States,6680.0,35.5216,-106.4528,6b,T,0,0,1,0,0,In_Trouble
 Kickapoo,United States,510.0,28.5298,-100.6666,6b,T,0,0,1,0,0,In_Trouble
-Kitsai,United States,,35.2669,-98.2741,9,F,0,0,0,1,0,Dying
+Kitsai,United States,5.0,35.2669,-98.2741,9,F,0,0,0,1,0,Dying
 Kiowa,United States,400.0,34.9415,-98.9066,8a,F,0,0,0,1,0,Dying
 Western Keres,United States,3990.0,34.9505,-107.4994,6b,T,0,0,1,0,0,In_Trouble
 Kashaya,United States,45.0,40.7417,-74.1006,8a,F,0,0,0,1,0,Dying
 Klamath-Modoc,United States,6.0,42.5767,-121.8637,9,F,0,0,0,1,0,Dying
 Koyukon,United States,300.0,65.6093,-154.2285,8a,T,0,0,0,1,0,Dying
-Kansa,United States,,36.7657,-96.8652,9,F,0,0,0,1,0,Dying
-Kato,United States,,39.677,-123.4944,9,F,0,0,0,1,0,Dying
+Kansa,United States,5.0,36.7657,-96.8652,9,F,0,0,0,1,0,Dying
+Kato,United States,5.0,39.677,-123.4944,9,F,0,0,0,1,0,Dying
 Upper Kuskokwim,United States,40.0,62.2083,-156.0824,8a,T,0,0,0,1,0,Dying
 Karok,United States,12.0,41.8219,-123.3141,8a,F,0,0,0,1,0,Dying
-Kalapuya,United States,0.0,43.8,-123.06,x10,F,0,0,0,0,1,Extinct
+Kalapuya,United States,3.0,43.8,-123.06,x10,F,0,0,0,0,1,Extinct
 Lakota,United States,2200.0,43.3701,-101.2839,6b,T,0,0,1,0,0,In_Trouble
 Lake Miwok,United States,1.0,38.9908,-122.6075,8b,F,0,0,0,1,0,Dying
-Lumbee,United States,,34.679,-79.1984,9,F,0,0,0,1,0,Dying
+Lumbee,United States,5.0,34.679,-79.1984,9,F,0,0,0,1,0,Dying
 Louisiana Creole,United States,10000.0,30.0408,-90.5953,7,F,0,0,1,0,0,In_Trouble
 Luiseño,United States,5.0,33.3178,-116.9372,8b,T,0,0,0,1,0,Dying
 Lushootseed,United States,10.0,48.4243,-122.5281,8b,T,0,0,0,1,0,Dying
-Molale,United States,0.0,44.8636,-122.4645,x10,F,0,0,0,0,1,Extinct
+Molale,United States,3.0,44.8636,-122.4645,x10,F,0,0,0,0,1,Extinct
 Menominee,United States,60.0,44.972,-88.6225,8a,T,0,0,0,1,0,Dying
 Mandan,United States,10.0,47.6633,-102.375,8b,F,0,0,0,1,0,Dying
-Miami,United States,,36.8866,-94.8775,9,F,0,0,0,1,0,Dying
+Miami,United States,5.0,36.8866,-94.8775,9,F,0,0,0,1,0,Dying
 Mikasuki,United States,190.0,26.0907,-80.931,6b,T,0,0,1,0,0,In_Trouble
 Northwest Maidu,United States,3.0,39.6759,-121.3668,8b,F,0,0,0,1,0,Dying
 Mono,United States,37.0,37.1591,-119.5115,8a,F,0,0,0,1,0,Dying
 Mohave,United States,100.0,34.9017,-114.6166,8a,T,0,0,0,1,0,Dying
 Maricopa,United States,100.0,33.5123,-111.7486,7,F,0,0,1,0,0,In_Trouble
 Muskogee,United States,4000.0,27.0663,-81.0781,6b,T,0,0,1,0,0,In_Trouble
-Mattole,United States,,39.1375,-123.6931,9,F,0,0,0,1,0,Dying
-Makah,United States,,48.3258,-124.6164,9,F,0,0,0,1,0,Dying
+Mattole,United States,5.0,39.1375,-123.6931,9,F,0,0,0,1,0,Dying
+Makah,United States,5.0,48.3258,-124.6164,9,F,0,0,0,1,0,Dying
 Navajo,United States,169000.0,36.2607,-109.1823,6b,T,0,0,1,0,0,In_Trouble
 Natchez,United States,6.0,34.6414,-96.9264,8b,F,0,0,0,1,0,Dying
 Nez Perce,United States,100.0,46.2842,-116.4146,8a,T,0,0,0,1,0,Dying
 Northeast Maidu,United States,1.0,40.4101,-120.6429,8b,F,0,0,0,1,0,Dying
-Nanticoke,United States,,38.5538,-75.6944,9,F,0,0,0,1,0,Dying
-Nooksack,United States,,49.0378,-122.4865,9,F,0,0,0,1,0,Dying
-Nomlaki,United States,,39.7853,-122.5882,8b,F,0,0,0,1,0,Dying
-Northern Sierra Miwok,United States,,38.3907,-120.6632,9,F,0,0,0,1,0,Dying
-Nisenan,United States,,38.7654,-121.0064,9,F,0,0,0,1,0,Dying
-Nottoway,United States,,36.8027,-77.4495,9,F,0,0,0,1,0,Dying
-Obispeño,United States,,35.2692,-120.6707,9,F,0,0,0,1,0,Dying
+Nanticoke,United States,5.0,38.5538,-75.6944,9,F,0,0,0,1,0,Dying
+Nooksack,United States,5.0,49.0378,-122.4865,9,F,0,0,0,1,0,Dying
+Nomlaki,United States,5.0,39.7853,-122.5882,8b,F,0,0,0,1,0,Dying
+Northern Sierra Miwok,United States,5.0,38.3907,-120.6632,9,F,0,0,0,1,0,Dying
+Nisenan,United States,5.0,38.7654,-121.0064,9,F,0,0,0,1,0,Dying
+Nottoway,United States,5.0,36.8027,-77.4495,9,F,0,0,0,1,0,Dying
+Obispeño,United States,5.0,35.2692,-120.6707,9,F,0,0,0,1,0,Dying
 Omaha-Ponca,United States,85.0,42.0946,-96.5045,8a,F,0,0,0,1,0,Dying
 Tohono O’odham,United States,14094.0,32.008,-112.0465,5,T,0,1,0,0,0,Developing
 Osage,United States,10.0,36.7956,-96.3034,8b,T,0,0,0,1,0,Dying
@@ -119,33 +119,33 @@ Northern Paiute,United States,700.0,40.0435,-119.515,7,T,0,0,1,0,0,In_Trouble
 Timbisha,United States,20.0,35.9999,-117.9039,8a,F,0,0,0,1,0,Dying
 Pawnee,United States,10.0,36.2874,-96.8889,8b,F,0,0,0,1,0,Dying
 Pennsylvania German,United States,133000.0,40.496,-81.034,5,T,0,1,0,0,0,Developing
-Eastern Pomo,United States,,38.5647,-122.5858,8b,F,0,0,0,1,0,Dying
-Northeastern Pomo,United States,,39.3774,-122.5454,9,F,0,0,0,1,0,Dying
+Eastern Pomo,United States,5.0,38.5647,-122.5858,8b,F,0,0,0,1,0,Dying
+Northeastern Pomo,United States,5.0,39.3774,-122.5454,9,F,0,0,0,1,0,Dying
 Northern Pomo,United States,1.0,39.1084,-123.2089,8b,F,0,0,0,1,0,Dying
-Southern Pomo,United States,,38.7161,-122.5597,8b,F,0,0,0,1,0,Dying
-Powhatan,United States,,37.519,-77.4028,9,F,0,0,0,1,0,Dying
-Plains Miwok,United States,,38.1745,-121.506,9,F,0,0,0,1,0,Dying
+Southern Pomo,United States,5.0,38.7161,-122.5597,8b,F,0,0,0,1,0,Dying
+Powhatan,United States,5.0,37.519,-77.4028,9,F,0,0,0,1,0,Dying
+Plains Miwok,United States,5.0,38.1745,-121.506,9,F,0,0,0,1,0,Dying
 Southeastern Pomo,United States,1.0,39.016,-122.6779,8b,F,0,0,0,1,0,Dying
 Central Pomo,United States,2.0,38.9087,-123.6581,8b,F,0,0,0,1,0,Dying
 Potawatomi,United States,50.0,39.3637,-95.8282,8a,T,0,0,0,1,0,Dying
 Plains Indian Sign Language,United States,75.0,45.6678,-101.3269,8a,F,0,0,0,1,0,Dying
-Piscataway,United States,0.0,38.7294,-77.0087,x10,F,0,0,0,0,1,Extinct
-Purisimeño,United States,,34.6608,-120.4711,9,F,0,0,0,1,0,Dying
-Patwin,United States,,39.1151,-122.2174,8b,F,0,0,0,1,0,Dying
+Piscataway,United States,3.0,38.7294,-77.0087,x10,F,0,0,0,0,1,Extinct
+Purisimeño,United States,5.0,34.6608,-120.4711,9,F,0,0,0,1,0,Dying
+Patwin,United States,5.0,39.1151,-122.2174,8b,F,0,0,0,1,0,Dying
 Quapaw,United States,34.0,36.9476,-94.6628,8b,F,0,0,0,1,0,Dying
-Quileute,United States,,47.9083,-124.6365,9,F,0,0,0,1,0,Dying
+Quileute,United States,5.0,47.9083,-124.6365,9,F,0,0,0,1,0,Dying
 Quinault,United States,6.0,47.3332,-124.2864,9,F,0,0,0,1,0,Dying
 Meskwaki,United States,200.0,35.6567,-96.7597,7,T,0,0,1,0,0,In_Trouble
 Seneca,United States,100.0,42.1414,-78.7867,7,T,0,0,1,0,0,In_Trouble
-Serrano,United States,,34.1212,-117.2221,9,F,0,0,0,1,0,Dying
+Serrano,United States,5.0,34.1212,-117.2221,9,F,0,0,0,1,0,Dying
 Shoshoni,United States,1000.0,43.0592,-109.142,6b,T,0,0,1,0,0,In_Trouble
-Shasta,United States,,41.2583,-123.3216,9,F,0,0,0,1,0,Dying
-Siuslaw,United States,,43.3773,-124.2371,9,F,0,0,0,1,0,Dying
+Shasta,United States,5.0,41.2583,-123.3216,9,F,0,0,0,1,0,Dying
+Siuslaw,United States,5.0,43.3773,-124.2371,9,F,0,0,0,1,0,Dying
 Shawnee,United States,200.0,35.3506,-96.7665,7,T,0,0,1,0,0,In_Trouble
 Skagit,United States,100.0,48.5371,-121.9873,8b,F,0,0,0,1,0,Dying
 Southern Sierra Miwok,United States,7.0,38.2363,-120.5071,8b,F,0,0,0,1,0,Dying
 Southern Puget Sound Salish,United States,210.0,47.261,-122.1374,7,F,0,0,1,0,0,In_Trouble
-Salinan,United States,,35.9717,-121.1757,9,F,0,0,0,1,0,Dying
+Salinan,United States,5.0,35.9717,-121.1757,9,F,0,0,0,1,0,Dying
 Snohomish,United States,10.0,47.9281,-122.1345,8b,F,0,0,0,1,0,Dying
 Spokane,United States,2.0,47.9302,-118.0291,8b,F,0,0,0,1,0,Dying
 Lower Tanana,United States,15.0,64.8834,-149.4514,8a,F,0,0,0,1,0,Dying
@@ -153,42 +153,42 @@ Upper Tanana,United States,110.0,63.0138,-141.875,7,T,0,0,1,0,0,In_Trouble
 Tanacross,United States,60.0,63.4082,-143.3484,8a,T,0,0,0,1,0,Dying
 Tewa,United States,1500.0,35.8944,-106.0878,6b,T,0,0,1,0,0,In_Trouble
 Tanaina,United States,75.0,60.3787,-150.9019,8a,F,0,0,0,1,0,Dying
-Tillamook,United States,0.0,45.3449,-123.5309,x10,F,0,0,0,0,1,Extinct
+Tillamook,United States,3.0,45.3449,-123.5309,x10,F,0,0,0,0,1,Extinct
 Southern Tiwa,United States,1600.0,34.8656,-106.6497,6b,T,0,0,1,0,0,In_Trouble
 Tlingit,United States,502.0,59.3966,-136.0763,8a,T,0,0,0,1,0,Dying
 Tolowa,United States,2.0,41.9193,-124.1029,8b,F,0,0,0,1,0,Dying
 Jemez,United States,1790.0,35.6001,-106.7695,6b,T,0,0,1,0,0,In_Trouble
 Tenino,United States,50.0,44.8344,-121.4635,7,F,0,0,1,0,0,In_Trouble
-Tonkawa,United States,,35.0183,-97.8902,9,F,0,0,0,1,0,Dying
+Tonkawa,United States,5.0,35.0183,-97.8902,9,F,0,0,0,1,0,Dying
 Tübatulabal,United States,5.0,35.6097,-118.4692,8b,F,0,0,0,1,0,Dying
-Tunica,United States,,31.1262,-92.0673,9,F,0,0,0,1,0,Dying
-Tututni,United States,0.0,42.5756,-124.0688,x10,F,0,0,0,0,1,Extinct
-Twana,United States,,47.3344,-123.1607,9,F,0,0,0,1,0,Dying
+Tunica,United States,5.0,31.1262,-92.0673,9,F,0,0,0,1,0,Dying
+Tututni,United States,3.0,42.5756,-124.0688,x10,F,0,0,0,0,1,Extinct
+Twana,United States,5.0,47.3344,-123.1607,9,F,0,0,0,1,0,Dying
 Northern Tiwa,United States,1070.0,36.4251,-105.6105,7,T,0,0,1,0,0,In_Trouble
 Umatilla,United States,25.0,45.6391,-118.5517,8a,F,0,0,0,1,0,Dying
-Unami,United States,,39.13,-76.0253,9,F,0,0,0,1,0,Dying
+Unami,United States,5.0,39.13,-76.0253,9,F,0,0,0,1,0,Dying
 Ute-Southern Paiute,United States,920.0,40.0965,-110.3055,6b,T,0,0,1,0,0,In_Trouble
-Ventureño,United States,,34.2809,-119.2979,9,F,0,0,0,1,0,Dying
-Valley Maidu,United States,0.0,38.8055,-120.7809,x10,F,0,0,0,0,1,Extinct
+Ventureño,United States,5.0,34.2809,-119.2979,9,F,0,0,0,1,0,Dying
+Valley Maidu,United States,3.0,38.8055,-120.7809,x10,F,0,0,0,0,1,Extinct
 Walla Walla,United States,25.0,45.7191,-118.4099,8a,F,0,0,0,1,0,Dying
 Wasco-Wishram,United States,58.0,45.0325,-121.5048,8b,F,0,0,0,1,0,Dying
-Wampanoag,United States,,41.9356,-70.6342,9,T,0,0,0,1,0,Dying
+Wampanoag,United States,5.0,41.9356,-70.6342,9,T,0,0,0,1,0,Dying
 Wappo,United States,3.0,38.25,-122.5,8b,F,0,0,0,1,0,Dying
 Washo,United States,10.0,38.8659,-119.5506,8b,T,0,0,0,1,0,Dying
 Wichita,United States,1.0,35.0687,-98.1815,8b,F,0,0,0,1,0,Dying
 Ho-Chunk,United States,250.0,42.2123,-96.6195,8a,T,0,0,0,1,0,Dying
-Wiyot,United States,,40.5984,-124.2519,9,T,0,0,0,1,0,Dying
-Wailaki,United States,0.0,40.188,-123.6477,x10,F,0,0,0,0,1,Extinct
-Wintu,United States,,40.8128,-123.0318,9,F,0,0,0,1,0,Dying
-Wyandot,United States,,36.7923,-94.7229,9,F,0,0,0,1,0,Dying
+Wiyot,United States,5.0,40.5984,-124.2519,9,T,0,0,0,1,0,Dying
+Wailaki,United States,3.0,40.188,-123.6477,x10,F,0,0,0,0,1,Extinct
+Wintu,United States,5.0,40.8128,-123.0318,9,F,0,0,0,1,0,Dying
+Wyandot,United States,5.0,36.7923,-94.7229,9,F,0,0,0,1,0,Dying
 Kawaiisu,United States,5.0,36.0511,-118.6723,8b,F,0,0,0,1,0,Dying
-Narragansett,United States,,41.4225,-71.6486,9,F,0,0,0,1,0,Dying
-Mohegan-Pequot,United States,,41.4468,-72.0319,9,F,0,0,0,1,0,Dying
+Narragansett,United States,5.0,41.4225,-71.6486,9,F,0,0,0,1,0,Dying
+Mohegan-Pequot,United States,5.0,41.4468,-72.0319,9,F,0,0,0,1,0,Dying
 Yakama,United States,25.0,46.2676,-120.771,8b,F,0,0,0,1,0,Dying
 Yokuts,United States,50.0,36.3223,-119.73,8a,F,0,0,0,1,0,Dying
 Yuchi,United States,16.0,35.9648,-95.037,8b,F,0,0,0,1,0,Dying
 Havasupai-Walapai-Yavapai,United States,1600.0,35.9155,-113.1297,6b,T,0,0,1,0,0,In_Trouble
-Yuki,United States,,37.4336,-118.5908,9,F,0,0,0,1,0,Dying
+Yuki,United States,5.0,37.4336,-118.5908,9,F,0,0,0,1,0,Dying
 Quechan,United States,150.0,32.79,-114.6182,7,F,0,0,1,0,0,In_Trouble
 Yurok,United States,12.0,41.3383,-123.8275,8b,T,0,0,0,1,0,Dying
 Zuni,United States,9650.0,35.0263,-108.7735,6b,T,0,0,1,0,0,In_Trouble

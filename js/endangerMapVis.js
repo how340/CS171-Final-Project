@@ -1,4 +1,4 @@
-
+let toolTipUpdateInterval;
 class EndangerMapVis {
 
     constructor(parentElement, geoData, languageData) {
@@ -19,7 +19,8 @@ class EndangerMapVis {
 
         //define viewpoint and zoom
         vis.viewpoint = {'width': 975, 'height': 800};
-        vis.zoom = vis.width / vis.viewpoint.width;
+        //vis.zoom = vis.width / vis.viewpoint.width;
+        vis.zoom = vis.height /600;
 
 
         // init drawing area
@@ -36,8 +37,11 @@ class EndangerMapVis {
         //create projection
         //vis.projection = d3.geoAlbersUsa();
         vis.projection = d3.geoAlbersUsa()
-            .scale(vis.zoom * 1000) // Adjust the scale factor
-            .translate([vis.viewpoint.width / 2, vis.viewpoint.height / 2]);
+            //.scale(vis.viewpoint.width)
+            .scale(1200)
+            .translate([vis.viewpoint.width /2 , vis.viewpoint.height / 2.55]);
+            // .scale(vis.zoom * 1000) // Adjust the scale factor
+            // .translate([vis.viewpoint.width / 2, vis.viewpoint.height / 2]);
 
         // define geogenerator and pass your projection to it
         vis.path = d3.geoPath();
@@ -65,6 +69,43 @@ class EndangerMapVis {
             .enter().append('path')
             .attr('vector-effect', 'non-scaling-stroke')
             .attr('d', vis.path);
+
+
+
+
+        //Legend Data
+        vis.legendData = [
+            { status: "Dying", color: "red" },
+            { status: "In_Trouble", color: "orange" },
+            { status: "Developing", color: "blue" },
+            { status: "Extinct", color: "black" }
+        ];
+
+        vis.legend = vis.svg.selectAll(".legend")
+            .data(vis.legendData)
+            .enter()
+            .append("g")
+            .attr("class", "legend")
+            .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+
+        vis.legend.append("circle")
+            .attr("cx", vis.width - 18) // Position legend on the right side
+            .attr("cy", 10) // Center vertically in the `g` element
+            .attr("r", 6) // Radius of legend circles
+            .style("fill", d => d.color);
+
+        vis.legend.append("text")
+            .attr("x", vis.width - 24) // Position text to the left of the circles
+            .attr("y", 10) // Center vertically with the circles
+            .attr("dy", ".35em") // Vertically align the text with the circle
+            .style("text-anchor", "end") // Align text to the right of the `x` position
+            .text(d => d.status);
+
+        // tooltip
+        vis.tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .attr("id", "mapTooltip")
+            .style("opacity", 0);
 
 
         this.wrangleData();
@@ -109,23 +150,6 @@ class EndangerMapVis {
             }
         }
 
-
-        // Draw bubbles
-        // vis.svg.selectAll(".language-bubble")
-        //     .data(vis.filteredLanguageData)
-        //     .enter()
-        //     .append("circle")
-        //     .attr("class", "language-bubble")
-        //     .attr("cx", d => vis.projection([d.Longitude, d.Latitude])[0])
-        //     .attr("cy", d => vis.projection([d.Longitude, d.Latitude])[1])
-        //     //.attr("r", d => Math.sqrt(d.Num_Speakers) / 6) // Adjust radius
-        //     .attr("r", d => Math.log(d.Num_Speakers + 1))
-        //     .style("fill", "red") // Changed to red for visibility
-        //     .style("opacity", 0.75)
-        //     .attr("stroke", "black") // Added stroke for visibility
-        //     .attr("stroke-width", 1);
-
-
         vis.circles = vis.svg.selectAll(".language-bubble")
             .data(vis.filteredLanguageData)
             .enter()
@@ -146,23 +170,119 @@ class EndangerMapVis {
             .attr("stroke-width", 1)
             .attr("display", d => vis.projection([d.Longitude, d.Latitude]) ? null : "none");
 
+
+        vis.circles.on("mouseover", function(event, d) {
+            vis.tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+
+            vis.tooltip.html(d.language + "<br/>Speakers: " + numberWithCommas(d.Num_Speakers))
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 28) + "px");
+
+            // Start interval to update the tooltip content
+            const initialRadius = Math.log(d.Num_Speakers + 1) * 1.3;
+            const initialSpeakers = d.Num_Speakers;
+            const interval = 50; // Interval in milliseconds to update the tooltip
+
+            toolTipUpdateInterval = setInterval(() => {
+                const currentRadius = parseFloat(d3.select(this).attr('r'));
+                if (currentRadius <= 0) {
+                    clearInterval(tooltipUpdateInterval); // Clear interval when radius reaches 0
+                } else {
+                    const elapsedTime = (initialRadius - currentRadius) / initialRadius;
+                    const currentSpeakers = Math.round(initialSpeakers * (1 - elapsedTime));
+                    vis.tooltip.html(d.language + "<br/>Speakers: " + numberWithCommas(currentSpeakers));
+                }
+            }, interval);
+
+        })
+            .on("mouseout", function(d) {
+                vis.tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+
+                clearInterval(toolTipUpdateInterval);
+            });
+
         // Transition to make the circles appear
         vis.circles.transition()
-            .duration(1000)
-            .attr("r", d => Math.log(d.Num_Speakers + 1) * 1.3)
+            .duration(1500)
+            .attr("r", d => Math.log(d.Num_Speakers + 1) * 1.5)
             .style("opacity", 0.75);
 
         // Sort the data by Num_Speakers so that you can make them disappear in that order
         // vis.filteredLanguageData.sort((a, b) => a.Num_Speakers - b.Num_Speakers);
 
-        // Transition to make circles disappear in order of size
+        let durationScale = d3.scaleLinear()
+            .domain([d3.min(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1)),
+                d3.max(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1))])
+            .range([10000, 30000]); // Range from 2 seconds to 10 seconds for the transition
+
         vis.circles.transition()
-            //.delay((d, i) => i * (10000 / vis.languageData.length))  // Delay the disappearance by index order after sorting
-            .delay(2000) // Wait for the appearance transition to finish
-            .duration(d => 30000 - (d.Num_Speakers * 10))
+            .delay(1500) // Start after the initial appearance transition
+            .duration(25000) // Shorter duration for color transition
+            .style("fill", d => {
+                if (d.Language_Status === 'Developing' && d.language != 'American Sign Language') {
+                    return "orange"; // Change Developing (blue) to orange
+                } else if (d.Language_Status === 'In_Trouble') {
+                    return "red"; // Change In_Trouble (orange) to red
+                } else {
+                    return getColor(d.Language_Status); // Other statuses remain the same
+                }
+            });
+
+        vis.circles
+            .filter(d => d.Language_Status !== 'Developing') // Filter out 'Developing' circles
+            .transition()
+            .delay(1500) // Delay after they have appeared
+            .duration(d => durationScale(Math.log(d.Num_Speakers + 1))) // Duration based on bubble size
             .attr('r', 0) // Shrink the radius back to 0
-            .style('opacity', 0)
-            .remove(); // Remove the circle from the DOM after the transition
+            .style('opacity', 0.3)
+            .style("fill", d => {
+                if (d.Language_Status === 'Developing' && d.language != 'American Sign Language') {
+                    return "orange"; // Change Developing (blue) to orange
+                } else if (d.Language_Status === 'In_Trouble') {
+                    return "red"; // Change In_Trouble (orange) to red
+                } else {
+                    return getColor(d.Language_Status); // Other statuses remain the same
+                }
+            })
+            .remove();
+
+        // vis.circles.on("mouseover", function(event, d) {
+        //     vis.tooltip.transition()
+        //         .duration(200)
+        //         .style("opacity", .9);
+        //
+        //     // Show initial number of speakers
+        //     vis.tooltip.html(d.language + "<br/>Speakers: " + d.Num_Speakers)
+        //         .style("left", (event.pageX) + "px")
+        //         .style("top", (event.pageY - 28) + "px");
+        //
+        //     // Start interval to update the tooltip content
+        //     const initialRadius = Math.log(d.Num_Speakers + 1) * 1.3;
+        //     const initialSpeakers = d.Num_Speakers;
+        //     const interval = 50; // Interval in milliseconds to update the tooltip
+        //
+        //     let intervalId = setInterval(() => {
+        //         const currentRadius = parseFloat(d3.select(this).attr('r'));
+        //         if (currentRadius <= 0) {
+        //             clearInterval(intervalId); // Clear interval when radius reaches 0
+        //         } else {
+        //             const elapsedTime = (initialRadius - currentRadius) / initialRadius;
+        //             const currentSpeakers = Math.round(initialSpeakers * (1 - elapsedTime));
+        //             vis.tooltip.html(d.language + "<br/>Speakers: " + currentSpeakers);
+        //         }
+        //     }, interval);
+        // })
+        //     .on("mouseout", function(d) {
+        //         vis.tooltip.transition()
+        //             .duration(500)
+        //             .style("opacity", 0);
+        //         clearInterval(intervalId); // Clear interval on mouseout
+        //     });
+
 
         //console.log("you're at the end");
 
