@@ -315,11 +315,11 @@ class RadarChart {
                 let inputText;
 
                 if (d.type === "LLM") {
-                    inputText = d.axis + " BLEU Score: " + format(d.value)
+                    inputText = " Average LLM BLEU Score: " + format(d.value)
                 } else if (d.type === "ChatGPT") {
-                    inputText = d.axis + " BLEU Score: " + format(d.value)
+                    inputText = " ChatGPT BLEU Score: " + format(d.value)
                 } else if (d.type === "Internet") {
-                    inputText = d.axis + " Internet Makeup %: " + format(d.value)
+                    inputText = " Internet Makeup %: " + format(d.value)
                 }
 
                 tooltip
