@@ -214,3 +214,13 @@ slider banner navigation dots
     display: inline-block;
     width: 70px;
 }
+
+
+/***************************************************************
+*******    Internet Language Content Styling    ****************
+***************************************************************/
+
+#interntLang-select {
+    margin:auto;
+    width: 25%;
+}

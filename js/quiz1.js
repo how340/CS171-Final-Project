@@ -306,14 +306,7 @@ class Quiz1 {
         `;
         }
         
-
         document.getElementById('quiz-1-text').appendChild(newParagraph);
 
     }
-
-
-
-
-
-
 }
