@@ -131,46 +131,49 @@ class Quiz1 {
 
         // -------------------  Setting axes domains  ------------------
         // hard code these for now. 
-        vis.xScale.domain(['prediction', 'US'])
+        vis.xScale.domain(['Your Prediction Here!', 'US'])
         vis.yScale.domain([0, 700])
 
-        vis.xScale2.domain(['prediction', 'The Americas'])
+        vis.xScale2.domain(['Your Prediction Here!', 'The Americas'])
         vis.yScale2.domain([0, 2000])
 
-        vis.xScale3.domain(['prediction', 'Worldwide'])
+        vis.xScale3.domain(['Your Prediction Here!', 'Worldwide'])
         vis.yScale3.domain([0, 8500])
 
         // Update bar height after dragging events
-        vis.bar.attr('x', vis.xScale('prediction'))
-            .style('fill', 'lightyellow')
+        vis.bar.attr('x', vis.xScale('Your Prediction Here!'))
+            .style('fill', '#f49b11')
             .attr("stroke", "black")
             .attr('width', vis.xScale.bandwidth())
             .attr('height', vis.height - vis.updateHeight)
             .attr('y',  vis.updateHeight)
-        vis.bar_label1.attr('x', vis.xScale('prediction'))
-                       .attr('y', vis.updateHeight)
+        vis.bar_label1.attr('x', vis.xScale('Your Prediction Here!') + vis.xScale.bandwidth()/2)
+                       .attr('y', vis.updateHeight -5)
+                       .attr("text-anchor", 'middle')
                        .text(Math.round(vis.yScale.invert(vis.updateHeight)))
   
-        vis.bar2.attr('x', vis.xScale2('prediction'))
+        vis.bar2.attr('x', vis.xScale2('Your Prediction Here!'))
             .attr('y', 0)
-            .style('fill', 'lightyellow')
+            .style('fill', '#f49b11')
             .attr("stroke", "black")
             .attr('width', vis.xScale2.bandwidth())
             .attr('height', vis.height - vis.updateHeight2)
             .attr('y', vis.updateHeight2)
-        vis.bar_label2.attr('x', vis.xScale('prediction'))
-            .attr('y', vis.updateHeight2)
+        vis.bar_label2.attr('x', vis.xScale('Your Prediction Here!') + vis.xScale2.bandwidth()/2)
+            .attr('y', vis.updateHeight2 -5)
+            .attr("text-anchor", 'middle')
             .text(Math.round(vis.yScale2.invert(vis.updateHeight2)))
 
-        vis.bar3.attr('x', vis.xScale3('prediction'))
+        vis.bar3.attr('x', vis.xScale3('Your Prediction Here!'))
             .attr('y', 0)
-            .style('fill', 'lightyellow')
+            .style('fill', '#f49b11')
             .attr("stroke", "black")
             .attr('width', vis.xScale3.bandwidth())
             .attr('height', vis.height - vis.updateHeight3)
             .attr('y',  vis.updateHeight3)
-        vis.bar_label3.attr('x', vis.xScale('prediction'))
-            .attr('y', vis.updateHeight3)
+        vis.bar_label3.attr('x', vis.xScale('Your Prediction Here!') + vis.xScale3.bandwidth()/2)
+            .attr('y', vis.updateHeight3 - 5 )
+            .attr("text-anchor", 'middle')
             .text(Math.round(vis.yScale3.invert(vis.updateHeight3)))
 
         // call the axes and append to the svg to make sure axes are on top
@@ -194,24 +197,25 @@ class Quiz1 {
         .attr('y', vis.height)
         .attr('width', vis.xScale.bandwidth())
         .attr('height', 0)
-        .style('fill', 'orange')
+        .style('fill', '#de2129')
         .attr("stroke", "black")
         .transition().duration(vis.transition_speed)
         .attr('x', vis.xScale('US'))
         .attr('y', vis.yScale(vis.data[0].count))
-        .style('fill', 'orange')
+        .style('fill', '#de2129')
         .attr("stroke", "black")
         .attr('width', vis.xScale.bandwidth())
         .attr('height', vis.height - vis.yScale(vis.data[0].count))
 
         vis.svg.append('text')
         .attr('class', 'show-bar-label')
-        .attr("x", vis.xScale('US'))
+        .attr("x", vis.xScale('US') + vis.xScale3.bandwidth()/2)
         .attr('y', vis.height)
         .text(vis.data[0].count)
         .transition().duration(vis.transition_speed)
-        .attr("x", vis.xScale('US'))
-        .attr('y', vis.yScale(vis.data[0].count))
+        .attr("x", vis.xScale('US') + vis.xScale3.bandwidth()/2)
+        .attr('y', vis.yScale(vis.data[0].count) - 5)
+        .attr("text-anchor", 'middle')
         .text(vis.data[0].count)
 
         vis.svg2.append('rect')
@@ -219,24 +223,25 @@ class Quiz1 {
         .attr('y', vis.height)
         .attr('width', vis.xScale.bandwidth())
         .attr('height', 0)
-        .style('fill', 'orange')
+        .style('fill', '#de2129')
         .attr("stroke", "black")
         .transition().duration(vis.transition_speed)
         .attr('x', vis.xScale2('The Americas'))
         .attr('y', vis.yScale2(vis.data[1].count))
-        .style('fill', 'orange')
+        .style('fill', '#de2129')
         .attr("stroke", "black")
         .attr('width', vis.xScale.bandwidth())
         .attr('height', vis.height - vis.yScale2(vis.data[1].count))
 
         vis.svg2.append('text')
         .attr('class', 'show-bar-label')
-        .attr("x", vis.xScale2('The Americas'))
+        .attr("x", vis.xScale2('The Americas') + vis.xScale2.bandwidth()/2)
         .attr('y', vis.height)
         .text(vis.data[1].count)
         .transition().duration(vis.transition_speed)
-        .attr("x", vis.xScale2('The Americas'))
-        .attr('y', vis.yScale2(vis.data[1].count))
+        .attr("x", vis.xScale2('The Americas')  + vis.xScale2.bandwidth()/2)
+        .attr('y', vis.yScale2(vis.data[1].count) - 5)
+        .attr("text-anchor", 'middle')
         .text(vis.data[1].count)
 
         vis.svg3.append('rect')
@@ -244,24 +249,25 @@ class Quiz1 {
         .attr('y', vis.height)
         .attr('width', vis.xScale.bandwidth())
         .attr('height', 0)
-        .style('fill', 'orange')
+        .style('fill', '#de2129')
         .attr("stroke", "black")
         .transition().duration(vis.transition_speed)
         .attr('x', vis.xScale3('Worldwide'))
         .attr('y', vis.yScale3(vis.data[2].count))
-        .style('fill', 'orange')
+        .style('fill', '#de2129')
         .attr("stroke", "black")
         .attr('width', vis.xScale.bandwidth())
         .attr('height', vis.height - vis.yScale3(vis.data[2].count))
 
         vis.svg3.append('text')
         .attr('class', 'show-bar-label')
-        .attr("x", vis.xScale3('Worldwide'))
+        .attr("x", vis.xScale3('Worldwide') + vis.xScale3.bandwidth()/2)
         .attr('y', vis.height)
         .text(vis.data[2].count)
         .transition().duration(vis.transition_speed)
-        .attr("x", vis.xScale3('Worldwide'))
-        .attr('y', vis.yScale3(vis.data[2].count))
+        .attr("x", vis.xScale3('Worldwide') + vis.xScale3.bandwidth()/2)
+        .attr('y', vis.yScale3(vis.data[2].count) - 5 ) 
+        .attr("text-anchor", 'middle')
         .text(vis.data[2].count)
 
 
@@ -285,18 +291,17 @@ class Quiz1 {
 
         if(mean_diff < 0.10){
             newParagraph.textContent = `
-            Your answer is so close to the actual numbers, good job! You clearly have a very good understanding of the linguistic 
-            facts in the world!
+            Your answer is so close to the actual numbers, good job! You clearly have a very good understanding of the diverse linguistic that exists in this world!
         `;
         } else if (mean_diff < 0.20){
             newParagraph.textContent = `
             You are not that far off from the reality! It is often very hard to estimate the extent of linguistic diversity as most of
-            us only speak some of the most popular languages. 
+            us only speak some of the most popular languages. Speakers of rarer languages are hard to identity in our daily lives.
         `;
         } else {
             newParagraph.textContent = `
-            You are a bit off of the reality in linguistic diversity. You will for sure have a much better understanding on this topic 
-            after finishing this visualization project!
+            You are a bit off of the reality from the actual statistics in Linguistics. We hope that you get to learn a lot from this visualization project!
+            You will find out some fascinating facts about our world soon!
         `;
         }
         

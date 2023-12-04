@@ -4,12 +4,12 @@ class DonutVis{
         this.transition_speed = 1200
         
         this.data = [
-            {"status":"extinct", "count":360, 'color':'red', 'order':6}, 
-            {"status":'dying',"count":918, 'color':'red', 'order':5}, 
-            {"status":"institutional", "count":572, 'color':'green', 'order':1}, 
-            {"status":"in_trouble", "count":1495, 'color':'red', 'order':4}, 
-            {"status":"vigorous", "count":2468, 'color':'orange', 'order':3},
-            {"status":'developing',"count":1644, 'color':'green', 'order':2}
+            {"status":"extinct", "count":360, 'color':'#de2129', 'order':6, 'display':"Extinct"}, 
+            {"status":'dying',"count":918, 'color':'#de2129', 'order':5, 'display':"Dying"}, 
+            {"status":"institutional", "count":572, 'color':'green', 'order':1, 'display':"Institutional"}, 
+            {"status":"in_trouble", "count":1495, 'color':'#de2129', 'order':4, 'display':"In Trouble"}, 
+            {"status":"vigorous", "count":2468, 'color':'#f49b11', 'order':3, 'display':"Vigorious"},
+            {"status":'developing',"count":1644, 'color':'green', 'order':2, 'display':"Developing"}
         ]
 
         this.initVis()
@@ -25,6 +25,7 @@ class DonutVis{
 
 
         vis.radius = 200
+        vis.inner_Radius = vis.radius*3/5
         // init drawing area
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
                     .attr("width", vis.width + vis.margin.left + vis.margin.right)
@@ -33,14 +34,17 @@ class DonutVis{
                     .attr("transform", "translate(" + vis.width/2 + "," + vis.height/2 + ")");
 
         vis.arc = d3.arc()
-                    .innerRadius(vis.radius*2/3)         // This is the size of the donut hole
+                    .innerRadius(vis.inner_Radius)         // This is the size of the donut hole
                     .outerRadius(vis.radius)
   
         vis.pie = d3.pie()
                     .value(d => d.count)
                     .sort(d => d.order);
 
-        console.log(vis.pie)
+        vis.angleInterpolation = d3.interpolate(vis.pie.startAngle()(), vis.pie.endAngle()());
+        vis.outerRadiusInterpolation = d3.interpolate(0, vis.radius);
+        vis.innerRadiusInterpolation = d3.interpolate(0, vis.inner_Radius);
+
         vis.color = d3.scaleOrdinal()
                     .domain(vis.data.map(d => d.status))
                     .range(d3.schemeBlues[6]);
@@ -83,7 +87,7 @@ class DonutVis{
                 return `translate(${centroid[0]}, ${centroid[1] })`;
             })
             .attr("text-anchor", "middle") 
-            .text(d => d.data.status) 
+            .text(d => d.data.display) 
             .style("fill", "black")
             .style("font-size", "12px");
 

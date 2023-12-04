@@ -38,7 +38,7 @@ body {
     width: 100%;
 
     /* The following setting allows for scroll snapping for each page container */
-    overflow-y: scroll;
+    overflow-y: auto;
     scroll-snap-type: y mandatory;
 }
 
@@ -81,7 +81,7 @@ h3 {
 .fp-right {
     position: fixed;
     right: 3%;
-    top: 45%;
+    top: 25%;
     width: 3vw; /* Adjust width as needed */
     height: 100%;
     margin: auto;
@@ -91,8 +91,8 @@ h3 {
 
 .vertical-dot {
     cursor: pointer;
-    height: 12px;
-    width: 12px;
+    height: 5px;
+    width: 5px;
     margin: 10px ;
     background-color: #bbb;
     border-radius: 50%;
@@ -104,91 +104,35 @@ h3 {
     background-color: #717171;
 }
 
-/***************************************************************
-******************  Slider banner quiz stylings ****************
-***************************************************************/
-/*
- Making the slider banner
-*/
-.slider {
-    position: relative;
-    width: 80%; /* This will need to change, there is some margin somewhere */
-    height: auto; /* Adjust as necessary */
-}
-
-.card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* Adjust to fit your images */
-    height: auto; /* Adjust to fit your images */
-    transition: opacity 0.8s ease-in-out;
-}
-
-
-/*
- Put the first slider on the top
-*/
-
-#slider-vis1 {
-    z-index: 4;
-}
-
-/*
-slider banner navigation arrows
-*/
-
-
-#left-arrow, #right-arrow {
-    font-size: 20px; /* Adjust the size of the arrow */
-    color: black;
-    background-color: white;
-    border: none;
-    cursor: pointer;
-    padding: 10px 20px; /* Adjust padding to change the shape */
-
-}
-
-
-
-/*
-slider banner navigation dots
-*/
-
-.navigation-button {
-    text-align: center;
-    position: relative;
-}
-
-.dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.active,
-.dot:hover {
-    background-color: #717171;
-}
 
 /***************************************************************
 ***************      Quiz 1 Styling    ****************
 ***************************************************************/
+#quiz1-graph-row{
+    height: 55vh;
+    width: auto; 
 
-#quiz-1{
-    height: 70%;
-    width: 100%;
 }
 
+
 #quiz-1-button{
-    margin:auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
     width: 20%;
 }
 
+#quiz-1-text{
+    margin:auto;
+    margin-top: 2%;
+    width: 60%;
+    text-align: center;
+}
+
+.quiz1-graph {
+    height:100%;
+
+}
 /***************************************************************
 ***************US Multilingual Proportion Styling****************
 ***************************************************************/
@@ -223,11 +167,20 @@ slider banner navigation dots
 
 #interntLang-select {
     margin:auto;
-    width: 25%;
+    width: 30%;
+}
 
 #internetLangText div{
     margin:2%;
 }
+
+#internetLang{
+    height: 70vh;
+}
+
+
+
+
 .tooltip {
     position: absolute;
     text-align: center;
