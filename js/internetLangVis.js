@@ -172,7 +172,7 @@ class InternetLangVis {
             .attr("x2", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("y1", vis.height)
             .attr("y2", d=> vis.yScale2nd(d[category]))//make dynamic 
-            .attr("stroke", "#69b3a2")
+            .attr("stroke", "#409783")
             .attr("stroke-width", "10")
                 
         lines.exit().remove();
@@ -187,7 +187,7 @@ class InternetLangVis {
             .attr("cx", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("cy", vis.height)
             .attr("r", 0)
-            .style("fill", "#69b3a2")
+            .style("fill", "#409783")
             .attr("stroke", "black")
             .merge(pop)
             .transition().duration(vis.transition_speed)
@@ -195,7 +195,7 @@ class InternetLangVis {
             .attr("cx", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("cy", d=> vis.yScale2nd(d[category]))
             .attr("r", 10)
-            .style("fill", "#69b3a2")
+            .style("fill", "#409783")
             .attr("stroke", "black")
         
         pop.exit().remove();

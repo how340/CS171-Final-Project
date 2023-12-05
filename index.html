@@ -19,8 +19,7 @@
 	</head>
 
 	<body>
-		
-		<div class="container-fluid" id="'outer-container">
+		<div class="container-fluid" id="outer-container">
 			<div class="child">
 				<div class="display-block">
 					<div class="h-100 d-flex align-items-center justify-content-center">
@@ -64,27 +63,27 @@
 					</div>
 				</div>
 			</div>
-			<div class="child">
-				<!-- quizlet clone -->
+			<div class="child" id="quiz-panel">
 				<div class="container-fluid display-block justify-content-center"> <!-- styling here for debugging purposes-->
 
-					<div class="row" style="margin-top: 5%;">
-						<div style="text-align: center">How many languages do you think exists in
-							<strong>the US, the Americas (North and South America), and the entire world</strong> ?
-							Drag the bars to match your predictions and click submit to check the answers!
+					<div class="row" style="margin-top: 3%; margin-bottom: 3%">
+						<div style="text-align: center">
+							<h3> How many languages and dialect do you think exists in
+							<strong>the US, the Americas (North and South America), and the entire world</strong> ? </h3>
 						</div>
 					</div>
-					<div class="row justify-content-center" style="height: 60%; margin-top: 5%;">
-						
-						<!-- Link to more icons: https://fontawesome.com/icons/categories/arrows -->
-						<!-- Not going to do sliding pages for the quizzes, instead, we are just gonna do a straightforward implementation scatter through the presentation.-->
-						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-1"></div></div>
-						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-2"></div></div>
-						<div class="col-md-3 justify-content-center" style="height: 100%;"><div id="quiz-3"></div></div>
+					<div style="text-align: center; height:10vh" > 
+						<h4> Drag the <strong>Orange "Your Predicition Here!"  </strong>bars to create your predictions!  </h4>
+						<h4> Click submit to check the answers! </h4>
+					</div>
+					
+					<div class="row justify-content-center" id="quiz1-graph-row">
+						<div class="col-md-3 justify-content-center" class="quiz1-graph" id="quiz-1"></div>
+						<div class="col-md-3 justify-content-center" class="quiz1-graph" id="quiz-2"></div>
+						<div class="col-md-3 justify-content-center" class="quiz1-graph" id="quiz-3"></div>
 					</div>
 					<div class="row justify-content-center">
-						<button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button>
-						<div class="col-auto" id="quiz-1-text"></div>
+						<div id="quiz-1-text"><button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button></div>
 					</div>
 				</div>
 			</div>
@@ -176,14 +175,15 @@
 			</div>
 			<div class="child">
 				<div class="container-fluid display-block">
-					<div class="row"></div>
-					<div class="row" style="height: 90vh; margin-top: 3%;">
-						<div class="col-4" style="font-size: smaller;">
+
+					<div class="row text-align-center" style="height: 90vh; margin-top: 5%; margin-left:15%; margin-right:15%">
+						
 							<p>There is a total of 7500 languages worldwide. However, many of these languages are 
-								on the verge of collapse and extinction. Languages are split into different categories based on their frequency of usage. 
+							on the verge of collapse and extinction. The wellbeing of a language can be rougly split into 
+							5 different categories based on they are utilized by their users. 
 							</p>
-							
-							<p>The wellbeing of a language can be understood as follows: </p>
+			
+						<div class="col-4" style="font-size: smaller;">
 							<table class="table">
 								<thead class="thead-dark">
 									<tr>
@@ -221,7 +221,7 @@
 							</table>
 
 						</div>
-						<div class="col-8" id="donut"> Hover on the donut to see examples of these languages</div>
+						<div class="col-8" id="donut"></div>
 
 					</div>
 				</div>
@@ -236,34 +236,36 @@
 			<div class="child">
 				<!-- Container for online language presence Visualization -->
 				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
-					<div class="row" id="interntLang-select" style="margin-top: 3%">
-						<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
-							<!-- <option value="Population" selected>Default</option> -->
-							<option value="contentPercent" selected>Percent of Internet Content</option>
-							<option value="internetUser">Population of Internet Users</option>
-							<option value="wikiViews">Daily View of Wikipedia</option>
-							<!-- Add more categories as needed -->
-						</select>
-					</div>
-					<div class="row" style="height:80vh; margin-top: 3%;" >
+					<div class="row" style="height:80vh; margin-top: 5%; margin-left:15%; margin-right:15%">
 
-						<div class="col-md-8" id="internetLang"></div>
-						<div class="col-md-4" id="internetLangText">
-							<div>The online world is vastly <strong>different</strong> from the real world. The content on the internet
-								is mostly <strong>biased toward english speaking audiences</strong>. The amount of content online in a certain language
-								 s not directly proportional with the size of the population that speaks the language.
-							</div> 
-							<div>Non-institutional languages receives virtually no representation on the internet!</div>
-							<div>
-								The content available on the internet based on the study conducted by <a href ="https://w3techs.com/technologies/overview/content_language">W3techs</a>. 
-							</div>
-							<div>
+						<div>
+							<span> online world is vastly <strong>different</strong> from the real world. The content on the internet
+							is mostly <strong>biased toward english speaking audiences</strong>. The amount of content online in a certain language
+							 s not directly proportional with the size of the population that speaks the language.
+							</span>
+							<span>Non-institutional languages receives virtually no representation on the internet!</span>
+				
+							<span>The content available on the internet based on the study conducted by <a href ="https://w3techs.com/technologies/overview/content_language">W3techs</a>.</span> 
+							<span>
 								<strong style="font-size: small;">
-								* the percent of content by language is explained <a href = "https://w3techs.com/technologies">here</a>. 
-								This metric essentially the represent the percentage of popular websites that is based in a specifc language.
-								</strong>
-							</div>
+									* the percent of content by language is explained <a href = "https://w3techs.com/technologies">here</a>. 
+									This metric essentially the represent the percentage of popular websites that is based in a specifc language.
+									</strong>
+							</span>
+							
 						</div>
+
+						<div class="row" id="interntLang-select" style="margin-top: 3%">
+							<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
+								<!-- <option value="Population" selected>Default</option> -->
+								<option value="contentPercent" selected>Percent of Internet Content</option>
+								<option value="internetUser">Population of Internet Users</option>
+								<option value="wikiViews">Daily View of Wikipedia</option>
+								<!-- Add more categories as needed -->
+							</select>
+						</div>
+
+						<div id="internetLang"></div>
 					</div>
 				</div>
 			</div>
@@ -366,6 +368,22 @@
 					<li class='vertical-dot' href=""></li>
 					<li class='vertical-dot' href=""></li>
 					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+					<li class='vertical-dot' href=""></li>
+
 				</ul>
 			</div>
 
@@ -407,7 +425,6 @@
 	<script src="js/radarChart.js"></script>
 	<script src="js/scatterPlot.js"></script>
 
-	<script src="js/horizontal-panel.js"></script>
 
 	<script src="js/vertical-scroll.js"></script>
 	</body>
