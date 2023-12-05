@@ -10,8 +10,16 @@ class InternetLangVis {
     initVis(){
         let vis = this;
 
+        //dictionary for displaying info nicely
+        vis.dict = [
+            {'contentPercent':'Content Percent'},
+            {'internetUser':'Internet User Count'},
+            {'Population': 'Population'},
+            {'wikiViews': 'Daily Wikipedia Views'}
+        ]
+
         // use the dynamic margin convention 
-        vis.margin = {top: 20, right: 100, bottom: 100, left: 100};
+        vis.margin = {top: 40, right: 100, bottom: 100, left: 100};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -49,23 +57,24 @@ class InternetLangVis {
             .attr("class", "axis y-axis-2nd")
             .call(vis.yAxis2nd);
 
-
+        // left y-axis title
         vis.dynamicY = vis.svg.append("text")
-                            .attr("y", -20)
+                            .attr("y", -30)
                             .attr("x", -40)
                             .attr("dy", "1em")
                             .style("text-anchor", "middle")
 
+        // right y-axis title
         vis.svg.append("text")
                 // .attr("transform", `translate(${vis.width}, ${vis.margin.top})`)
                 .attr("x", vis.width + 40)
-                .attr("y", -20)
+                .attr("y", -30)
                 .attr("dy", "1em")
                 .style("text-anchor", "middle")
-                .text("population")
+                .text("Population size")
 
         //legend
-        let rightOffset = 150
+        let rightOffset = 275
         let topOffset = 20
         vis.svg.append('rect')
             .attr('x', vis.width - rightOffset)
@@ -94,25 +103,24 @@ class InternetLangVis {
 
     wrangleData(){
         let vis = this
-
+    
         //convert data format to numerical.
         let sortData = vis.data.map((item) => {
             return {
                 Language: item.Language,
-                contentPercent: +item.contentPercent,
-                internetUser: +item.internetUser,
-                Population: +item.Population,
-                wikiViews: +item.wikiViews
+                contentPercent: +item['Content Percent'],
+                internetUser: +item['Internet User Count'],
+                Population: +item['Population'],
+                wikiViews: +item['Daily Wikipedia Views']
             };
         });
 
-        // might want to a choice for people to filter by different categories. 
-        // right now, it is sorted by the selected categories. 
+        // get selected category to display
         let category =  document.getElementById('internetLangVisCategory').value
         
         sortData.sort((a, b) => b[category] - a[category])
         vis.displayData = sortData
-
+        console.log(vis.displayData)
         vis.updateVis()
 
     }
@@ -122,8 +130,9 @@ class InternetLangVis {
         let category =  document.getElementById('internetLangVisCategory').value
         
         //legend
-        vis.legend1.text("population")
+        vis.legend1.text("Language Speaking Population")
         vis.legend2.text(category)
+
         // update domain values
         vis.xScale.domain(vis.displayData.map(d=>d.Language))
         vis.yScale.domain([0, d3.max(vis.displayData, d=>d.Population)])
@@ -200,6 +209,7 @@ class InternetLangVis {
         
         pop.exit().remove();
 
+ 
         vis.dynamicY.text(`${category}`)
 
         // call the axes and append to the svg to make sure axes are on top

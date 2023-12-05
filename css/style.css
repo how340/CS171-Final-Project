@@ -3,7 +3,6 @@ h1 {
     text-align: center;
 }
 
-
 body {
     font-family: 'Lato', sans-serif;
     justify-content: center; /* Center content horizontally */
@@ -11,53 +10,18 @@ body {
     background-color: oldlace;
 }
 
-/***************************************************************
-*********************  page format set up  *********************
-***************************************************************/
-.display-block{
-    height: 100vh; /* this is tentative value */
-    width: 100%;
-
+section {
+    background-size: cover; 
+    background-position: center center;
 }
-
-#outer-container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-
 
 /***************************************************************
-******************    Verical navigation bar    ****************
+***************     Pagination set up           ****************
 ***************************************************************/
-
-.fp-right {
-    position: fixed;
-    right: 3%;
-    top: 25%;
-    width: 3vw; /* Adjust width as needed */
-    height: 100%;
-    margin: auto;
-    margin-right: 2%;
-    z-index: 200; /* Make this element to always appear top */
-} 
-
-.vertical-dot {
-    cursor: pointer;
-    height: 5px;
-    width: 5px;
-    margin: 10px ;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: block;
+/* This changes navigation bar text color to black */
+#fp-nav ul li .fp-tooltip.fp-right {
+    color: black;
 }
-
-.active,
-.vertical-dot:hover {
-    background-color: #717171;
-}
-
 
 /***************************************************************
 ***************      Quiz 1 Styling    ****************
@@ -68,7 +32,6 @@ body {
 
 }
 
-
 #quiz-1-button{
     margin-left: auto;
     margin-right: auto;
@@ -78,9 +41,10 @@ body {
 
 #quiz-1-text{
     margin:auto;
-    margin-top: 2%;
-    width: 60%;
+    margin-top: 1%;
+    width: 70%;
     text-align: center;
+    font-size:larger;
 }
 
 .quiz1-graph {
@@ -113,6 +77,12 @@ body {
     width: 70px;
 }
 
+/***************************************************************
+***************      Donut Vis styling          ****************
+***************************************************************/
+.donut-label {
+    font-weight: bolder;
+}
 
 
 /***************************************************************
@@ -129,10 +99,9 @@ body {
 }
 
 #internetLang{
-    height: 70vh;
+    height: 60vh;
+    margin-top: 2%;
 }
-
-
 
 
 .tooltip {
