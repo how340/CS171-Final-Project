@@ -6,10 +6,10 @@ class DonutVis{
         this.data = [
             {"status":"extinct", "count":360, 'color':'#de2129', 'order':6, 'display':"Extinct"}, 
             {"status":'dying',"count":918, 'color':'#de2129', 'order':5, 'display':"Dying"}, 
-            {"status":"institutional", "count":572, 'color':'green', 'order':1, 'display':"Institutional"}, 
+            {"status":"institutional", "count":572, 'color':'#4E6D5E', 'order':1, 'display':"Institutional"}, 
             {"status":"in_trouble", "count":1495, 'color':'#de2129', 'order':4, 'display':"In Trouble"}, 
             {"status":"vigorous", "count":2468, 'color':'#f49b11', 'order':3, 'display':"Vigorious"},
-            {"status":'developing',"count":1644, 'color':'green', 'order':2, 'display':"Developing"}
+            {"status":'developing',"count":1644, 'color':'#4E6D5E', 'order':2, 'display':"Developing"}
         ]
 
         this.initVis()
@@ -24,7 +24,7 @@ class DonutVis{
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
 
-        vis.radius = 200
+        vis.radius = 300
         vis.inner_Radius = vis.radius*3/5
         // init drawing area
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
@@ -86,6 +86,7 @@ class DonutVis{
                 let centroid = vis.arc.centroid(d);
                 return `translate(${centroid[0]}, ${centroid[1] })`;
             })
+            .attr('class', 'donut-label')
             .attr("text-anchor", "middle") 
             .text(d => d.data.display) 
             .style("fill", "black")
@@ -106,7 +107,7 @@ class DonutVis{
                 .style("top", event.pageY + "px")
                 .html(`
                     <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                        <div>Languages in this category: ${d.value}</div>
+                        <div>Number languages in this category: ${d.value}</div>
                         <div>Percent of global languages: ${Math.round(d.value/total *100)}%</div>
                     </div>`);
 

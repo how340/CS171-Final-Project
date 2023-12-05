@@ -3,10 +3,6 @@ h1 {
     text-align: center;
 }
 
-#reset-tree {
-
-}
-
 body {
     font-family: 'Lato', sans-serif;
     justify-content: center; /* Center content horizontally */
@@ -14,96 +10,18 @@ body {
     background-color: oldlace;
 }
 
-/***************************************************************
-*********************  page format set up  *********************
-***************************************************************/
-.display-block{
-    height: 100vh; /* this is tentative value */
-    width: 100%;
-
-}
-
-#outer-container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+section {
+    background-size: cover; 
+    background-position: center center;
 }
 
 /***************************************************************
-***************  Formatting for scroll snapping ****************
+***************     Pagination set up           ****************
 ***************************************************************/
-
-.container-fluid {
-    height: 100vh;
-    width: 100%;
-
-    /* The following setting allows for scroll snapping for each page container */
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
+/* This changes navigation bar text color to black */
+#fp-nav ul li .fp-tooltip.fp-right {
+    color: black;
 }
-
-.child {
-    /* The following setting allows for scroll snapping for each page container */
-    scroll-snap-align: start;
-    height: auto;
-    width: 100%;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-body::-webkit-scrollbar {
-    display: none;
-  }
-  
-.container-fluid::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-body {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    font-family: Helvetica, sans-serif;
-}
-
-.container-fluid{
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-h3 {
-    text-align: center;
-}
-
-/***************************************************************
-******************    Verical navigation bar    ****************
-***************************************************************/
-
-.fp-right {
-    position: fixed;
-    right: 3%;
-    top: 25%;
-    width: 3vw; /* Adjust width as needed */
-    height: 100%;
-    margin: auto;
-    margin-right: 2%;
-    z-index: 200; /* Make this element to always appear top */
-} 
-
-.vertical-dot {
-    cursor: pointer;
-    height: 5px;
-    width: 5px;
-    margin: 10px ;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: block;
-}
-
-.active,
-.vertical-dot:hover {
-    background-color: #717171;
-}
-
 
 /***************************************************************
 ***************      Quiz 1 Styling    ****************
@@ -114,7 +32,6 @@ h3 {
 
 }
 
-
 #quiz-1-button{
     margin-left: auto;
     margin-right: auto;
@@ -124,9 +41,10 @@ h3 {
 
 #quiz-1-text{
     margin:auto;
-    margin-top: 2%;
-    width: 60%;
+    margin-top: 1%;
+    width: 70%;
     text-align: center;
+    font-size:larger;
 }
 
 .quiz1-graph {
@@ -159,6 +77,12 @@ h3 {
     width: 70px;
 }
 
+/***************************************************************
+***************      Donut Vis styling          ****************
+***************************************************************/
+.donut-label {
+    font-weight: bolder;
+}
 
 
 /***************************************************************
@@ -175,10 +99,9 @@ h3 {
 }
 
 #internetLang{
-    height: 70vh;
+    height: 60vh;
+    margin-top: 2%;
 }
-
-
 
 
 .tooltip {
