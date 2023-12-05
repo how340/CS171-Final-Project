@@ -1,27 +1,27 @@
 <!doctype html>
 <html>
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="charset=utf-8" />
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Linguistic Diversity</title>
 
 		<!-- Load CSS libraries -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+		<link href="node_modules/fullpage.js/fullpage.css" /> 
 		<link rel="stylesheet" href="css/style.css">
 
 		<!-- GOOGLE FONTS -->
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,400italic,300italic' rel='stylesheet' type='text/css'>
 
-		<!-- Font awesome icons-->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		
 
 	</head>
 
 	<body>
-		<div class="container-fluid" id="outer-container">
-			<div class="child">
-				<div class="display-block">
+		<div id="fullpage">
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 						<div class="main-title">
 							<h1>The <strong>Death of Linguistic Diversity</strong> in the Modern Age</h1>
@@ -29,42 +29,44 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<div class="child">
-				<div class="display-block">
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<div class="row" id="intro-diverse" style="height:60vh;width:100vw">
-						</div>
+						<div class="row" id="intro-diverse" style="height:60vh;width:100vw"></div>
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<div class="child">
+			<section class="section">
 				<!-- Container for Translation Performance & internet composition -->
 				<!-- TODO: Trigger animation when you scroll to this part -->
-				<div class="display-block"> <!-- styling here for debugging purposes-->
+				<div class="container">
 					<div class="row" style="padding-top:1vh">
 						<h3>Explore the <strong>Evolution of Modern Languages</strong> <button class="btn btn-md btn-outline-dark " id="reset-tree" type="button" onclick="myTreeGlobeVis.resetTree()">Reset Language Tree</button></h3>
 						<p style="text-align: center"><em>Click on a node (language group) to explore how, and where, it <strong>evolved.</strong> Language group positions are mean lon/lat of child languages.</em></p>
 
 					</div>
-					<div class="row" style="height:40vh">
-						<div class = "col"  style="height: 100vh;">
-							<div class="row" id="treeGlobeDiv"  style="height: 100vh"></div>
+					<div class="row">
+						<div class = "col">
+							<div class="row" id="treeGlobeDiv" ></div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="child">
-				<div class="display-block">
+			</section>
+
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 							<h3>Let's see what <strong>you</strong> know about linguistic diversity!</h3>
 					</div>
 				</div>
-			</div>
-			<div class="child" id="quiz-panel">
-				<div class="container-fluid display-block justify-content-center"> <!-- styling here for debugging purposes-->
+			</section>
+
+
+			<section class="section" id="quiz-panel">
+				<div class="container"> 
 
 					<div class="row" style="margin-top: 3%; margin-bottom: 3%">
 						<div style="text-align: center">
@@ -86,26 +88,26 @@
 						<div id="quiz-1-text"><button id='quiz-1-button' type="button" onclick="quiz1.showResults()">Submit results</button></div>
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<div class="child">
-				<div class="display-block">
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 						<h3>A granular look at linguistic diversity in the <strong>United States</strong></h3>
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<div class="child">
+			<section class="section">
 				<!-- Container for Monolingual proportion -->
 				<div id="population-transition" style="align-content: center;">
 				</div>
-			</div>
+			</section>
 
-			<div class="child">
+			<section class="section">
 				<!-- US MAP -->
 				<h3>Most Spoken Languages in US (Besides English)</h3>
-				<div class="container-fluid display-block mx-auto">
+				<div class="container">
 					<!-- Slider Row with Padding Bottom -->
 					<div class="row justify-content-center pb-3">
 						<div class="col-md-7">
@@ -144,37 +146,39 @@
 <!--						</div>-->
 					</div>
 				</div>
-			</div>
-			<div class="child">
-				<div class="display-block">
+			</section>
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 						<h3>However, linguistic diversity in the United States has been in <strong>decline</strong>!</h3>
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<div class="child">
-				<h3>Native Languages in the US are dying at an alarming rate.</h3>
-				<span>Include a couple sentences about some alarming facts about these languages.</span>
-				<div class="row justify-content-center pb-3">
-					<!-- Map Div -->
-					<div class="col-md-7">
-						<div id="endangerMapDiv" style="width: 100%;">
-							<!-- Map content goes here -->
+			<section class="section">
+				<div class="container">
+					<h3>Native Languages in the US are dying at an alarming rate.</h3>
+					<span>Include a couple sentences about some alarming facts about these languages.</span>
+					<div class="row justify-content-center pb-3">
+						<!-- Map Div -->
+						<div class="col-md-7">
+							<div id="endangerMapDiv" style="width: 100%;">
+								<!-- Map content goes here -->
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<div class="child">
-				<div class="display-block">
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 						<h3>Diversity in the US is on a <em>downward</em> trend! How about <strong>world-wide</strong>?</h3>
 					</div>
 				</div>
-			</div>
-			<div class="child">
-				<div class="container-fluid display-block">
+			</section>
+			<section class="section">
+				<div class="container">
 
 					<div class="row text-align-center" style="height: 90vh; margin-top: 5%; margin-left:15%; margin-right:15%">
 						
@@ -225,18 +229,18 @@
 
 					</div>
 				</div>
-			</div>
-			<div class="child">
-				<div class="display-block">
+			</section>
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 						<h3>The <strong>Internet</strong> might play a factor in the increasing number of endangered languages!</h3>
 					</div>
 				</div>
-			</div>
-			<div class="child">
+			</section>
+			<section class="section">
 				<!-- Container for online language presence Visualization -->
-				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
-					<div class="row" style="height:80vh; margin-top: 5%; margin-left:15%; margin-right:15%">
+				<div class="container"> <!-- styling here for debugging purposes-->
+					<div class="row" style=" margin-top: 5%; margin-left:15%; margin-right:15%">
 
 						<div>
 							<span> online world is vastly <strong>different</strong> from the real world. The content on the internet
@@ -268,22 +272,23 @@
 						<div id="internetLang"></div>
 					</div>
 				</div>
-			</div>
-			<div class="child">
-				<div class="display-block">
+			</section>
+			
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 						<h3>The Internet also serves as a basis for <strong>state-of-the-art</strong> information technologies.
 							The performance of these tools is significantly hindered for less popular languages. </h3>
 					</div>
 				</div>
-			</div>
-			<div class="child">
+			</section>
+			<section class="section">
 				<!-- Container for Translation Performance & internet composition -->
 				<!-- TODO: Trigger animation when you scroll to this part -->
-				<div class="container-fluid display-block"> <!-- styling here for debugging purposes-->
+				<div class="container"> <!-- styling here for debugging purposes-->
 					<h3>Multilingual Translation <strong>Worsens with Rare Language Families</strong></h3>
 					<p style="text-align: center"><em>Performance is measured using BLEU, a translation precision metric (higher is better). Blue is the internet makeup %, red is the average performance of 9 popular LLMs, and yellow is the performance of ChatGPT.<br> Hover points on the Radar Chart (left) to get granular details.</em></p>
-					<div class="row" style="height: 80vh">
+					<div class="row" >
 						<div class = "col">
 							<div id="radarDiv"  style="height: 100vh"></div>
 						</div>
@@ -295,17 +300,17 @@
 						<p style="text-align: center">This means, modern LLMs have a bias towards popular languages (like the Indo-European family). With these tools becoming more prevalent in the modern era, the downward trend in linguistic diversity is reinforced!</p>
 					</div>
 				</div>
-			</div>
-			<div class="child">
-				<div class="display-block">
+			</section>
+			<section class="section">
+				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
 						<h3>What can <strong>we</strong> do about it?</h3>
 					</div>
 				</div>
-			</div>
+			</section>
 			<!--	Ideas for Audience		-->
-			<div class="child">
-				<div class="container-fluid display-block align-items-center justify-content-center">
+			<section class="section">
+				<div class="container">
 	
 					<div class="row" style="height: 25vh; margin: 3%;">
 						
@@ -326,66 +331,38 @@
 							<strong>Learn more about linguistic diversity from a Harvard alum <a href="https://news.harvard.edu/gazette/story/2017/11/native-american-language-preservationist-discusses-his-work-on-heard-at-harvard/">here</a>!</strong>
 					</div>
 				</div>
-			</div>
+			</section>
 			<!--	Insert link to various foundations here		-->
-			<div class="child">
-				<div class="display-block">
-					<div class="container-fluid align-items-center justify-content-center">
-						<div class="row">
+			<section class="section">
 
-							<h3>Language Preservation Organizations</h3>
+				<div class="container-fluid align-items-center justify-content-center">
+					<div class="row">
 
+						<h3>Language Preservation Organizations</h3>
+
+					</div>
+
+					<div class="row" style="margin-top: 10%;">
+						<div class="col-4">
+							<div class="row"><img src = "img/ELP.svg" alt="ELG logo"/></div>
+							<div class="row"><a href="https://www.endangeredlanguages.com/">Endangered Languages Project</a></div>
+						</div>
+						<div class="col-4">
+							<div class="row"><img src = "img/LT-logo.webp" alt="livingtongues logo"/></div>
+							<div class="row"><a href="https://www.livingtongues.org/">Living Tongues Institute for Endangered Languages</a></div>
+							
+						</div>
+						<div class="col-4">
+							<div class="row"><img src = "img/unesco.png" alt="ELG logo"/></div>
+							<div class="row"><a href="https://en.wal.unesco.org/world-atlas-languages">UNESCO Atlas of the World's Languages in Danger</a></div>
+							
 						</div>
 
-						<div class="row" style="margin-top: 10%;">
-							<div class="col-4">
-								<div class="row"><img src = "img/ELP.svg" alt="ELG logo"/></div>
-								<div class="row"><a href="https://www.endangeredlanguages.com/">Endangered Languages Project</a></div>
-							</div>
-							<div class="col-4">
-								<div class="row"><img src = "img/LT-logo.webp" alt="livingtongues logo"/></div>
-								<div class="row"><a href="https://www.livingtongues.org/">Living Tongues Institute for Endangered Languages</a></div>
-								
-							</div>
-							<div class="col-4">
-								<div class="row"><img src = "img/unesco.png" alt="ELG logo"/></div>
-								<div class="row"><a href="https://en.wal.unesco.org/world-atlas-languages">UNESCO Atlas of the World's Languages in Danger</a></div>
-								
-							</div>
 
-
-						</div>
 					</div>
 				</div>
-			</div>
-			<!--	Credits/Acknoledgements/References here		-->
 
-			<!-- vertical navigation bar -->
-			<div id="fp-nav" class="fp-right">
-				<ul>	
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-					<li class='vertical-dot' href=""></li>
-
-				</ul>
-			</div>
+			</section>
 
 		</div>
 
@@ -427,5 +404,17 @@
 
 
 	<script src="js/vertical-scroll.js"></script>
+
+
+	<script src="node_modules/fullpage.js/dist/fullpage.js"></script>
+	<script>
+		var myFullpage = new fullpage('#fullpage', {
+			licenseKey: 'gplv3-license',
+			navigation: true,
+			
+	
+		});
+	</script>
+	
 	</body>
 </html>
