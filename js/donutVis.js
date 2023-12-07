@@ -19,12 +19,12 @@ class DonutVis{
         let vis = this
 
         // use the dynamic margin convention 
-        vis.margin = {top: 20, right: 20, bottom: 20, left: 20};
+        vis.margin = {top: 40, right: 20, bottom: 20, left: 20};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
 
-        vis.radius = 300
+        vis.radius = vis.height/2
         vis.inner_Radius = vis.radius*3/5
         // init drawing area
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
@@ -69,18 +69,26 @@ class DonutVis{
         let vis = this
 
         let total = d3.sum(vis.data, d=>d.count)
-        let arcs = vis.svg.append("g")
-            .selectAll("whatever")
+        let arcs = vis.svg
+            .selectAll(".arc")
             .data(vis.pie(vis.data))
-            .enter()
+            .enter().append("g")
+            .attr("class", "arc");
 
         arcs.append("path")
-            .attr('d', vis.arc)
+            //.attr('d', vis.arc)
             .attr("fill", d => {return d.data.color})
             .attr("stroke", "black")
-            .on("click", (event)=>console.log(event))
-  
-       
+            .transition().delay(function(d, i){return i * 600;}).duration(600)
+            .attrTween('d', function(d) {
+                var i = d3.interpolate(d.startAngle+0.1, d.endAngle);
+                return function(t) {
+                    d.endAngle = i(t);
+                    return vis.arc(d);
+                }
+            });
+
+        // append text label for each section of the donut chart. 
         arcs.append("text")
             .attr("transform", function(d) {
                 let centroid = vis.arc.centroid(d);
@@ -88,11 +96,12 @@ class DonutVis{
             })
             .attr('class', 'donut-label')
             .attr("text-anchor", "middle") 
+            .transition().delay(function(d, i){return i * 600;}).duration(600)
             .text(d => d.data.display) 
             .style("fill", "black")
             .style("font-size", "12px");
 
-            arcs.selectAll("path")
+        arcs.selectAll("path")
             .on("mouseover", function(event, d) {
                 // Actions to perform on mouseover (e.g., change color, display tooltip, etc.)
                 d3.select(this)

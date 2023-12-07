@@ -19,7 +19,7 @@ class InternetLangVis {
         ]
 
         // use the dynamic margin convention 
-        vis.margin = {top: 40, right: 100, bottom: 100, left: 140};
+        vis.margin = {top: 35, right: 100, bottom: 60, left: 140};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -78,25 +78,25 @@ class InternetLangVis {
         let topOffset = 20
         vis.svg.append('rect')
             .attr('x', vis.width - rightOffset)
-            .attr('y', topOffset)
+            .attr('y', topOffset + 25)
             .attr('width', 20)
             .attr('height', 20)
             .style('fill', 'lightgrey');
 
         vis.svg.append('rect')
             .attr('x', vis.width - rightOffset)
-            .attr('y', topOffset + 25)
+            .attr('y', topOffset )
             .attr('width', 20)
             .attr('height', 20)
-            .style('fill', '#69b3a2');
+            .style('fill', '#f49b11');
 
         vis.legend1 = vis.svg.append('text')
                 .attr('x', vis.width - rightOffset + 25)
-                .attr('y', topOffset + 14)
+                .attr('y', topOffset + 40)
         
         vis.legend2 = vis.svg.append('text')
                 .attr('x', vis.width - rightOffset + 25)
-                .attr('y', topOffset + 40)
+                .attr('y', topOffset + 14)
 
         vis.wrangleData() 
     }
@@ -173,7 +173,7 @@ class InternetLangVis {
             .attr("x2", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("y1", vis.height)
             .attr("y2", vis.height)
-            .attr("stroke", "#69b3a2")
+            .attr("stroke", "#f49b11")
             .attr("stroke-width", "0")
             .merge(lines) 
             .transition().duration(vis.transition_speed)
@@ -181,12 +181,12 @@ class InternetLangVis {
             .attr("x2", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("y1", vis.height)
             .attr("y2", d=> vis.yScale2nd(d[category]))//make dynamic 
-            .attr("stroke", "#409783")
-            .attr("stroke-width", "12")
+            .attr("stroke", "#f49b11")
+            .attr("stroke-width", "10")
                 
         lines.exit().remove();
 
-        // Circles
+        // Circles on the lollipop
         let pop = vis.svg.selectAll(".lolli-pop")
                         .data(vis.displayData, d=>d.Language)
 
@@ -196,21 +196,20 @@ class InternetLangVis {
             .attr("cx", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("cy", vis.height)
             .attr("r", 0)
-            .style("fill", "#409783")
-            .attr("stroke", "#409783")
+            .style("fill", "#f49b11")
+            .attr("stroke", "black")
             .merge(pop)
             .transition().duration(vis.transition_speed)
             .attr("class", "lolli-pop")
             .attr("cx", d => vis.xScale(d.Language) + vis.xScale.bandwidth()/2)
             .attr("cy", d=> vis.yScale2nd(d[category]))
-            .attr("r", 10)
-            .style("fill", "#409783")
-            .attr("stroke", "#409783")
+            .attr("r", 11)
+            .style("fill", "#f49b11")
+            .attr("stroke", "black")
         
         pop.exit().remove();
 
-        
-    
+        // append name for the dynamic y axis
         vis.dynamicY.text(vis.change_column_name(category))
 
         // call the axes and append to the svg to make sure axes are on top

@@ -5,6 +5,7 @@ h1 {
 
 h3 {
     text-align: center;
+    font-weight: bolder;/* experiment */
 }
 
 body {
@@ -93,6 +94,9 @@ section {
     font-weight: bolder;
 }
 
+.arc path{
+    opacity: 0.9;
+}
 
 /***************************************************************
 *******    Internet Language Content Styling    ****************
@@ -100,7 +104,16 @@ section {
 
 #interntLang-select {
     margin:auto;
-    width: 30%;
+    width: 25%;
+}
+
+#interntLang-select{
+    width: 100%;
+    display: inline-block;
+}
+
+#internetLangVisCategory{
+    width: 20%;
 }
 
 #internetLangText div{
@@ -112,7 +125,6 @@ section {
     margin-top: 2%;
 }
 
-
 .tooltip {
     position: absolute;
     text-align: center;
@@ -123,3 +135,24 @@ section {
     border-radius: 8px;
     pointer-events: none;
 }
+
+/***************************************************************
+*******    How to help page    animate hack     ****************
+***************************************************************/
+
+.row .how-to {
+    opacity: 0;
+  }
+
+.row .animate {
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+  }
+  
+  @keyframes slideInFromLeft {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
