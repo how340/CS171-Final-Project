@@ -155,3 +155,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
         //myBarVis.wrangleData();
     };
 });
+
+
+
+// Callback function for IntersectionObserver
+function handleIntersection(entries, observer) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Check which element is intersecting
+            if (entry.target.id === 'mapDiv') {
+                myMapVis.wrangleData();
+            } else if (entry.target.id === 'endangerMapDiv') {
+                myEndangerMapVis.wrangleData();
+            }
+
+            // Optionally, unobserve the target element after the first intersection
+            observer.unobserve(entry.target);
+        }
+    });
+}
+
+// Set up the observer
+let observer = new IntersectionObserver(handleIntersection, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5 // Adjust this threshold as needed
+});
+
+// Start observing the target elements
+const mapTarget = document.getElementById('mapDiv');
+const endangerMapTarget = document.getElementById('endangerMapDiv');
+observer.observe(mapTarget);
+observer.observe(endangerMapTarget);

@@ -125,13 +125,17 @@ class UsMapVis {
             .style("opacity", 0);
 
 
-        //color scale
         vis.colorScale = d3.scaleOrdinal([
-            "#33b07a", "#36ada4", "#38a9c5", "#6e9bf4", "#cc7af4", "#f565cc",
-            "#17344c", "#185b48", "#3c7632", "#7e7a36", "#bc7967", "#d486af",
-            "#caa9e7", "#c2d2f3", "#d6f0ef", "#5673e0", "#7597f6", "#94b6ff",
-            "#b5cdfa", "#d1dae9", "#e8d6cc", "#f5c1a9", "#f6a283", "#ea7b60",
-            "#d44e41", "#482173", "#433e85", "#38588c", "#2d708e", "#25858e"
+            "#641E16", "#1B3B3A", "#34515E",
+            "#E57373", "#EF9A9A", "#FFCDD2",
+            "#F57C00", "#FFA726", "#FFCC80",
+            "#F49b11", "#566573", "#808B96",
+            "#D7DBDD", "#FAD7A0", "#FDEBD0",
+            "#2E4053", "#85929E", "#AEB6BF",
+            "#F5B041", "#F8C471", "#FEF5E7",
+            "#E59866", "#D35400", "#C0392B",
+            "#DE2129", "#9C640C", "#7D6608",
+            "#1A5276", "#1F618D", "#2471A3"
         ]);
 
         // Set the width of the horizontal bar
@@ -143,7 +147,7 @@ class UsMapVis {
             .attr("class", "horizontal-bar");
 
 
-        this.wrangleData();
+        //this.wrangleData();
     }
 
     wrangleData() {
@@ -280,7 +284,7 @@ class UsMapVis {
 
         vis.state
             .transition()
-            .duration(400)
+            .duration(1500)
             .attr('fill', d => {
                 // get the language
                 var language = vis.stateInfoObject[d.properties.name].languages[sliderValue].language;
@@ -373,14 +377,30 @@ class UsMapVis {
 
         bars.enter().append("rect")
             .merge(bars)
-            .transition()
             .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0)) // Calculate x position
             .attr("y", 0)
+            .transition()
+            .duration(1500)
             .attr("width", (d, i) => segmentWidths[i]) // Use the corresponding width
             .attr("height", 50)
             .attr("stroke", "white")
             .attr("stroke-width", 1)
             .attr("fill", d => vis.colorScale(d[0])); // Use the first element (language) for color
+
+        // bars.enter().append("rect")
+        //     .merge(bars)
+        //     .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0)) // Set starting x position
+        //     .attr("y", 0) // Set y position
+        //     .attr("width", 0) // Start with width 0
+        //     .attr("height", 50) // Set height of bars
+        //     .attr("stroke", "white")
+        //     .attr("stroke-width", 1)
+        //     .attr("fill", d => vis.colorScale(d[0])) // Use the first element (language) for color
+        //     .transition()
+        //     .duration(1500)
+        //     .attr("width", (d, i) => segmentWidths[i]); // Transition to the final width
+
+
 
         vis.horizontalBarSvg.selectAll("rect")
             .on("mouseover", function(event, d) {

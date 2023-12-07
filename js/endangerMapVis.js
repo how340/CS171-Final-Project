@@ -5,7 +5,7 @@ class EndangerMapVis {
         this.parentElement = parentElement;
         this.geoData = geoData;
         this.languageData = languageData;
-        this.displayData = [];
+        this.extinctionCount = 0;
 
         this.initVis()
     }
@@ -35,13 +35,17 @@ class EndangerMapVis {
             .attr('transform', `scale(${vis.zoom} ${vis.zoom})`);
 
         //create projection
-        //vis.projection = d3.geoAlbersUsa();
+        // vis.projection = d3.geoAlbersUsa()
+        //     //.scale(vis.viewpoint.width)
+        //     .scale(1200)
+        //     .translate([(vis.viewpoint.width /2.2), vis.viewpoint.height / 2.55]);
+        //     // .scale(vis.zoom * 1000) // Adjust the scale factor
+        //     // .translate([vis.viewpoint.width / 2, vis.viewpoint.height / 2]);
+
+
         vis.projection = d3.geoAlbersUsa()
-            //.scale(vis.viewpoint.width)
-            .scale(1200)
-            .translate([vis.viewpoint.width /2 , vis.viewpoint.height / 2.55]);
-            // .scale(vis.zoom * 1000) // Adjust the scale factor
-            // .translate([vis.viewpoint.width / 2, vis.viewpoint.height / 2]);
+            .translate([vis.viewpoint.width / 1.98, vis.viewpoint.height / 2.55]) // Center the map
+            .scale(1285); // Scale might need to be adjusted based on the actual size
 
         // define geogenerator and pass your projection to it
         vis.path = d3.geoPath();
@@ -63,22 +67,23 @@ class EndangerMapVis {
         vis.state = vis.svg.append('g')
             .attr('class', 'state-boundaries')
             .attr('stroke', 'white')
-            .attr('fill', '#CCC') // Set fill to 'none' for state boundaries
             .selectAll('path')
             .data(vis.stateMap) // Use vis.stateMap.features to bind data
             .enter().append('path')
             .attr('vector-effect', 'non-scaling-stroke')
-            .attr('d', vis.path);
-
-
+            .attr('d', vis.path)
+            .attr('fill', '#CCC') // Initial fill color
+            .transition() // Start transition
+            .duration(20000) // Duration of transition in milliseconds
+            .attr('fill', '#12242e'); // End fill color
 
 
         //Legend Data
         vis.legendData = [
-            { status: "Dying", color: "red" },
-            { status: "In_Trouble", color: "orange" },
-            { status: "Developing", color: "blue" },
-            { status: "Extinct", color: "black" }
+            { status: "Dying", color: "#de2129" },
+            { status: "In_Trouble", color: "#f49b11" },
+            { status: "Developing", color: "#228B22" },
+            { status: "Extinct", color: "#CCC" }
         ];
 
         vis.legend = vis.svg.selectAll(".legend")
@@ -107,8 +112,16 @@ class EndangerMapVis {
             .attr("id", "mapTooltip")
             .style("opacity", 0);
 
+        // extinction counter
+        // Create a text element to display the extinction count
+        vis.extinctionCounterText = vis.svg.append("text")
+            .attr("x", 140) // Position this text element appropriately
+            .attr("y", 30)
+            .attr("font-size", "20px")
+            .attr("fill", "red") // Choose a color that stands out
+            .text(`Voices Silenced Forever: ${vis.extinctionCount}`);
 
-        this.wrangleData();
+        //this.wrangleData();
     }
 
     wrangleData() {
@@ -138,13 +151,13 @@ class EndangerMapVis {
         function getColor(status) {
             switch (status) {
                 case "Dying":
-                    return "red";
+                    return "#de2129";
                 case "In_Trouble":
-                    return "orange";
+                    return "#f49b11";
                 case "Developing":
-                    return "blue";
+                    return "#228B22";
                 case "Extinct":
-                    return "black";
+                    return "#CCC";
                 default:
                     return "gray"; // Default color for unexpected values
             }
@@ -211,6 +224,9 @@ class EndangerMapVis {
             .attr("r", d => Math.log(d.Num_Speakers + 1) * 1.5)
             .style("opacity", 0.75);
 
+
+
+
         // Sort the data by Num_Speakers so that you can make them disappear in that order
         // vis.filteredLanguageData.sort((a, b) => a.Num_Speakers - b.Num_Speakers);
 
@@ -248,40 +264,55 @@ class EndangerMapVis {
                     return getColor(d.Language_Status); // Other statuses remain the same
                 }
             })
-            .remove();
+            .on('end', function(d) {
+                const currentRadius = parseFloat(d3.select(this).attr('r'));
+                if (currentRadius <= 1e-6) {
+                    let coords = vis.projection([d.Longitude, d.Latitude]);
 
-        // vis.circles.on("mouseover", function(event, d) {
-        //     vis.tooltip.transition()
-        //         .duration(200)
-        //         .style("opacity", .9);
-        //
-        //     // Show initial number of speakers
-        //     vis.tooltip.html(d.language + "<br/>Speakers: " + d.Num_Speakers)
-        //         .style("left", (event.pageX) + "px")
-        //         .style("top", (event.pageY - 28) + "px");
-        //
-        //     // Start interval to update the tooltip content
-        //     const initialRadius = Math.log(d.Num_Speakers + 1) * 1.3;
-        //     const initialSpeakers = d.Num_Speakers;
-        //     const interval = 50; // Interval in milliseconds to update the tooltip
-        //
-        //     let intervalId = setInterval(() => {
-        //         const currentRadius = parseFloat(d3.select(this).attr('r'));
-        //         if (currentRadius <= 0) {
-        //             clearInterval(intervalId); // Clear interval when radius reaches 0
-        //         } else {
-        //             const elapsedTime = (initialRadius - currentRadius) / initialRadius;
-        //             const currentSpeakers = Math.round(initialSpeakers * (1 - elapsedTime));
-        //             vis.tooltip.html(d.language + "<br/>Speakers: " + currentSpeakers);
-        //         }
-        //     }, interval);
-        // })
-        //     .on("mouseout", function(d) {
-        //         vis.tooltip.transition()
-        //             .duration(500)
-        //             .style("opacity", 0);
-        //         clearInterval(intervalId); // Clear interval on mouseout
-        //     });
+                    // Initially create a line as a point
+                    let line = vis.svg.append('path')
+                        .attr('d', `M ${coords[0]} ${coords[1]} L ${coords[0]} ${coords[1]}`)
+                        .attr('stroke', '#D3D3D3')
+                        .attr('stroke-width', 2)
+                        .style('fill', 'none')
+                        .style('stroke-linecap', 'round')
+                        .style('filter', 'drop-shadow(3px 3px 2px rgba(0,0,0,0.4))')
+                        .style('opacity', 0)  // Start with zero opacity
+                        .datum(d);
+
+                    // Transition to extend the line downward and increase opacity
+                    line.transition()
+                        .duration(1000)
+                        .attr('d', `M ${coords[0]} ${coords[1]} L ${coords[0]} ${coords[1] - 20}`) // Extend line downward
+                        .style('opacity', 1);  // Fade in
+
+                    // Attach tooltip events to the line
+                    line.on("mouseover", function(event, d) {
+                        vis.tooltip.transition()
+                            .duration(200)
+                            .style("opacity", 0.9);
+                        vis.tooltip.html(`${d.language} - now silenced forever. 
+                                A unique voice, a rich cultural heritage, irretrievably lost. 
+                                Once spoken, now only echoes in history.`)
+                            .style("left", (event.pageX) + "px")
+                            .style("top", (event.pageY - 28) + "px");
+                    })
+                        .on("mouseout", function(d) {
+                            vis.tooltip.transition()
+                                .duration(500)
+                                .style("opacity", 0);
+                        });
+
+                    // Increment the extinction count and update the text
+                    vis.extinctionCount++;
+                    vis.extinctionCounterText.text(`Extinction Count: ${vis.extinctionCount}`);
+                }
+
+                // Remove the circle element
+                d3.select(this).remove();
+            });
+            //.remove();
+
 
 
         //console.log("you're at the end");
