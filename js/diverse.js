@@ -4,11 +4,9 @@ margin = {top: 0, right: 20, bottom: 0, left: 0};
 width = document.getElementById("intro-diverse").getBoundingClientRect().width - margin.left - margin.right;
 height = document.getElementById("intro-diverse").getBoundingClientRect().height - margin.top - margin.bottom;
 
-let hasTransition = false;
-
 let svg = d3.select("#intro-diverse").append("svg")
-        .attr("width", width)
-        .attr("height", height)
+    .attr("width", width)
+    .attr("height", height)
 
 svg
     .append("text")
@@ -20,40 +18,28 @@ svg
     .attr("text-anchor", "middle")
     .text("Language families are ")
 
-// interaction observer like this for now while we figure out graph-scroll
-setupIntersectionObserver()
-function setupIntersectionObserver() {
-    // Intersection Observer to trigger the transition
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !this.hasTransitioned) {
+// printDiverse()
 
-                hasTransitioned = true; // Set to true to prevent further transitions
+function printDiverse(){
 
-                data.forEach(
-                    (d, i) =>
-                        svg.append("text")
-                            .style("opacity", 0)
-                            .attr("class", "diverse")
-                            .attr("font-family", "Lato, sans-serif")
-                            .attr("font-size", 30)
-                            .attr("font-weight", "bold")
-                            .attr("x", width/2 + 155)
-                            .attr("y", height/2- 100 + Math.max((i-1)*30, 0))
-                            .attr("text-anchor", "start")
-                            .transition()
-                            .duration(750)
-                            .delay(750*i)
-                            .style("opacity", 1 - (i * 10)/95)
-                            .attr("x", width/2 + 155)
-                            .attr("y", height/2 - 100 + i*30)
-                            .text(d)
-                )
 
-            }
-        });
-    }, { threshold: 0.5 }); // Threshold - triggers when 50% of the element is visible
-
-    // Observe the SVG element
-    observer.observe(svg.node());
+    data.forEach(
+        (d, i) =>
+            svg.append("text")
+                .style("opacity", 0)
+                .attr("class", "diverse")
+                .attr("font-family", "Lato, sans-serif")
+                .attr("font-size", 30)
+                .attr("font-weight", "bold")
+                .attr("x", width/2 + 155)
+                .attr("y", height/2- 100 + Math.max((i-1)*30, 0))
+                .attr("text-anchor", "start")
+                .transition()
+                .duration(750)
+                .delay(750*i)
+                .style("opacity", 1 - (i * 10)/95)
+                .attr("x", width/2 + 155)
+                .attr("y", height/2 - 100 + i*30)
+                .text(d)
+    )
 }
