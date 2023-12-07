@@ -17,7 +17,7 @@ class ScatterPlot {
         let vis = this;
 
         // define dimensions
-        vis.margin = {top: 150, right: 100, bottom: 100, left: 100};
+        vis.margin = {top: 50, right: 10, bottom: 10, left: 100};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -27,7 +27,7 @@ class ScatterPlot {
             .attr("height", vis.height)
             .attr("class", "scatter"+vis.parentElement)
             .append("g")
-            .attr("transform", `translate(${vis.margin.left/2}, -${vis.margin.bottom/2})`);
+            .attr("transform", `translate(${vis.margin.left + vis.margin.right}, -${vis.margin.bottom + vis.margin.top})`);
 
         // axes
         vis.x = d3.scaleLinear()
@@ -68,7 +68,7 @@ class ScatterPlot {
             .transition()
             .delay(2000)
             .duration(500)
-            .attr("y", vis.height + vis.margin.bottom/3)
+            .attr("y", vis.height + vis.margin.bottom + vis.margin.top/2)
             .attr("x", vis.width/2)
             .attr("text-anchor", "end")
             .text("Internet Makeup %")
