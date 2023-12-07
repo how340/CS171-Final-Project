@@ -17,7 +17,7 @@ class ScatterPlot {
         let vis = this;
 
         // define dimensions
-        vis.margin = {top: 10, right: 50, bottom: 75, left: 100};
+        vis.margin = {top: 150, right: 100, bottom: 100, left: 100};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -59,7 +59,7 @@ class ScatterPlot {
             .delay(2000)
             .duration(500)
             .attr("transform", "rotate(-90)")
-            .attr("y", -vis.margin.left/3)
+            .attr("y", -vis.margin.left/4)
             .attr("x", -vis.height/2 - vis.margin.top/2)
             .text("BLEU Score")
 
@@ -68,7 +68,7 @@ class ScatterPlot {
             .transition()
             .delay(2000)
             .duration(500)
-            .attr("y", vis.height + vis.margin.bottom/2.5)
+            .attr("y", vis.height + vis.margin.bottom/3)
             .attr("x", vis.width/2)
             .attr("text-anchor", "end")
             .text("Internet Makeup %")
@@ -174,13 +174,4 @@ class ScatterPlot {
             .style("fill", "#EDC951")
             .style("fill-opacity", 0.7)
     }
-
-    // reset(){
-    //     let vis = this;
-    //     // initialize drawing area
-    //     vis.svg = d3.select("#" + vis.parentElement).append("svg")
-    //         .attr("width", vis.width)
-    //         .attr("height", vis.height)
-    //         .attr("class", "radar"+vis.parentElement);
-    // }
 }
