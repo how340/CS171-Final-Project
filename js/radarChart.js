@@ -19,7 +19,7 @@ class RadarChart {
         let vis = this;
 
         // define dimensions
-        vis.margin = {top: 100, right: 10, bottom: 100, left: 100};
+        vis.margin = {top: 10, right: 30, bottom: 10, left: 10};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -359,6 +359,15 @@ class RadarChart {
             });
 
     }
+
+    // reset(){
+    //     let vis = this;
+    //     // initialize drawing area
+    //     vis.svg = d3.select("#" + vis.parentElement).append("svg")
+    //         .attr("width", vis.width)
+    //         .attr("height", vis.height)
+    //         .attr("class", "radar"+vis.parentElement);
+    // }
 
     //Taken from http://bl.ocks.org/mbostock/7555321
     //Wraps SVG text

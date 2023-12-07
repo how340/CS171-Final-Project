@@ -80,6 +80,7 @@ Promise.all(promises)
 // initMainPage
 function initMainPage(dataArray) {
 
+
     // IF THINGS FAIL TO LOAD, log dataArray to see the ordering of the promise data
     console.log("dataarray", dataArray);
 
@@ -104,9 +105,9 @@ function initMainPage(dataArray) {
         levels: 5,
         roundStrokes: true
     };
-    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[dataArray.length-1], eventHandler)
-    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[dataArray.length-1])
 
+    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[dataArray.length - 1], eventHandler)
+    myScatterPlot = new ScatterPlot('scatterDiv', dataArray[dataArray.length - 1])
 
     //donut vis on percentage of endanged language
     myDonutVis = new DonutVis('donut')
