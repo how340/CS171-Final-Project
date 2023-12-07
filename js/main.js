@@ -1,7 +1,7 @@
 // load data using promises
 let promises = [
     d3.csv("data/internet_language_data.csv"),
-    d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json"),
+    d3.json("data/states-albers-10m.json"),
     d3.csv("data/us-lang-data.csv"),
     d3.csv("data/us-endangered-languages.csv"),
     d3.json("data/world-110m.json"),
@@ -144,7 +144,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // Update visualization with new slider value
         myMapVis.wrangleData();
-        //myBarVis.wrangleData();
     };
 
     // Attach event listener to yearSelect dropdown

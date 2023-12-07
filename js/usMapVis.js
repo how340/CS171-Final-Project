@@ -9,7 +9,7 @@ class UsMapVis {
         this.parentElement = parentElement;
         this.geoData = geoData;
         this.usaData = usaData
-        this.displayData = [];
+        //this.displayData = [];
 
         this.highlightedLanguage = null;
         // parse date method
@@ -42,26 +42,15 @@ class UsMapVis {
             .attr('transform', `scale(${vis.zoom} ${vis.zoom})`);
 
         //create projection
-        //vis.projection = d3.geoAlbersUsa();
         vis.projection = d3.geoAlbersUsa()
             .scale(vis.zoom * 1000) // Adjust the scale factor
             .translate([vis.viewpoint.width / 2, vis.viewpoint.height / 2]);
-        //.scale(400)  // Adjust the scale as needed
-        //.translate([vis.width / 2, vis.height / 2]);
 
-        // define geogenerator and pass your projection to it
         vis.path = d3.geoPath();
-        // vis.path = d3.geoPath()
-        //     .projection(vis.projection);
-        //.projection(vis.projection);
 
         // create usa boundary
         vis.usaMap = topojson.feature(vis.geoData, vis.geoData.objects.nation);
         vis.stateMap = topojson.feature(vis.geoData, vis.geoData.objects.states).features;
-        //console.log("visusa", vis.usaMap);
-        //console.log("Feature data", topojson.feature(vis.geoData, vis.geoData.objects.nation));
-
-
 
         // Draw the USA boundary on the map
         vis.usa = vis.svg.append('g')
@@ -89,12 +78,37 @@ class UsMapVis {
             .selectAll('text')
             .data(vis.stateMap)
             .enter().append('text')
-            .text(d => new NameConverter().getAbbreviation(d.properties.name)) // Replace with property that has state name
-            .attr('x', d => vis.path.centroid(d)[0])
-            .attr('y', d => vis.path.centroid(d)[1])
+            .filter(d => {
+                // Exclude MD, DC, DE, and RI
+                const stateAbbreviation = new NameConverter().getAbbreviation(d.properties.name);
+                return !(stateAbbreviation === 'MD' || stateAbbreviation === 'DC' || stateAbbreviation === 'DE' || stateAbbreviation === 'RI');
+            })
+            .text(d => new NameConverter().getAbbreviation(d.properties.name))
+            .attr('x', d => {
+                const stateAbbreviation = new NameConverter().getAbbreviation(d.properties.name);
+                switch (stateAbbreviation) {
+                    case 'CA': return vis.path.centroid(d)[0] - 10; // Move CA slightly to the left
+                    case 'LA': return vis.path.centroid(d)[0] - 7;  // Move LA slightly to the left
+                    case 'FL': return vis.path.centroid(d)[0] + 12; // Move FL further to the right
+                    case 'MI': return vis.path.centroid(d)[0] + 10;  // Move MI slightly to the east
+                    case 'NJ': return vis.path.centroid(d)[0] + 3;  // Move NJ slightly to the right
+                    default: return vis.path.centroid(d)[0];
+                }
+            })
+            .attr('y', d => {
+                const stateAbbreviation = new NameConverter().getAbbreviation(d.properties.name);
+                switch (stateAbbreviation) {
+                    case 'AK': return vis.path.centroid(d)[1] - 3;  // Move AK very slightly up
+                    case 'ID': return vis.path.centroid(d)[1] + 3; // Move ID further south
+                    case 'MI': return vis.path.centroid(d)[1] + 20; // Move MI further south
+                    case 'MA': return vis.path.centroid(d)[1] - 2;  // Move MA very slightly up
+                    default: return vis.path.centroid(d)[1];
+                }
+            })
             .attr('text-anchor', 'middle')
             .attr('alignment-baseline', 'central')
             .style('font-size', '10px'); // Adjust font size as needed
+
 
 
 
@@ -136,16 +150,19 @@ class UsMapVis {
         let vis = this;
 
         // Get the selected year from the dropdown
-        //let selectedYear = document.getElementById('yearSelect').value;
-        //convert selectedYear to string
-        selectedYear = selectedYear.trim().toString();
+        // Check if selectedYear is defined
+        if (selectedYear) {
+            selectedYear = selectedYear.trim().toString();
+        } else {
+            // Handle the undefined case, maybe set a default value or log an error
+            console.error('Selected year is undefined or the element is not found');
+            // You can set a default value or return from the function if necessary
+            selectedYear = '2021';
+        }
 
 
         // Filter the data by the selected year
         vis.filteredData = vis.usaData.filter(item => item.year == selectedYear);
-        //vis.filteredData = vis.usaData;
-        // console.log("filtereddata", vis.filteredData);
-
 
         // Assuming vis.usaData is already loaded with CSV data
         vis.stateInfoObject = {};
@@ -157,8 +174,8 @@ class UsMapVis {
                 languages: {}
             };
 
-            // Loop to create languages object with up to 15 ranks
-            for (let rank = 1; rank <= 15; rank++) {
+            // Loop to create languages object with up to 6 ranks
+            for (let rank = 1; rank <= 6; rank++) {
                 const languageKey = `languageRank${rank}`;
                 const numSpeakersKey = `numSpeakers${rank}`;
 
@@ -198,11 +215,14 @@ class UsMapVis {
         vis.colorScale.domain(languages);
 
 
+        // vis.allLanguages = [...new Set(Object.values(vis.stateInfoObject)
+        //     .flatMap(stateInfo => {
+        //         const languageInfoArray = stateInfo.languages[sliderValue];
+        //         return languageInfoArray;
+        //     })
+        // )];
         vis.allLanguages = [...new Set(Object.values(vis.stateInfoObject)
-            .flatMap(stateInfo => {
-                const languageInfoArray = stateInfo.languages[sliderValue];
-                return languageInfoArray;
-            })
+            .flatMap(stateInfo => stateInfo.languages[sliderValue])
         )];
 
         vis.languageTotals = {};
@@ -248,12 +268,15 @@ class UsMapVis {
         let hoveredState = null;
 
 
+        // function setColor(d) {
+        //     var language = vis.stateInfoObject[d.properties.name].languages[sliderValue].language;
+        //     return vis.colorScale(language);
+        // }
         function setColor(d) {
-            var language = vis.stateInfoObject[d.properties.name].languages[sliderValue].language;
-            return vis.colorScale(language);
+            // Use optional chaining and nullish coalescing
+            var language = vis.stateInfoObject[d.properties.name]?.languages[sliderValue]?.language ?? null;
+            return language ? vis.colorScale(language) : '#CCC'; // Fallback color if language is not defined
         }
-
-        // console.log("unique langs", vis.stateInfoObject);
 
         vis.state
             .transition()
@@ -264,7 +287,6 @@ class UsMapVis {
                 // Use the color scale to determine the fill color
                 return vis.colorScale(language);
             });
-
 
         // Add hover effects to the country paths
         vis.state
@@ -395,11 +417,6 @@ class UsMapVis {
                     </div>`);
             })
             .on("mouseout", function(event, d) {
-                // Actions to perform on mouseout (e.g., revert color, hide tooltip, etc.)
-                // d3.select(this)
-                //     .attr("stroke-width", 1)
-                //     .style("cursor", "default");
-
                 // Reset the highlighted language
                 vis.highlightedLanguage = null;
 
@@ -416,12 +433,7 @@ class UsMapVis {
                 vis.horizontalBarTooltip
                     .style("opacity", 0);
             });
-            // .on("mouseover", function(event, d) {
-            //     console.log("mouseover", d);
-            // })
-            // .on("mouseout", function(event, d) {
-            //     console.log("mouseout", d);
-            // });
+
 
         // Exit
         bars.exit()
@@ -429,11 +441,6 @@ class UsMapVis {
             .duration(750)
             .style("opacity", 0)
             .remove();
-
-
-
-
-
         // Call this function to update the colors when slider value changes
         // Function to update colors
         function updateColors() {
@@ -456,10 +463,6 @@ class UsMapVis {
 
         // Initial color update
         updateColors();
-
-
-
-        // console.log("you're doing okay");
 
     }
 
