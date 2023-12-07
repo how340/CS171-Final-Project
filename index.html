@@ -284,18 +284,18 @@
 					</div>
 				</div>
 			</section>
-			<section class="section" id="radar">
+			<section class="section">
 				<!-- Container for Translation Performance & internet composition -->
 				<!-- TODO: Trigger animation when you scroll to this part -->
 				<div class="container"> <!-- styling here for debugging purposes-->
 					<h3>Multilingual Translation <strong>Worsens with Rare Language Families</strong></h3>
-					<p style="text-align: center">Performance is measured using BLEU, a translation precision metric (higher is better). Blue is the internet makeup %, red is the average performance of 9 popular LLMs, and yellow is the performance of ChatGPT.<br> <em>Hover points on the Radar Chart (left) to get granular details.</></p>
+					<p style="text-align: center"><em>Performance is measured using BLEU, a translation precision metric (higher is better). Blue is the internet makeup %, red is the average performance of 9 popular LLMs, and yellow is the performance of ChatGPT.<br> Hover points on the Radar Chart (left) to get granular details.</em></p>
 					<div class="row" >
 						<div class = "col">
-							<div id="radarDiv"  style="height: 80vh"></div>
+							<div id="radarDiv"  style="height: 100vh"></div>
 						</div>
 						<div class = "col">
-							<div id="scatterDiv" style="height: 80vh; width:40vw"></div>
+							<div id="scatterDiv" style="height: 100vh"></div>
 						</div>
 					</div>
 					<div class="row">
@@ -425,26 +425,9 @@
 			showActiveTooltip: true,
 	
 			//looping from bottom
-			loopBottom: false,
-
-			afterLoad: function(origin, destination, direction, trigger){
-				console.log(destination.index)
-
-
-				// trigger animations on scroll
-				if (destination.index === 1) {
-					printDiverse()
-				} else if (destination.index !== 1) {
-					d3.selectAll(".diverse").html("")
-				}
-				if (destination.index === 15) {
-					myRadarChart.initVis()
-					myScatterPlot.initVis()
-				} else if (destination.index !== 15) {
-					d3.select("#radarDiv").html("")
-					d3.select("#scatterDiv").html("")
-				}
-			}
+			loopBottom: true, 
+			
+	
 		});
 	</script>
 	
