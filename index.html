@@ -316,23 +316,20 @@
 				<div class="container">
 					<div class="row text-center"><h3> What Can <strong>We</strong> Do To Help? </h3></div>
 					<div class="row" style="margin:3%">
-							<strong>Incorporate Language Preservation Participate or contribute to research and digital resources</strong>
+							<h4>Incorporate Language Preservation Participate or contribute to research and digital resources</h4>
 							<div>Create printed and recorded resources that preserve the sound and context of a language is 
 								the most effective way of helping struggling languages to maintain a presence through a long time. 
 							</div>
 					</div>
 					<div class="row" style="margin:3%">
-							<strong>Encourage the integration of Indigenous languages in school curricula</strong>
+							<h4>Encourage the integration of Indigenous languages in school curricula</h4>
 							<div>Encourage younger generations to speak their native language and teach it to their children. This can be done by introducing local native languages in schools and encouraging students to specialize in them in college.</div>
 					</div>
 					<div class="row" style="margin:3%">
-						
-							<strong>Or...maybe learn about the impact of European colonization, discriminatory laws, and assimilation policies on the disappearance of Indigenous languages.</strong>
-
-							
+							<h4>Or...maybe learn about the impact of European colonization, discriminatory laws, and assimilation policies on the disappearance of Indigenous languages.</h4>
 					</div>
 					<div class="row" style="margin:3%">
-						<strong>Learn more about linguistic diversity from a Harvard alum <a href="https://news.harvard.edu/gazette/story/2017/11/native-american-language-preservationist-discusses-his-work-on-heard-at-harvard/">here</a>!</strong>
+						<h4>Learn more about linguistic diversity from a Harvard alum <a href="https://news.harvard.edu/gazette/story/2017/11/native-american-language-preservationist-discusses-his-work-on-heard-at-harvard/">here</a>!</h4>
 					</div>
 				</div>
 			</section>
@@ -341,7 +338,7 @@
 
 				<div class="container-fluid align-items-center justify-content-center">
 					<div class="row  text-center">
-						<h3><strong>Language Preservation Organizations</strong></h3>
+						<h3>Language Preservation Organizations</h3>
 						<div style="margin-top: 2%;">Here are some organizations that are conserving the linguistic diveristy across the globe. Check them out!</div>
 					</div>
 
@@ -406,7 +403,7 @@
 	<script src="js/vertical-scroll.js"></script>
 
 
-	<!-- This visualization's scrolling is powered by -->
+	<!-- This visualization's scrolling is powered by Fullpage.js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.js"></script>
 	<script>
 		var myFullpage = new fullpage('#fullpage', {
@@ -426,9 +423,8 @@
 			loopBottom: true,
 
 			afterLoad: function(origin, destination, direction, trigger){
-				console.log(destination.index)
-				console.log(origin.index)
-
+				console.log("Moving to page", destination.index)
+				console.log("Coming from page", origin.index)
 
 				// trigger animations on scroll
 				if (destination.index === 1) {
@@ -436,18 +432,33 @@
 				} else {
 					d3.selectAll(".diverse").html("")
 				}
+
+				// internet landscape visualization
+				if (destination.index === 13) {
+					internetLanguageVis.initVis()
+				} else {
+					d3.select("#internetLang").html("")
+				}
+
+				// radar plot transition
 				if (destination.index === 15) {
 					myRadarChart.initVis()
 					myScatterPlot.initVis()
-				} else if (origin.index === 16){
-					console.log('test')
-					d3.select("#radarDiv").html("")
-					d3.select("#scatterDiv").html("")
 				} else {
 					d3.select("#radarDiv").html("")
 					d3.select("#scatterDiv").html("")
 				}
+			}, 
+
+			// Use this to clear elements that requires a transition after leaving the title page. 
+			beforeLeave: function(origin, destination, direction, trigger){
+				if(origin.index === 0){
+					d3.select("#internetLang").html("")
+					d3.select("#radarDiv").html("")
+					d3.select("#scatterDiv").html("")
+				}
 			}
+
 		});
 	</script>
 	
