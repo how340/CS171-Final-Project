@@ -4,11 +4,15 @@ h1 {
 }
 
 body {
+    color: #12242E;
     font-family: 'Lato', sans-serif;
     justify-content: center; /* Center content horizontally */
     margin: None;
     background-color: oldlace;
+}
 
+strong{
+    color: #DE2129;
 }
 
 section {
@@ -68,7 +72,7 @@ section {
 ***************************************************************/
 
 #rangeValue {
-    color: deeppink;
+    color: #DE2129;
 }
 
 #yearSelect {

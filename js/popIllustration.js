@@ -69,8 +69,8 @@ class PopulationIllustration {
         // Append the rectangular speech bubble to each group
         this.speechBubbles
             .append("rect")
-            .attr("x", d => d.x - 0)
-            .attr("y", d => d.y - 30)
+            .attr("x", d => d.x - 50) // Adjust to center the rectangle horizontally
+            .attr("y", d => d.y - 20) // Adjust to center the rectangle vertically
             .attr("width", 100)
             .attr("height", 40)
             .attr("rx", 10)
@@ -80,13 +80,17 @@ class PopulationIllustration {
         // Append text to each speech bubble group
         this.speechBubbles
             .append("text")
-            .attr("x", d => d.x) // Center text in the rectangle
-            .attr("y", d => d.y) // Position text in the middle of the rectangle
+            .attr("x", d => d.x) // Center text horizontally
+            .attr("y", d => d.y + 6) // Adjust for vertical centering, considering font size
             .attr("font-size", "16px")
-            .attr("text-anchor", "left")
+            .attr("text-anchor", "middle") // Center text horizontally
             .attr("fill", "black")
             .text(d => d.greeting);
     }
+
+
+
+
 
     setupIntersectionObserver() {
         // Intersection Observer to trigger the transition
@@ -98,7 +102,7 @@ class PopulationIllustration {
 
                     // Apply transition when the image enters the viewport
                     this.grayImage.transition()
-                        .duration(2000) // Adjust duration as needed
+                        .duration(1500) // Adjust duration as needed
                         .ease(d3.easePolyIn.exponent(4))
                         .attr("opacity", 1);
 
@@ -107,18 +111,17 @@ class PopulationIllustration {
                         .duration(2000) // Adjust duration to match the image transition
                         .attr("opacity", 1);
 
-                    // Transition the text to a new value
-                    this.text.transition()
-                        .duration(3000) // Adjust duration to match the image transition
-                        .attr("opacity", 0)
-                        .on("end", () => {
-                            // Change the text when the old text has faded out
-                            this.text
-                                .text("But with 22% multilingual speakers, that's still 71.5 million people!")
-                                .transition()
-                                .duration(1000) // Adjust duration for the new text fade-in
-                                .attr("opacity", 1);
-                        });
+                    // Create and append a new text element for the additional information
+                    this.populationIllustration.append("text")
+                        .attr("x", 0)
+                        .attr("y", 240) // Adjust the y-position so it doesn't overlap with the existing text
+                        .attr("font-size", "30px")
+                        .attr("text-anchor", "left")
+                        .attr("opacity", 0) // Start with opacity 0
+                        .text("But with 22% multilingual speakers, that's still 71.5 million people!")
+                        .transition()
+                        .duration(2000) // Adjust duration for the new text fade-in
+                        .attr("opacity", 1); // Fade in the new text
                 }
             });
         }, { threshold: 0.5 }); // Threshold - triggers when 50% of the element is visible
