@@ -68,13 +68,16 @@
 				<div class="container"> 
 					<div class="row">
 						<div style="text-align: center">
-							<h4> How many languages and dialect do you think exists in
-							<strong>the US, the Americas (North and South America), and the entire world</strong> ? </h4>
+							<h3> How many languages and dialect do you think exists in <br>
+							<strong>the US, the Americas (North and South America), and the entire world</strong> ? </h3>
 						</div>
 					</div>
-					<div style="text-align: center; height:10vh" > 
-						<h4> Drag the <strong>Orange "Your Prediction Here!"  </strong>bars to create your predictions!  </h4>
-						<h4> Click submit to check the answers! </h4>
+					<div style="text-align: center; margin-top:4%;" > 
+						<p> Drag the <span style="color: #f49b11;">Orange</span> <b>"Your Prediction Here!" bars</b> to create your predictions!  </p>
+						
+					</div>
+					<div style="text-align: center; " > 
+						<p> Click submit to check the answers! </p>
 					</div>
 					
 					<div class="row justify-content-center" id="quiz1-graph-row">
@@ -127,7 +130,6 @@
 							</div>
 						</div>
 					</div>
-
 					<!-- Map and Bar Div Row -->
 					<div class="row justify-content-center pb-3">
 						<!-- Map Div -->
@@ -173,14 +175,16 @@
 			<section class="section">
 				<div class="container">
 					<div class="text-center">
-						<h2> Languages Worldwide Are Facing Existential Crisis</h2>
-							<p>There is a total of 7500 languages worldwide. However, many of these languages are 
+						<h3> Languages Worldwide Are Facing <strong>Existential Crises</strong></h3>
+					</div>
+					<div class="text-center" style="margin-top: 2%;">
+						<p>There is a total of 7500 languages worldwide. However, many of these languages are 
 							on the verge of collapse and extinction. <br>The well-being of a language can be rougly split into
 							5 different categories based on they are utilized by their users. 
-							</p>
+						</p>
 					</div>
-					<div class="row text-center" style="margin-top: 4%;">
-						<div class="col-3" style="font-size: smaller;">
+					<div class="row text-center" style="margin-top: 2%;">
+						<div class="col-4" style="font-size: smaller;">
 							<table class="table">
 								<thead class="thead-dark">
 									<tr>
@@ -219,7 +223,7 @@
 							</table>
 
 						</div>
-						<div class="col-9" id="donut"></div>
+						<div class="col-8" id="donut"></div>
 
 					</div>
 				</div>
@@ -237,18 +241,20 @@
 			<section class="section">
 				<!-- Container for online language presence Visualization -->
 				<div class="container"> <!-- styling here for debugging purposes-->
-					<div class="row text-center">
-						<h2> Internet Language Landscape Differs from the Real World</h2>
-						<div>
-							<span>The content on the internet is strongly <strong>biased toward english speaking audiences</strong>. <br>
-							The amount of content online in a certain language is not directly proportional with the size of the population that speaks the language.
-							</span><br>
-							<span>Non-institutional languages receives virtually no representation on the internet!</span>
-						</div>
+					<div class="text-center">
+						<h3> Internet Language Landscape <strong>Differs</strong> from the Real World</h3>
+						
+					</div>
+					<div class="text-center" style="margin-top: 3%;">
+						<span>The content on the internet is strongly <b>biased toward english speaking audiences</b>. <br>
+						The amount of content online in a certain language is not directly proportional with the size of the population that speaks the language.
+						</span><br>
+						<span>Non-institutional languages receives virtually no representation on the internet!</span>
 					</div>
 					
 					<div class="row" style="margin-top:2%">
-						<div class="row" id="interntLang-select">
+						<div class="row text-center" id="interntLang-select">
+							<span><b>Show statistics on:</b></span> 
 							<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
 								<!-- <option value="Population" selected>Default</option> -->
 								<option value="contentPercent" selected>Percent of Internet Content</option>
@@ -264,10 +270,10 @@
 						<div class="row text-center">
 							<span>Based on the study conducted by <a href ="https://w3techs.com/technologies/overview/content_language">W3techs</a>.</span> 
 							<span>
-								<strong style="font-size: small;">
+								<b style="font-size: small;">
 									*Language content percentage is calculated as by this<a href = "https://w3techs.com/technologies"> method</a>. <br>
 									TL;DR: the metric measures the percentage of popular websites based in a specifc language.
-								</strong>
+								</b>
 							</span>
 						</div>
 						
@@ -315,22 +321,33 @@
 			<section class="section">
 				<div class="container">
 					<div class="row text-center"><h3> What Can <strong>We</strong> Do To Help? </h3></div>
-					<div class="row" style="margin:3%">
-							<h4>Incorporate Language Preservation Participate or contribute to research and digital resources</h4>
-							<div>Create printed and recorded resources that preserve the sound and context of a language is 
-								the most effective way of helping struggling languages to maintain a presence through a long time. 
-							</div>
+					<div class="row " style="margin-top:4%">
+						<div class="col-4 how-to">
+								<b>Incorporate Language Preservation Participate or contribute to research and digital resources</b>
+								<div style="margin-top:2%">Create printed and recorded resources that preserve the sound and context of a language is 
+									the most effective way of helping struggling languages to maintain a presence through a long time. 
+								</div>
+						</div>
+						<div class="col-4 how-to">
+								<b>Encourage the integration of Indigenous languages in school curricula</b>
+								<div style="margin-top:2%">Encourage younger generations to speak their native language and teach it to their children. This can be done by introducing local native languages in schools and encouraging students to specialize in them in college.</div>
+						</div>
+						<div class="col-4 how-to">
+								<b>Or...learn about the impact of colonization and assimilation policies on Indigenous people</b>
+								<div style="margin-top:2%">Exploring this history reveals the profound loss of linguistic diversity and cultural heritage. Knowing the history is the only way to move forward!</div>
+						</div>
 					</div>
-					<div class="row" style="margin:3%">
-							<h4>Encourage the integration of Indigenous languages in school curricula</h4>
-							<div>Encourage younger generations to speak their native language and teach it to their children. This can be done by introducing local native languages in schools and encouraging students to specialize in them in college.</div>
+
+					<div class="row">
+						<div class="col-4 how-to" style="margin-top:3%"><img src = "img/img1.png" style="width: 100%; height: 100%; object-fit: contain;"/></div>
+						<div class="col-4 how-to" style="margin-top:3%"><img src = "img/img2.png" style="width: 100%; height: 100%; object-fit: contain;"/></div>
+						<div class="col-4 how-to" style="margin-top:3%"><img src = "img/img3.png" style="width: 100%; height: 100%; object-fit: contain;"/></div>
 					</div>
-					<div class="row" style="margin:3%">
-							<h4>Or...maybe learn about the impact of European colonization, discriminatory laws, and assimilation policies on the disappearance of Indigenous languages.</h4>
+
+					<div class="row text-center" style="margin-top:3%">
+						<b>Learn more about linguistic diversity from a Harvard alum <a href="https://news.harvard.edu/gazette/story/2017/11/native-american-language-preservationist-discusses-his-work-on-heard-at-harvard/" target="_blank">here</a>!</b>
 					</div>
-					<div class="row" style="margin:3%">
-						<h4>Learn more about linguistic diversity from a Harvard alum <a href="https://news.harvard.edu/gazette/story/2017/11/native-american-language-preservationist-discusses-his-work-on-heard-at-harvard/">here</a>!</h4>
-					</div>
+					<div class=" text-center">*Images are generated by ChatGPT4 with DALL·E</div>
 				</div>
 			</section>
 			<!--	Insert link to various foundations here		-->
@@ -433,6 +450,13 @@
 					d3.selectAll(".diverse").html("")
 				}
 
+				// Donut chart visualization 
+				if (destination.index === 11) {
+					myDonutVis.initVis()
+				} else {
+					d3.select("#donut").html("")
+				}
+
 				// internet landscape visualization
 				if (destination.index === 13) {
 					internetLanguageVis.initVis()
@@ -448,6 +472,10 @@
 					d3.select("#radarDiv").html("")
 					d3.select("#scatterDiv").html("")
 				}
+
+				if (destination.index === 17) {
+					d3.selectAll('.how-to').attr("class", "col-4 animate")
+				} 
 			}, 
 
 			// Use this to clear elements that requires a transition after leaving the title page. 
@@ -456,6 +484,7 @@
 					d3.select("#internetLang").html("")
 					d3.select("#radarDiv").html("")
 					d3.select("#scatterDiv").html("")
+					d3.select("#donut").html("")
 				}
 			}
 

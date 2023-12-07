@@ -120,6 +120,7 @@ class Quiz1 {
 
 
     wrangleData(){
+        // no data to wrangle for this vis. 
         let vis = this
 
         vis.updateVis()
@@ -151,7 +152,7 @@ class Quiz1 {
                        .attr('y', vis.updateHeight -5)
                        .attr("text-anchor", 'middle')
                        .text(Math.round(vis.yScale.invert(vis.updateHeight)))
-  
+        // panel 2
         vis.bar2.attr('x', vis.xScale2('Your Prediction Here!'))
             .attr('y', 0)
             .style('fill', '#f49b11')
@@ -163,7 +164,7 @@ class Quiz1 {
             .attr('y', vis.updateHeight2 -5)
             .attr("text-anchor", 'middle')
             .text(Math.round(vis.yScale2.invert(vis.updateHeight2)))
-
+        // panel 3
         vis.bar3.attr('x', vis.xScale3('Your Prediction Here!'))
             .attr('y', 0)
             .style('fill', '#f49b11')
@@ -192,6 +193,7 @@ class Quiz1 {
     showResults(){
         let vis = this
 
+        // first quiz result
         vis.svg.append('rect')
         .attr('x', vis.xScale('US'))
         .attr('y', vis.height)
@@ -217,7 +219,8 @@ class Quiz1 {
         .attr('y', vis.yScale(vis.data[0].count) - 5)
         .attr("text-anchor", 'middle')
         .text(vis.data[0].count)
-
+    
+        // second quiz result
         vis.svg2.append('rect')
         .attr('x', vis.xScale2('The Americas'))
         .attr('y', vis.height)
@@ -244,6 +247,7 @@ class Quiz1 {
         .attr("text-anchor", 'middle')
         .text(vis.data[1].count)
 
+        // third quiz result
         vis.svg3.append('rect')
         .attr('x', vis.xScale3('Worldwide'))
         .attr('y', vis.height)
@@ -270,10 +274,10 @@ class Quiz1 {
         .attr("text-anchor", 'middle')
         .text(vis.data[2].count)
 
-
         vis.updatedLayout()
     }
 
+    // remove the submit button and show quiz result evaluation paragraph.
     updatedLayout(){
         let vis = this
         document.getElementById("quiz-1-button").remove()
