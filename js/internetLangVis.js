@@ -19,7 +19,7 @@ class InternetLangVis {
         ]
 
         // use the dynamic margin convention 
-        vis.margin = {top: 40, right: 100, bottom: 100, left: 100};
+        vis.margin = {top: 40, right: 100, bottom: 100, left: 140};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -59,8 +59,8 @@ class InternetLangVis {
 
         // left y-axis title
         vis.dynamicY = vis.svg.append("text")
-                            .attr("y", -30)
-                            .attr("x", -40)
+                            .attr("y", -40)
+                            .attr("x", -30)
                             .attr("dy", "1em")
                             .style("text-anchor", "middle")
 
@@ -68,7 +68,7 @@ class InternetLangVis {
         vis.svg.append("text")
                 // .attr("transform", `translate(${vis.width}, ${vis.margin.top})`)
                 .attr("x", vis.width + 40)
-                .attr("y", -30)
+                .attr("y", -40)
                 .attr("dy", "1em")
                 .style("text-anchor", "middle")
                 .text("Population size")
@@ -92,11 +92,11 @@ class InternetLangVis {
 
         vis.legend1 = vis.svg.append('text')
                 .attr('x', vis.width - rightOffset + 25)
-                .attr('y', topOffset + 10)
+                .attr('y', topOffset + 14)
         
         vis.legend2 = vis.svg.append('text')
                 .attr('x', vis.width - rightOffset + 25)
-                .attr('y', topOffset + 35)
+                .attr('y', topOffset + 40)
 
         vis.wrangleData() 
     }
@@ -131,7 +131,7 @@ class InternetLangVis {
         
         //legend
         vis.legend1.text("Language Speaking Population")
-        vis.legend2.text(category)
+        vis.legend2.text(vis.change_column_name(category))
 
         // update domain values
         vis.xScale.domain(vis.displayData.map(d=>d.Language))
@@ -182,7 +182,7 @@ class InternetLangVis {
             .attr("y1", vis.height)
             .attr("y2", d=> vis.yScale2nd(d[category]))//make dynamic 
             .attr("stroke", "#409783")
-            .attr("stroke-width", "10")
+            .attr("stroke-width", "12")
                 
         lines.exit().remove();
 
@@ -197,7 +197,7 @@ class InternetLangVis {
             .attr("cy", vis.height)
             .attr("r", 0)
             .style("fill", "#409783")
-            .attr("stroke", "black")
+            .attr("stroke", "#409783")
             .merge(pop)
             .transition().duration(vis.transition_speed)
             .attr("class", "lolli-pop")
@@ -205,12 +205,13 @@ class InternetLangVis {
             .attr("cy", d=> vis.yScale2nd(d[category]))
             .attr("r", 10)
             .style("fill", "#409783")
-            .attr("stroke", "black")
+            .attr("stroke", "#409783")
         
         pop.exit().remove();
 
- 
-        vis.dynamicY.text(`${category}`)
+        
+    
+        vis.dynamicY.text(vis.change_column_name(category))
 
         // call the axes and append to the svg to make sure axes are on top
         vis.svg.select(".x-axis").transition().duration(vis.transition_speed).call(vis.xAxis)
@@ -223,6 +224,18 @@ class InternetLangVis {
         vis.svg.select(".y-axis").transition().duration(vis.transition_speed).call(vis.yAxis);
         vis.svg.select(".y-axis-2nd").transition().duration(vis.transition_speed).call(vis.yAxis2nd);
 
+    }
+
+    change_column_name(category){
+        if (category == 'contentPercent'){
+            return 'Percent of Internet Content'
+        } else if (category == 'internetUser'){
+            return 'Internet User Count'
+        } else if (category == 'Population'){
+            return 'Population'
+        } else if (category == 'wikiViews'){
+            return 'Daily Wikipedia Views'
+        }
     }
 
 }
