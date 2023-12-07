@@ -31,7 +31,7 @@ class DonutVis{
                     .attr("width", vis.width + vis.margin.left + vis.margin.right)
                     .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
                     .append("g")
-                    .attr("transform", "translate(" + vis.width/2 + "," + vis.height/2 + ")");
+                    .attr("transform", "translate(" + vis.width*2/5 + "," + vis.height/2 + ")");
 
         vis.arc = d3.arc()
                     .innerRadius(vis.inner_Radius)         // This is the size of the donut hole
