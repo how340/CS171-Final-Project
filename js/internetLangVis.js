@@ -1,3 +1,5 @@
+// This class creates the internet language landscape visualization in the style of 
+// lollipop chart overlayed on top of bar chart. 
 class InternetLangVis {
 
     constructor(parentElement, internetData){
@@ -5,18 +7,18 @@ class InternetLangVis {
         this.data = internetData
         this.transition_speed = 1200
         this.initVis()
-    }
-
-    initVis(){
-        let vis = this;
 
         //dictionary for displaying info nicely
-        vis.dict = [
+        this.dict = [
             {'contentPercent':'Content Percent'},
             {'internetUser':'Internet User Count'},
             {'Population': 'Population'},
             {'wikiViews': 'Daily Wikipedia Views'}
         ]
+    }
+
+    initVis(){
+        let vis = this;
 
         // use the dynamic margin convention 
         vis.margin = {top: 35, right: 100, bottom: 60, left: 140};
@@ -36,7 +38,7 @@ class InternetLangVis {
                         .padding(0.1);
         vis.yScale = d3.scaleLinear()
                 .range([vis.height, 0]); 
-        // second scale for the lollipop. Need to find a easy way to allow users to discern between the two y axes. 
+        // second scale for the lollipop. 
         vis.yScale2nd = d3.scaleLinear()
                 .range([vis.height, 0]); 
 
@@ -73,7 +75,7 @@ class InternetLangVis {
                 .style("text-anchor", "middle")
                 .text("Population size")
 
-        //legend
+        // legend for the lollipop and bar chart. 
         let rightOffset = 275
         let topOffset = 20
         vis.svg.append('rect')
@@ -120,9 +122,8 @@ class InternetLangVis {
         
         sortData.sort((a, b) => b[category] - a[category])
         vis.displayData = sortData
-        console.log(vis.displayData)
-        vis.updateVis()
 
+        vis.updateVis()
     }
 
     updateVis(){
@@ -225,6 +226,7 @@ class InternetLangVis {
 
     }
 
+    // function to make category names more readable. 
     change_column_name(category){
         if (category == 'contentPercent'){
             return 'Percent of Internet Content'
