@@ -19,7 +19,8 @@ let internetLanguageVis,
     myEndangerMapVis,
     sliderValue,
     selectedYear,
-    eventHandler;
+    eventHandler,
+    myDonutVis;
 
 // initialize radar/scatter data - could just put this in a separate json
 let nmtData = [

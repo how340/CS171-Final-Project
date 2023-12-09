@@ -177,7 +177,7 @@
 							5 different categories based on they are utilized by their users. 
 						</p>
 					</div>
-					<div class="row text-center" style="margin-top: 2%;">
+					<div class="row text-center" style="margin-top: 1%;">
 						<div class="col-4" style="font-size: smaller;">
 							<table class="table">
 								<thead class="thead-dark">
@@ -245,7 +245,7 @@
 						<span>Non-institutional languages receives virtually no representation on the internet!</span>
 					</div>
 					
-					<div class="row" style="margin-top:2%">
+					<div class="row" style="margin-top:1%">
 						<div class="row text-center" id="interntLang-select">
 							<span><b>Show statistics on:</b></span> 
 							<select id="internetLangVisCategory" onchange=internetLanguageVisOnChange()>
@@ -432,6 +432,7 @@
 			//looping from bottom
 			loopBottom: true,
 
+			// Sets up visualization initialization only when scrolled to the page. 
 			afterLoad: function(origin, destination, direction, trigger){
 				console.log("Moving to page", destination.index)
 				console.log("Coming from page", origin.index)
