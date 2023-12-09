@@ -1,5 +1,6 @@
+// This class implements an interactive barchart to test understanding on global linguistic statistics. 
 class Quiz1 {
-
+    // take in three columns and allow for three different SVGs. 
     constructor(parentElement1, parentElement2, parentElement3){
         this.parentElement1 = parentElement1
         this.parentElement2 = parentElement2
@@ -24,7 +25,7 @@ class Quiz1 {
         vis.width = document.getElementById(vis.parentElement1).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement1).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
-        // init drawing area
+        // init drawing area. We have three different SVG in this case. 
         vis.svg = d3.select("#" + vis.parentElement1).append("svg")
                     .attr("width", vis.width + vis.margin.left + vis.margin.right)
                     .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
@@ -208,7 +209,7 @@ class Quiz1 {
         .attr("stroke", "black")
         .attr('width', vis.xScale.bandwidth())
         .attr('height', vis.height - vis.yScale(vis.data[0].count))
-
+        // label 
         vis.svg.append('text')
         .attr('class', 'show-bar-label')
         .attr("x", vis.xScale('US') + vis.xScale3.bandwidth()/2)
@@ -235,7 +236,7 @@ class Quiz1 {
         .attr("stroke", "black")
         .attr('width', vis.xScale.bandwidth())
         .attr('height', vis.height - vis.yScale2(vis.data[1].count))
-
+        // label
         vis.svg2.append('text')
         .attr('class', 'show-bar-label')
         .attr("x", vis.xScale2('The Americas') + vis.xScale2.bandwidth()/2)
@@ -262,7 +263,7 @@ class Quiz1 {
         .attr("stroke", "black")
         .attr('width', vis.xScale.bandwidth())
         .attr('height', vis.height - vis.yScale3(vis.data[2].count))
-
+        // label
         vis.svg3.append('text')
         .attr('class', 'show-bar-label')
         .attr("x", vis.xScale3('Worldwide') + vis.xScale3.bandwidth()/2)
@@ -291,6 +292,7 @@ class Quiz1 {
         let diff2 = Math.abs(result2 - vis.data[1].count)/vis.data[1].count
         let diff3 = Math.abs(result3 - vis.data[2].count)/vis.data[2].count
 
+        // calculate mean performance for the three quizes. 
         let mean_diff = (diff1 + diff2 + diff3)/3
 
         if(mean_diff < 0.10){
@@ -308,8 +310,7 @@ class Quiz1 {
             You will find out some fascinating facts about our world soon!
         `;
         }
-        
+        // update text content for outcome evaluation. 
         document.getElementById('quiz-1-text').appendChild(newParagraph);
-
     }
 }
