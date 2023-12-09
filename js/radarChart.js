@@ -6,11 +6,10 @@
 
 
 class RadarChart {
-    constructor(parentElement, radarConfig, radarData, eventHandler) {
+    constructor(parentElement, radarConfig, radarData) {
         this.parentElement = parentElement;
         this.radarData = radarData;
         this.radarConfig = radarConfig; // radar configuration settings
-        this.eventHandler = eventHandler;
 
         this.initVis()
     }
@@ -44,6 +43,11 @@ class RadarChart {
         //     .attr('transform', `translate(${vis.width / 2}, ${vis.margin.top/4})`)
         //     .attr('text-anchor', 'middle');
 
+        // tooltip
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'llmTooltip')
+
         // define area colours
         vis.color = d3.scaleOrdinal()
             .range(["#EDC951","#CC333F","#00A0B0"]);
@@ -69,6 +73,39 @@ class RadarChart {
         ]
 
         // TODO: Interactive legend to highlight points based on type
+        let legend = vis.svg.append("g")
+            .attr("id", "radarLegend")
+            .selectAll("rect")
+            .data(legendData)
+
+        legend.enter()
+            .append("rect")
+            .style("opacity", 0)
+            .style("fill", d => d.color)
+            .attr("y", (d, i) => vis.height - vis.margin.top*2 - vis.margin.bottom*3 + 20*i - 14)
+            .attr("x", -1000)
+            .transition()
+            .delay(1000)
+            .duration(500)
+            .attr("x", 0)
+            .style("opacity", 1)
+            .attr("height", 15)
+            .attr("width", 15)
+
+
+        legend.enter()
+            .append("text")
+            .style("opacity", 0)
+            .attr("y", (d, i) => vis.height - vis.margin.top*2 - vis.margin.bottom*3 + 20*i)
+            .attr("x", 0)
+            .transition()
+            .delay(1000)
+            .duration(500)
+            .attr("x", 30)
+            .style("opacity", 1)
+            .attr("font-family", "Lato, sans-serif")
+            .style("fill", "#737373")
+            .text(d => d.title)
 
         vis.wrangleData();
     }
@@ -84,7 +121,7 @@ class RadarChart {
     updateVis() {
         let vis = this;
         let maxValue = d3.max(vis.displayData, (d) => d3.max(d, (axis) => axis.value)); // max dataset value
-        let labelFactor = 1.15; // label placement relative to circle
+        let labelFactor = 0.85; // label placement relative to circle
         let wrapWidth = vis.height/2; // number of pixels before another label
 
         // axis data
@@ -149,20 +186,94 @@ class RadarChart {
             .style("stroke-width", "2px");
 
         // generate axis labels
+        let axisMap = {
+            'Indo-Euro-Germanic': 'Euro-Germanic',
+            'Indo-Euro-Romance': 'Euro-Romance',
+            'Indo-Euro-Slavic': 'Euro-Slavic',
+            'Indo-Euro-Indo-Aryan': 'Euro-Aryan',
+            'Indo-Euro-Other': 'Euro-Other',
+        }
         let axisText = axis.append("text")
             .attr("class", "legend")
             .style("font-size", "11px")
             .attr("text-anchor", "middle")
             .attr("dy", "0.35em")
-            .attr("x",(d, i) => rScale(maxValue * labelFactor) * Math.cos(angleSlice*i - Math.PI/2))
-            .attr("y", (d, i) => rScale(maxValue * labelFactor) * Math.sin(angleSlice*i - Math.PI/2))
-            .text((d) => d)
+            .attr("x",(d, i) => rScale(maxValue*0.91) * Math.cos(angleSlice*i - Math.PI/2))
+            .attr("y", (d, i) => rScale(maxValue * 1.1) * Math.sin(angleSlice*i - Math.PI/2))
+            .text((d) => {
+                if (d.includes('Indo')) {
+                    return axisMap[d]
+                } else {
+                    return d
+                }
+
+            })
             .style("opacity", 0)
             .call(vis.wrap, wrapWidth);
 
         axisText.transition()
             .delay(2000)
             .style("opacity", 1)
+
+        // let languageMap = {axis:"Indo-Euro-Germanic",value:60.2, type: "Internet", index : "24"}, // English, German, Dutch, Swedish, Danish, Norwegian
+        // {axis:"Indo-Euro-Romance",value:15.6, type: "Internet", index : "25"}, // Spanish, French, Portuguese, Italian, Romanian, Catalan
+        // {axis:"Indo-Euro-Slavic",value:8.9, type: "Internet", index : "26"}, // Russian, Polish, Czech, Ukrainian, Slovak, Bulgarian, Serbian, Croatian, Lithuanian, Slovenian, Latvian
+        // {axis:"Indo-Euro-Indo-Aryan",value:1.6, type: "Internet", index : "27"}, // Persian, Hindi
+        // {axis:"Indo-Euro-Other",value:0.5, type: "Internet", index : "28"}, // Greek
+        // {axis:"Austronesian",value:2.2, type: "Internet", index : "29"}, // Vietnamese, Indonesian
+        // {axis:"Atlantic-Congo",value:0, type: "Internet", index : "30"}, //
+        // {axis:"Afro-Asiatic",value:1.2, type: "Internet", index : "31"}, // Arabic, Hebrew
+        // {axis:"Turkic",value:2.1, type: "Internet", index : "32"}, // Turkish
+        // {axis:"Dravidian",value:0, type: "Internet", index : "33"}, //
+        // {axis:"Sino-Tibetan",value:1.8, type: "Internet", index : "34"}, // Chinese, Thai
+        // {axis:"Other",value:5.9, type: "Internet", index : "35"}, // Japanese, Korean, Hungarian, Finnish, Estonian
+
+        let languageMap = {
+            "Indo-Euro-Germanic": ["English", "German", "Dutch", "Swedish", "Danish", "Norwegian"],
+            "Indo-Euro-Romance": ["Spanish", "French", "Portuguese", "Italian", "Romanian", "Catalan"],
+            "Indo-Euro-Slavic": ["Russian", "Polish", "Czech", "Ukrainian", "Slovak", "Bulgarian", "Serbian", "Croatian", "Lithuanian", "Slovenian", "Latvian"],
+            "Indo-Euro-Indo-Aryan": ["Persian", "Hindi"],
+            "Indo-Euro-Other": ["Greek"],
+            "Austronesian": ["Vietnamese", "Indonesian"],
+            "Atlantic-Congo": ["No significant internet makeup"],
+            "Afro-Asiatic": ["Arabic", "Hebrew"],
+            "Turkic": ["Turkish"],
+            "Dravidian": ["No significant internet makeup"],
+            "Sino-Tibetan": ["Chinese", "Thai"],
+            "Other": ["Japanese", "Korean", "Hungarian", "Finnish", "Estonian"]
+        }
+
+        for (let key_ in languageMap) {
+            languageMap[key_].forEach((d, i) => {languageMap[key_][i] = " " + languageMap[key_][i]})
+        }
+
+        axisText.on('mouseover', function(even, d){
+                d3.select(this)
+                    .attr("font-weight", "bold")
+                    .style("font-size", "12px")
+
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX + 20 + "px")
+                    .style("top", event.pageY + "px")
+                    .html(`
+                            <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
+                                <h5>Family: <strong>${d}</strong></h5>   
+                                <h6>Common internet languages: <strong>${languageMap[d]}</strong></h6>       
+                            </div>`);
+            })
+            .on('mouseout', function (event, d) {
+                d3.select(this)
+                    .attr("font-weight", "regular")
+                    .style("font-size", "11px")
+
+
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0 + "px")
+                    .style("top", 0 + "px")
+            })
+
 
         // generate radar chart
         // radar line generator

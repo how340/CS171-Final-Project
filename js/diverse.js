@@ -16,6 +16,7 @@ svg
     .attr("x", width/2)
     .attr("y", height/2 - 100)
     .attr("text-anchor", "middle")
+    .style("fill", "oldlace")
     .text("Language families are ")
 
 // printDiverse()
@@ -34,12 +35,14 @@ function printDiverse(){
                 .attr("x", width/2 + 155)
                 .attr("y", height/2- 100 + Math.max((i-1)*30, 0))
                 .attr("text-anchor", "start")
+                .style("fill", "#2e3133")
                 .transition()
                 .duration(750)
                 .delay(750*i)
                 .style("opacity", 1 - (i * 10)/95)
                 .attr("x", width/2 + 155)
                 .attr("y", height/2 - 100 + i*30)
+                .style("fill", "#f49b11")
                 .text(d)
     )
 }

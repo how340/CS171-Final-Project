@@ -84,6 +84,7 @@ class DonutVis{
             //.attr('d', vis.arc)
             .attr("fill", d => {return d.data.color})
             .attr("stroke", "black")
+            .style("opacity", 0.75)
             .transition().delay(function(d, i){return i * 600;}).duration(600)
             .attrTween('d', function(d) { // enable animation after transition to the page. 
                 var i = d3.interpolate(d.startAngle+0.1, d.endAngle);
@@ -112,7 +113,8 @@ class DonutVis{
                 // Actions to perform on mouseover (e.g., change color, display tooltip, etc.)
                 d3.select(this)
                     .attr("stroke-width", 3)
-                    .style("cursor", "default");
+                    .style("cursor", "default")
+                    .style("opacity", 1);
 
                 // console.log(d)
                 //tooltip
@@ -133,7 +135,8 @@ class DonutVis{
                 // Actions to perform on mouseout (e.g., revert color, hide tooltip, etc.)
                 d3.select(this)
                     .attr("stroke-width", 1)
-                    .style("cursor", "default");
+                    .style("cursor", "default")
+                    .style("opacity", 0.75);
 
                 vis.tooltip
                     .style("opacity", 0)

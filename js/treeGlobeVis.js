@@ -264,7 +264,13 @@ class TreeGlobeVis {
                 let targetCoords = [vis.displayNodeData[d.target].longitude, vis.displayNodeData[d.target].latitude]
                 return vis.projection(targetCoords)[1];
             } })
-            .style("stroke", d => vis.color[d.length])
+            .style("stroke", d => {
+                if (vis.displayNodeData[d.target].terminal === "No"){
+                    return vis.color[d.length]
+                } else {
+                    return "#DE2129"
+                }
+            })
             .style("opacity", 0.5)
             .attr("stroke-width", 3)
 
@@ -273,14 +279,32 @@ class TreeGlobeVis {
         subgroups.exit().remove()
         subgroups.enter().append('circle')
             .attr('class', 'subgroup')
-            .style("fill", d => vis.color[d.length])
-            .style("fill-opacity", 0.5)
+            .style("fill", d => {
+                if (d.terminal === "No"){
+                    return vis.color[d.length]
+                } else {
+                    return "#DE2129"
+                }
+            })
+            .style("fill-opacity", d => {
+            if (d.terminal === "No"){
+                return 0.5
+            } else {
+                return 1
+            }
+        })
             .attr('cx', vis.projection([vis.currentSelection.longitude, vis.currentSelection.latitude])[0])
             .attr('cy', vis.projection([vis.currentSelection.longitude, vis.currentSelection.latitude])[1])
             .on('click', function(event, dSelect) {
 
                 d3.select(this)
-                    .style("fill", d => vis.color[d.length])
+                    .style("fill", d => {
+                        if (d.terminal === "No") {
+                            return vis.color[d.length]
+                        } else {
+                            return "#DE2129"
+                        }
+                    })
                     .style("fill-opacity", 1)
 
                 vis.ethnoData.links.forEach(function(d){
@@ -296,6 +320,7 @@ class TreeGlobeVis {
             .on('mouseover', function(even, d){
                 d3.select(this)
                     .attr("stroke", 'black')
+                    .style("fill", "#f49b11")
 
                 vis.tooltip
                     .style("opacity", 1)
@@ -305,12 +330,20 @@ class TreeGlobeVis {
                             <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
                                 <h4> Language Subgroup: <strong>${d.name}</strong><h4>
                                 <h5> Most Frequent Country:  <strong>${d.country}</strong></h5>     
-                                <h5> Most Frequent Endangerment Score:  <strong>${d.score}</strong></h5>                 
+                                <h5> Most Frequent Endangerment Score:  <strong>${d.score}</strong></h5>  
+                                <h5> Terminal Language: <strong>${d.terminal}</strong></h5>               
                             </div>`);
             })
             .on('mouseout', function (event, d) {
                 d3.select(this)
                     .attr("stroke", 'transparent')
+                    .style("fill", d => {
+                        if (d.terminal === "No"){
+                            return vis.color[d.length]
+                        } else {
+                            return "#DE2129"
+                        }
+                    })
 
                 vis.tooltip
                     .style("opacity", 0)
@@ -322,7 +355,7 @@ class TreeGlobeVis {
             .duration(500)
             .attr('cx', d => vis.projection([d.longitude, d.latitude])[0])
             .attr('cy', d => vis.projection([d.longitude, d.latitude])[1])
-            .attr('r', 6)
+            .attr('r', 8)
 
     }
 
