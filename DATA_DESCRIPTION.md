@@ -75,3 +75,14 @@
 | Function_Label   | varchar(42)      | A human-readable label of the function represented by the Function_Code.                                                                                                                                                                                                                                                                                                                            |
 | Institutional    | integer          | Value is 1 if the LIC has an EGIDS level from 0 to 4, 0 otherwise. Summing this column counts the number of languages in the “Institutional” summary category.                                                                                                                                                                                                                                       |
 | Developing       | integer          | Value is 1 if the LIC has an EGIDS level of 5, 0 otherwise. Summing this column counts the number of languages in the “Developing” summary category
+
+## ethno_links.json
+
+| Column Name      | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                         |
+|------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| nodes          | array          | array of nodes with attributes {"id": node id, "name": language name", "country": most common country language is located in, "score": human-readable EGIDs endangerment score, "latitude": mean latitude of language subgroups, "longitude": mean longitude of language subgroups, "length": path length along language tree, "terminal": string indicator if language has no children |
+| links | array | array of edges with attributes {"source": source node id, "target": target node id, "length": position on path length the edge occurs} 
+
+## world-110m.json
+World topojson dataset with longitudes and latitudes of all countries.                                                             
+
