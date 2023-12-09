@@ -5,24 +5,76 @@ h1 {
 
 h3 {
     text-align: center;
-    font-weight: bolder;/* experiment */
 }
 
 body {
-    color: #12242E;
+    color: #2e3133;
     font-family: 'Lato', sans-serif;
+    font-size: 17px;
     justify-content: center; /* Center content horizontally */
     margin: None;
     background-color: oldlace;
+
+    padding-left: 20vw;
+    padding-right: 20vw
 }
 
 strong{
-    color: #DE2129;
+    color: #de2129;
 }
 
 section {
     background-size: cover; 
     background-position: center center;
+}
+
+
+.transition-slide {
+    /*background-image: url("/img/background-minimal.png")*/
+    background: #535351;
+    opacity: 1;
+    padding-left: 20vw;
+    padding-right: 20vw
+}
+
+.transition-slide h3 {
+    color: oldlace;
+    opacity: 1;
+}
+
+.transition-slide strong {
+    color: #F49B11;
+}
+
+.fp-viewing-1 #fp-nav ul li a span{
+    background: oldlace;
+}
+
+.fp-viewing-3 #fp-nav ul li a span{
+    background: oldlace;
+}
+
+.fp-viewing-5 #fp-nav ul li a span{
+    background: oldlace;
+}
+
+.fp-viewing-8 #fp-nav ul li a span{
+    background: oldlace;
+}
+.fp-viewing-10 #fp-nav ul li a span{
+    background: oldlace;
+}
+
+.fp-viewing-12 #fp-nav ul li a span{
+    background: oldlace;
+}
+
+.fp-viewing-14 #fp-nav ul li a span{
+    background: oldlace;
+}
+
+.fp-viewing-16 #fp-nav ul li a span{
+    background: oldlace;
 }
 
 /***************************************************************

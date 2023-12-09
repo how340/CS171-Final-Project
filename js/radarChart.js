@@ -73,6 +73,39 @@ class RadarChart {
         ]
 
         // TODO: Interactive legend to highlight points based on type
+        let legend = vis.svg.append("g")
+            .attr("id", "radarLegend")
+            .selectAll("rect")
+            .data(legendData)
+
+        legend.enter()
+            .append("rect")
+            .style("opacity", 0)
+            .style("fill", d => d.color)
+            .attr("y", (d, i) => vis.height - vis.margin.top*2 - vis.margin.bottom*3 + 20*i - 14)
+            .attr("x", -1000)
+            .transition()
+            .delay(1000)
+            .duration(500)
+            .attr("x", 0)
+            .style("opacity", 1)
+            .attr("height", 15)
+            .attr("width", 15)
+
+
+        legend.enter()
+            .append("text")
+            .style("opacity", 0)
+            .attr("y", (d, i) => vis.height - vis.margin.top*2 - vis.margin.bottom*3 + 20*i)
+            .attr("x", 0)
+            .transition()
+            .delay(1000)
+            .duration(500)
+            .attr("x", 30)
+            .style("opacity", 1)
+            .attr("font-family", "Lato, sans-serif")
+            .style("fill", "#737373")
+            .text(d => d.title)
 
         vis.wrangleData();
     }
