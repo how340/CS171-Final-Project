@@ -76,23 +76,28 @@ class EndangerMapVis {
             { status: "Extinct", color: "#CCC" }
         ];
 
+        const legendYOffset = 20; // Height of each legend item
+        const legendXOffset = 250; // X position of the legend
+        const legendTopPosition = 400; // Y position of the top of the legend
+
         vis.legend = vis.svg.selectAll(".legend")
             .data(vis.legendData)
             .enter()
             .append("g")
             .attr("class", "legend")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+            .attr("transform", (d, i) => `translate(${legendXOffset}, ${legendTopPosition + i * legendYOffset})`);
 
-        vis.legend.append("circle")
-            .attr("cx", vis.width - 18) // Position legend on the right side
-            .attr("cy", 10) // Center vertically in the `g` element
-            .attr("r", 6) // Radius of legend circles
+        vis.legend.append("rect")
+            .attr("x", vis.width - 24) // Adjust position for squares
+            .attr("y", 5) // Adjust vertical position
+            .attr("width", 12) // Width of the square
+            .attr("height", 12) // Height of the square
             .style("fill", d => d.color);
 
         vis.legend.append("text")
-            .attr("x", vis.width - 24) // Position text to the left of the circles
-            .attr("y", 10) // Center vertically with the circles
-            .attr("dy", ".35em") // Vertically align the text with the circle
+            .attr("x", vis.width - 30) // Adjust position text to the left of the squares
+            .attr("y", 10) // Center vertically with the squares
+            .attr("dy", ".35em") // Vertically align the text with the square
             .style("text-anchor", "end") // Align text to the right of the `x` position
             .text(d => d.status);
 
@@ -105,14 +110,14 @@ class EndangerMapVis {
         // extinction counter
         // Create a text element to display the extinction count
         vis.extinctionCounterText = vis.svg.append("text")
-            .attr("x", 140) // Position this text element appropriately
+            .attr("x", 600) // Position this text element appropriately
             .attr("y", 30)
             .attr("font-size", "20px")
             .attr("fill", "red") // Choose a color that stands out
             .text(`Voices Silenced Forever: ${vis.extinctionCount}`);
 
         vis.yearCounterText = vis.svg.append("text")
-            .attr("x", 140) // Position this text element appropriately
+            .attr("x", 600) // Position this text element appropriately
             .attr("y", 50) // Adjust the vertical position as needed
             .attr("font-size", "16px")
             .attr("fill", "blue") // Choose a color that stands out

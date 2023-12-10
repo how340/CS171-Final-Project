@@ -163,31 +163,73 @@ function handleIntersection(entries, observer) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             // Check which element is intersecting
-            if (entry.target.id === 'mapDiv') {
-                myMapVis.wrangleData();
-            } else if (entry.target.id === 'endangerMapDiv') {
-                myEndangerMapVis.wrangleData();
-            } else if (entry.target.id === 'quizTimeHeader') {
-                //const heading = document.getElementById("quizTimeHeader");
-                d3.select("#quizTimeHeader")
-                    .transition()
-                    .duration(1200) // Adjust the duration as needed (in milliseconds)
-                    .style("opacity", 1);
-            } else if (entry.target.id === 'dwindlingDiversity') {
-                d3.select("#dwindlingDiversity-1")
-                    .transition()
-                    .delay(0) // Delay for the first element
-                    .duration(1200)
-                    .style("opacity", 1);
+            // if (entry.target.id === 'mapDiv') {
+            //     myMapVis.wrangleData();
+            // } else if (entry.target.id === 'endangerMapDiv') {
+            //     myEndangerMapVis.wrangleData();
+            // } else if (entry.target.id === 'quizTimeHeader') {
+            //     //const heading = document.getElementById("quizTimeHeader");
+            //     d3.select("#quizTimeHeader")
+            //         .transition()
+            //         .duration(1200) // Adjust the duration as needed (in milliseconds)
+            //         .style("opacity", 1);
+            // } else if (entry.target.id === 'dwindlingDiversity') {
+            //     d3.select("#dwindlingDiversity-1")
+            //         .transition()
+            //         .delay(0) // Delay for the first element
+            //         .duration(1200)
+            //         .style("opacity", 1);
+            //
+            //     d3.select("#dwindlingDiversity-2")
+            //         .transition()
+            //         .delay(1200) // Delay for the second element after the first one has completed
+            //         .duration(1200)
+            //         .style("opacity", 1);
+            // } else if (entry.target.id === 'gazeGlobally') {
+            //     d3.select("#gazeGlobally")
+            //         .transition()
+            //         .delay(0)
+            //         .duration(1200)
+            //         .style("opacity", 1);
+            // }
+            switch (entry.target.id) {
+                case 'mapDiv':
+                    myMapVis.wrangleData();
+                    break;
+                case 'endangerMapDiv':
+                    myEndangerMapVis.wrangleData();
+                    break;
+                case 'quizTimeHeader':
+                case 'gazeGlobally':
+                    d3.select(`#${entry.target.id}`)
+                        .transition()
+                        .duration(1200)
+                        .style("opacity", 1);
+                    break;
+                case 'dwindlingDiversity':
+                    ['dwindlingDiversity-1', 'dwindlingDiversity-2'].forEach((id, index) => {
+                        d3.select(`#${id}`)
+                            .transition()
+                            .delay(index * 1200) // 0 for the first, 1200 for the second
+                            .duration(1200)
+                            .style("opacity", 1);
+                    });
+                    break;
+                case 'informationAge':
+                    d3.select(`#${entry.target.id}`)
+                        .transition()
+                        .duration(1200)
+                        .style("opacity", 1);
+                    break;
+                case 'americanMeltingPot':
+                    d3.select(`#${entry.target.id}`)
+                        .transition()
+                        .duration(1200) // Duration of the fade effect
+                        .style("opacity", 1); // Target opacity
+                    break;
 
-                d3.select("#dwindlingDiversity-2")
-                    .transition()
-                    .delay(1200) // Delay for the second element after the first one has completed
-                    .duration(1200)
-                    .style("opacity", 1);
             }
 
-            // Optionally, unobserve the target element after the first intersection
             observer.unobserve(entry.target);
         }
     });
@@ -201,11 +243,12 @@ let observer = new IntersectionObserver(handleIntersection, {
 });
 
 // Start observing the target elements
-const quizTimeHeader = document.getElementById("quizTimeHeader");
-const mapTarget = document.getElementById('mapDiv');
-const endangerMapTarget = document.getElementById('endangerMapDiv');
-const dwindlingDiversity = document.getElementById("dwindlingDiversity");
-observer.observe(quizTimeHeader);
-observer.observe(mapTarget);
-observer.observe(endangerMapTarget);
-observer.observe(dwindlingDiversity);
+const elementIds = ["quizTimeHeader", "mapDiv", "endangerMapDiv",
+    "dwindlingDiversity", "gazeGlobally", "informationAge", "americanMeltingPot"];
+
+elementIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+        observer.observe(element);
+    }
+});

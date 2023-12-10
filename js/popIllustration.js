@@ -31,7 +31,7 @@ class PopulationIllustration {
             .attr("font-size", "30px")
             .attr("text-anchor", "left")
             .attr("opacity", 1) // Start with opacity 0
-            .text("78% of the U.S. population are monolingual English speakers.");
+            .text("While it is true that 78% of the U.S. population are monolingual English speakers...");
 
         // Append the first image (colored)
         this.populationIllustration.append("image")
@@ -145,6 +145,7 @@ class PopulationIllustration {
                         .attr("opacity", 0) // Start with opacity 0
                         .text("But with 22% multilingual speakers, that's still 71.5 million people!")
                         .transition()
+                        .delay(1000)
                         .duration(2000) // Adjust duration for the new text fade-in
                         .attr("opacity", 1); // Fade in the new text
                 }

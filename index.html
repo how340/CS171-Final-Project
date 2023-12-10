@@ -87,6 +87,7 @@
 			<section class="section transition-slide">
 				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
+<!--						<img src="img/american-melting-pot.png" id="americanMeltingPot" style="opacity: 0;">-->
 						<h3>The American <strong style="color:#F49B11">melting pot</strong> of cultures is mirrored in its linguistic landscape, telling a story of <em style="color:#F49B11">immigration</em>, <em style="color:#F49B11">history</em>, and <em style="color:#F49B11">globalization</em>.</h3>
 					</div>
 				</div>
@@ -102,7 +103,7 @@
 				<!-- US MAP -->
 				<div class="container">
 					<div class="row" style="padding-top:1vh">
-						<h3>Explore how <strong>non-primary</strong> languages change over time in America</h3>
+						<h3>Explore how <strong>non-primary</strong> languages change over time in the US</h3>
 					</div>
 					<!-- Slider Row with Padding Bottom -->
 					<div class="row justify-content-center pb-3">
@@ -114,14 +115,17 @@
 								<label for="yearSelect">List the </label>
 								<span id="rangeValue">1st</span>
 								<span> most spoken non-English language in each state for </span>
-								<select class="form-control" id="yearSelect">
-									<option value="2016">2016</option>
-									<option value="2017">2017</option>
-									<option value="2018">2018</option>
-									<option value="2019">2019</option>
-									<option value="2020">2020</option>
-									<option value="2021" selected>2021</option>
-								</select>
+								<div class="dropdown">
+									<select class="form-control" id="yearSelect">
+										<option value="2016">2016</option>
+										<option value="2017">2017</option>
+										<option value="2018">2018</option>
+										<option value="2019">2019</option>
+										<option value="2020">2020</option>
+										<option value="2021" selected>2021</option>
+									</select>
+									<span class="caret"></span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -149,7 +153,7 @@
 				<div class="container">
 <!--					<span>Include a couple sentences about some alarming facts about these languages.</span>-->
 					<div class="row" style="padding-top:1vh">
-						<h3>Native American languages are at risk of <strong>extinction</strong> </h3>
+						<h3>No more than <strong>20 Native American languages</strong> are expected to last by the end of this century.</h3>
 					</div>
 					<div class="row justify-content-center pb-3">
 						<!-- Map Div -->
@@ -166,7 +170,7 @@
 			<section class="section transition-slide">
 				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3> As we turn our gaze <strong>globally</strong>, we see the same concerning patterns.</h3>
+						<h3 id="gazeGlobally" style="opacity: 0"> As we turn our gaze <strong>globally</strong>, we see the same concerning patterns.</h3>
 					</div>
 				</div>
 			</section>
@@ -229,7 +233,7 @@
 			<section class="section transition-slide">
 				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3>The <strong>Age of Information</strong>, while connecting cultures together, reinforces this negative trend.</h3>
+						<h3 id="informationAge" style="opacity: 0">The <strong>Age of Information</strong>, while connecting cultures together, reinforces this negative trend.</h3>
 					</div>
 				</div>
 			</section>
@@ -281,7 +285,7 @@
 			<section class="section transition-slide">
 				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3>The Internet also serves as a basis for <strong>state-of-the-art</strong> information technologies.
+						<h3 >The Internet also serves as a basis for <strong>state-of-the-art</strong> information technologies.
 							The performance of these tools is significantly hindered for less popular languages. </h3>
 					</div>
 				</div>
