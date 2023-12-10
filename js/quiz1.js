@@ -21,7 +21,7 @@ class Quiz1 {
         let vis = this
 
         // use the dynamic margin convention 
-        vis.margin = {top: 20, right: 20, bottom: 20, left: 60};
+        vis.margin = {top: 30, right: 20, bottom: 20, left: 60};
         vis.width = document.getElementById(vis.parentElement1).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement1).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -121,16 +121,19 @@ class Quiz1 {
         vis.svg.append('text')
         .attr('class', 'graph-title')
         .attr('x', vis.width/2)
+        .attr('y', -10)
         .attr("text-anchor", 'middle')
         .text('In the United States')
 
         vis.svg2.append('text')
         .attr('x', vis.width/2)
+        .attr('y', -10)
         .attr("text-anchor", 'middle')
         .text('In North and South America')
 
         vis.svg3.append('text')
         .attr('x', vis.width/2)
+        .attr('y', -10)
         .attr("text-anchor", 'middle')
         .text('In the World')
 
