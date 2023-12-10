@@ -438,6 +438,9 @@ class RadarChart {
                     .attr('y', newY)
                     .text(inputText) // tooltip displays value
                     .transition().duration(200)
+                    .attr("text-anchor", "middle")
+                    .style("font-weight", "bold")
+                    .style("font-size", "11px")
                     .style('opacity', 1);
 
 
