@@ -162,14 +162,52 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function handleIntersection(entries, observer) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Check which element is intersecting
-            if (entry.target.id === 'mapDiv') {
-                myMapVis.wrangleData();
-            } else if (entry.target.id === 'endangerMapDiv') {
-                myEndangerMapVis.wrangleData();
+            switch (entry.target.id) {
+                case 'mapDiv':
+                    myMapVis.wrangleData();
+                    break;
+                case 'endangerMapDiv':
+                    myEndangerMapVis.wrangleData();
+                    break;
+                case 'quizTimeHeader':
+                case 'gazeGlobally':
+                    d3.select(`#${entry.target.id}`)
+                        .transition()
+                        .duration(1200)
+                        .style("opacity", 1);
+                    break;
+                case 'dwindlingDiversity':
+                    ['dwindlingDiversity-1', 'dwindlingDiversity-2'].forEach((id, index) => {
+                        d3.select(`#${id}`)
+                            .transition()
+                            .delay(index * 1200) // 0 for the first, 1200 for the second
+                            .duration(1200)
+                            .style("opacity", 1);
+                    });
+                    break;
+                case 'informationAge':
+                    d3.select(`#${entry.target.id}`)
+                        .transition()
+                        .duration(1200)
+                        .style("opacity", 1);
+                    break;
+                case 'american-melting-pot':
+                    // Append an image if it doesn't already exist
+                    let meltingPotDiv = d3.select(`#${entry.target.id}`);
+
+                    meltingPotDiv.append("img")
+                        .attr("src", "img/american-melting-pot.png") // Replace with your image path
+                        .attr("class", "overlay-image")
+                        .style("opacity", 0); // Start with image invisible
+
+                    // Fade in the image
+                    meltingPotDiv.select("img")
+                        .transition()
+                        .duration(1000)
+                        .style("opacity", 1);
+                    break;
             }
 
-            // Optionally, unobserve the target element after the first intersection
             observer.unobserve(entry.target);
         }
     });
@@ -183,7 +221,12 @@ let observer = new IntersectionObserver(handleIntersection, {
 });
 
 // Start observing the target elements
-const mapTarget = document.getElementById('mapDiv');
-const endangerMapTarget = document.getElementById('endangerMapDiv');
-observer.observe(mapTarget);
-observer.observe(endangerMapTarget);
+const elementIds = ["quizTimeHeader", "mapDiv", "endangerMapDiv",
+    "dwindlingDiversity", "gazeGlobally", "informationAge", "american-melting-pot"];
+
+elementIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+        observer.observe(element);
+    }
+});

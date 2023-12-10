@@ -2,7 +2,7 @@ class PopulationIllustration {
     constructor(containerId) {
         this.containerId = containerId;
         this.width = 1200;
-        this.height = 800;
+        this.height = 700;
         this.hasTransitioned = false;
         this.createSVG();
         this.createElements();
@@ -27,11 +27,11 @@ class PopulationIllustration {
         // Append text
         this.text = this.populationIllustration.append("text")
             .attr("x", 0)
-            .attr("y", 200)
+            .attr("y", 150)
             .attr("font-size", "30px")
             .attr("text-anchor", "left")
             .attr("opacity", 1) // Start with opacity 0
-            .text("78% of the U.S. population are monolingual English speakers.");
+            .text("While it is true that 78% of the U.S. population are monolingual English speakers...");
 
         // Append the first image (colored)
         this.populationIllustration.append("image")
@@ -51,13 +51,13 @@ class PopulationIllustration {
     createSpeechBubbles() {
         // Define the possible bubble positions (adjust as needed)
         const bubbleData = [
-            { x: 280, y: 470, greeting: "¡Hola!" },           // Spanish
-            { x: 630, y: 620, greeting: "Kumusta!" },        // Tagalog
-            { x: 790, y: 380, greeting: "Ciao!" },           // Italian
-            { x: 790, y: 620, greeting: "こんにちは!" },       // Japanese (Konnichiwa!)
-            { x: 790, y: 470, greeting: "Привет!" },        // Russian (Privet!)
-            { x: 300, y: 550, greeting: "你好!" },           // Chinese (Nǐ hǎo!)
-            { x: 320, y: 370, greeting: "مرحبًا!" },        // Arabic (Marhaban!)
+            { x: 300, y: 430, greeting: "¡Hola!", isLeft: false },           // Spanish
+            { x: 680, y: 560, greeting: "Kumusta!", isLeft: true },          // Tagalog
+            { x: 850, y: 305, greeting: "Ciao!", isLeft: true },             // Italian
+            { x: 860, y: 545, greeting: "こんにちは!", isLeft: true },       // Japanese (Konnichiwa!)
+            { x: 860, y: 380, greeting: "Привет!", isLeft: true },           // Russian (Privet!)
+            { x: 300, y: 510, greeting: "你好!", isLeft: false },             // Chinese (Nǐ hǎo!)
+            { x: 310, y: 340, greeting: "مرحبًا!", isLeft: false },          // Arabic (Marhaban!)
         ];
 
         // Create a group for each speech bubble
@@ -75,6 +75,31 @@ class PopulationIllustration {
             .attr("height", 40)
             .attr("rx", 10)
             .attr("ry", 10)
+            .attr("fill", "white");
+
+        // Append three small circles to each speech bubble group
+        this.speechBubbles
+            .selectAll(".circle")
+            .data(d => {
+                if (d.isLeft) {
+                    return [
+                        { x: d.x - 55, y: d.y + 20 },
+                        { x: d.x - 63, y: d.y + 30 }, // Slight adjustment for a curve
+                        { x: d.x - 74, y: d.y + 38 }  // Slight adjustment for a curve
+                    ];
+                } else {
+                    return [
+                        { x: d.x + 54, y: d.y + 24 },  // Adjusted position for right side
+                        { x: d.x + 65, y: d.y + 33 },  // Slight adjustment for a curve
+                        { x: d.x + 78, y: d.y + 35 }   // Slight adjustment for a curve
+                    ];
+                }
+            })
+            .enter()
+            .append("circle")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", 5)
             .attr("fill", "white");
 
         // Append text to each speech bubble group
@@ -114,12 +139,13 @@ class PopulationIllustration {
                     // Create and append a new text element for the additional information
                     this.populationIllustration.append("text")
                         .attr("x", 0)
-                        .attr("y", 240) // Adjust the y-position so it doesn't overlap with the existing text
+                        .attr("y", 190) // Adjust the y-position so it doesn't overlap with the existing text
                         .attr("font-size", "30px")
                         .attr("text-anchor", "left")
                         .attr("opacity", 0) // Start with opacity 0
                         .text("But with 22% multilingual speakers, that's still 71.5 million people!")
                         .transition()
+                        .delay(1000)
                         .duration(2000) // Adjust duration for the new text fade-in
                         .attr("opacity", 1); // Fade in the new text
                 }

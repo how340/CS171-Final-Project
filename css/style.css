@@ -131,13 +131,27 @@ section {
 #rangeValue {
     color: #DE2129;
 }
-
 #yearSelect {
-    font-size: 12px;
-    height: 30px;
-    display: inline-block;
-    width: 70px;
+    width: 70px; /* Adjust this value as needed */
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.caret {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #000; /* Change color as needed */
+}
+
 
 /***************************************************************
 ***************      Donut Vis styling          ****************
@@ -181,12 +195,33 @@ section {
     position: absolute;
     text-align: center;
     padding: 8px;
-    font: 12px sans-serif;
+    font: 16px 'Lato', sans-serif;
     background: lightsteelblue;
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
 }
+
+/***************************************************************
+*******           Misc. Animation Support       ****************
+***************************************************************/
+.fixed-size-image {
+    width: 200px;
+}
+
+.image-link-container {
+    text-align: center;
+}
+
+.overlay-image {
+    position: absolute;
+    z-index: 10; /* higher than the content of the div */
+    top: 50%; /* Position the top edge of the image in the middle of the viewport */
+    left: 50%; /* Position the left edge of the image in the middle of the viewport */
+    transform: translate(-50%, -50%); /* Offset the image position to truly center it */
+}
+
+
 
 /***************************************************************
 *******    How to help page    animate hack     ****************

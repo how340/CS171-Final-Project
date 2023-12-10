@@ -105,6 +105,62 @@ class NameConverter {
 let nameConverter = new NameConverter()
 
 
+const tooltipVariations = [
+    ` - Silenced for eternity. A distinctive voice, a vibrant cultural legacy, forever vanished. Once uttered, now a mere whisper in the annals of time.`,
+    ` - Permanently hushed. An exceptional linguistic identity, a profound cultural heritage, irreversibly extinguished. Formerly spoken, now a distant memory etched in history.`,
+    ` - Now in eternal silence. A unique linguistic expression, a rich cultural tapestry, lost to the ages. Once vocalized, now relegated to the echoes of bygone eras.`,
+    ` - Forever muted. A singular linguistic tradition, a deep reservoir of culture, now consigned to oblivion. Once articulated, now a faint resonance within the pages of history.`,
+    ` - Silenced for all time. An extraordinary linguistic heritage, a tapestry of culture, forever vanished. Once spoken, now relegated to the whispers of yesteryears.`
+];
+
+// Function to shuffle an array (Fisher-Yates algorithm)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Function to set a random tooltip on hover
+function setRandomTooltip() {
+    shuffleArray(tooltipVariations);
+    return tooltipVariations[0];
+}
+
+let languageCodes = [
+    { language: "Vietnamese", code: "VIE" },
+    { language: "Russian", code: "RUS" },
+    { language: "Tagalog (incl. Filipino)", code: "TGL" },
+    { language: "Korean", code: "KOR" },
+    { language: "French (incl. Cajun)", code: "FRA" },
+    { language: "Chinese (incl. Mandarin, Cantonese)", code: "ZHO" },
+    { language: "Haitian", code: "HAT" },
+    { language: "Yoruba, Twi, Igbo, or other languages of Western Africa", code: "N/A" },
+    { language: "Spanish", code: "SPA" },
+    { language: "Arabic", code: "ARA" },
+    { language: "Other languages of Asia", code: "N/A" },
+    { language: "Thai, Lao, or other Tai-Kadai languages", code: "THA" },
+    { language: "German", code: "DEU" },
+    { language: "Amharic, Somali, or other Afro-Asiatic languages", code: "N/A" },
+    { language: "Portuguese", code: "POR" },
+    { language: "Swahili or other languages of Central, Eastern, and Southern Africa", code: "N/A" },
+    { language: "Italian", code: "ITA" },
+    { language: "Urdu", code: "urd" },
+    { language: "Yiddish, Pennsylvania Dutch or other West Germanic languages", code: "YID" },
+    { language: "Other Indo-European languages", code: "N/A" },
+    { language: "Serbo-Croatian", code: "HBS" },
+    { language: "Hindi", code: "HIN" },
+    { language: "Nepali, Marathi, or other Indic languages", code: "N/A" },
+    { language: "Hmong", code: "HMN" },
+    { language: "Gujarati", code: "GUJ" },
+    { language: "Ilocano, Samoan, Hawaiian, or other Austronesian languages", code: "ILO" },
+    { language: "Other Native languages of North America", code: "N/A" },
+    { language: "Polish", code: "POL" },
+    { language: "Japanese", code: "JPN" },
+    { language: "Navajo", code: "NAV" }
+];
+
+
 /* * * * * * * * * * * * * *
 *         Carousel         *
 * * * * * * * * * * * * * */

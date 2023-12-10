@@ -55,11 +55,15 @@
 
 			<section class="section transition-slide">
 				<div class="container">
-					<div class="h-100 d-flex align-items-center justify-content-center">
-							<h3>Let's see what <strong style="color:#F49B11">you</strong> know about linguistic diversity!</h3>
+					<div class="row">
+						<div class="col-12 text-center">
+							<img src="img/linguistic_diversity.png" class="img-fluid mx-auto d-block mb-3" style="width: 1300px">
+							<h3 id="quizTimeHeader" style="opacity: 0;">Let's see what <strong style="color:#F49B11">you</strong> know about linguistic diversity!</h3>
+						</div>
 					</div>
 				</div>
 			</section>
+
 
 			<!-- Interactive Quiz section -->
 			<section class="section" id="quiz-panel">
@@ -82,7 +86,8 @@
 
 			<section class="section transition-slide">
 				<div class="container">
-					<div class="h-100 d-flex align-items-center justify-content-center">
+					<div id="american-melting-pot" class="h-100 d-flex align-items-center justify-content-center">
+<!--						<img src="img/american-melting-pot.png" id="americanMeltingPot" style="opacity: 0;">-->
 						<h3>The American <strong style="color:#F49B11">melting pot</strong> of cultures is mirrored in its linguistic landscape, telling a story of <em style="color:#F49B11">immigration</em>, <em style="color:#F49B11">history</em>, and <em style="color:#F49B11">globalization</em>.</h3>
 					</div>
 				</div>
@@ -98,7 +103,7 @@
 				<!-- US MAP -->
 				<div class="container">
 					<div class="row" style="padding-top:1vh">
-						<h3>Explore how <strong>non-primary</strong> languages change over time in America</h3>
+						<h3>Explore how <strong>non-primary</strong> languages change over time in the US</h3>
 					</div>
 					<!-- Slider Row with Padding Bottom -->
 					<div class="row justify-content-center pb-3">
@@ -110,14 +115,17 @@
 								<label for="yearSelect">List the </label>
 								<span id="rangeValue">1st</span>
 								<span> most spoken non-English language in each state for </span>
-								<select class="form-control" id="yearSelect">
-									<option value="2016">2016</option>
-									<option value="2017">2017</option>
-									<option value="2018">2018</option>
-									<option value="2019">2019</option>
-									<option value="2020">2020</option>
-									<option value="2021" selected>2021</option>
-								</select>
+								<div class="dropdown">
+									<select class="form-control" id="yearSelect">
+										<option value="2016">2016</option>
+										<option value="2017">2017</option>
+										<option value="2018">2018</option>
+										<option value="2019">2019</option>
+										<option value="2020">2020</option>
+										<option value="2021" selected>2021</option>
+									</select>
+									<span class="caret"></span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -133,10 +141,10 @@
 				</div>
 			</section>
 			<section class="section transition-slide">
-				<div class="container">
+				<div class="container" id="dwindlingDiversity">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3>Despite this diversity, linguistic variety in the US has long been dwindling.
-							<strong>Native American languages are disappearing at a worrying pace.</strong></h3>
+						<h3><span id="dwindlingDiversity-1" style="opacity: 0">Despite this diversity, linguistic variety in the US has long been dwindling.</span>
+							<strong id="dwindlingDiversity-2" style="opacity: 0">Native American languages are disappearing at a worrying pace.</strong></h3>
 					</div>
 				</div>
 			</section>
@@ -145,7 +153,7 @@
 				<div class="container">
 <!--					<span>Include a couple sentences about some alarming facts about these languages.</span>-->
 					<div class="row" style="padding-top:1vh">
-						<h3>Native American languages are at risk of <strong>extinction</strong> </h3>
+						<h3>No more than <strong>20 Native American languages</strong> are expected to last by the end of this century.</h3>
 					</div>
 					<div class="row justify-content-center pb-3">
 						<!-- Map Div -->
@@ -162,7 +170,7 @@
 			<section class="section transition-slide">
 				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3> As we turn our gaze <strong>globally</strong>, we see the same concerning patterns.</h3>
+						<h3 id="gazeGlobally" style="opacity: 0"> As we turn our gaze <strong>globally</strong>, we see the same concerning patterns.</h3>
 					</div>
 				</div>
 			</section>
@@ -225,7 +233,7 @@
 			<section class="section transition-slide">
 				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3>The <strong>Age of Information</strong>, while connecting cultures together, reinforces this negative trend.</h3>
+						<h3 id="informationAge" style="opacity: 0">The <strong>Age of Information</strong>, while connecting cultures together, reinforces this negative trend.</h3>
 					</div>
 				</div>
 			</section>
@@ -277,7 +285,7 @@
 			<section class="section transition-slide">
 				<div class="container">
 					<div class="h-100 d-flex align-items-center justify-content-center">
-						<h3>The Internet also serves as a basis for <strong>state-of-the-art</strong> information technologies.
+						<h3 >The Internet also serves as a basis for <strong>state-of-the-art</strong> information technologies.
 							The performance of these tools is significantly hindered for less popular languages. </h3>
 					</div>
 				</div>
@@ -346,24 +354,51 @@
 			<!--	Insert link to various foundations here		-->
 			<section class="section">
 
+<!--				<div class="container-fluid align-items-center justify-content-center">-->
+<!--					<div class="row  text-center">-->
+<!--						<h3>Organizations Fighting for <strong>Language Preservation</strong></h3>-->
+<!--						<div style="margin-top: 2%;">Here are some organizations that are conserving the linguistic diveristy across the globe. Check them out!</div>-->
+<!--					</div>-->
+
+<!--					<div class="row" style="margin-top: 3%;">-->
+<!--						<div class="col-4">-->
+<!--							<div class="row"><img src = "img/ELP.svg" alt="ELG logo" width="100px"/></div>-->
+<!--							<div class="row text-center"><a href="https://www.endangeredlanguages.com/">Endangered Languages Project</a></div>-->
+<!--						</div>-->
+<!--						<div class="col-4">-->
+<!--							<div class="row"><img src = "img/LOGO-Living-Tongues.svg" alt="livingtongues logo" width="100px"/></div>-->
+<!--							<div class="row text-center"><a href="https://www.livingtongues.org/">Living Tongues Institute for Endangered Languages</a></div>-->
+
+<!--						</div>-->
+<!--						<div class="col-4">-->
+<!--							<div class="row"><img src = "img/flag-of-unesco.svg" alt="UNESCO logo" width="100px"/></div>-->
+<!--							<div class="row text-center"><a href="https://en.wal.unesco.org/world-atlas-languages">UNESCO Atlas of the World's Languages in Danger</a></div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+
 				<div class="container-fluid align-items-center justify-content-center">
-					<div class="row  text-center">
-						<h3>Language <strong>preservation</strong> organizations</h3>
-						<div style="margin-top: 2%;">Here are some organizations that are conserving the linguistic diveristy across the globe. Check them out!</div>
+					<div class="row text-center">
+						<div class="col-12">
+							<h3>Organizations Fighting for <strong>Language Preservation</strong></h3>
+							<div style="margin-top: 2%;">Here are some organizations that are conserving the linguistic diversity across the globe. Check them out!</div>
+						</div>
 					</div>
 
-					<div class="row" style="margin-top: 3%;">
-						<div class="col-4">
-							<div class="row"><img src = "img/ELP.svg" alt="ELG logo" height="200px" width="300px"/></div>
+					<div class="row">
+						<div class="col-md-6 text-center image-link-container">
+							<div class="row text-center"><img class="fixed-size-image" src="img/ELP.svg" alt="ELG logo"/></div>
 							<div class="row text-center"><a href="https://www.endangeredlanguages.com/">Endangered Languages Project</a></div>
 						</div>
-						<div class="col-4">
-							<div class="row"><img src = "img/LOGO-Living-Tongues.svg" alt="livingtongues logo" height="200px" width="300px"/></div>
+						<div class="col-md-6 text-center image-link-container">
+							<div class="row text-center"><img class="fixed-size-image" src="img/LOGO-Living-Tongues.svg" alt="livingtongues logo"/></div>
 							<div class="row text-center"><a href="https://www.livingtongues.org/">Living Tongues Institute for Endangered Languages</a></div>
-							
 						</div>
-						<div class="col-4">
-							<div class="row"><img src = "img/flag-of-unesco.svg" alt="UNESCO logo" height="200px" width="300px"/></div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 text-center image-link-container">
+							<div class="row text-center"><img class="fixed-size-image" src="img/flag-of-unesco.svg" alt="UNESCO logo"/></div>
 							<div class="row text-center"><a href="https://en.wal.unesco.org/world-atlas-languages">UNESCO Atlas of the World's Languages in Danger</a></div>
 						</div>
 					</div>
