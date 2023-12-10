@@ -235,6 +235,10 @@ section {
     opacity: 0;
   }
 
+.row .org {
+    opacity: 0;
+}
+
 .row .animate {
     animation: 1s ease-out 0s 1 slideInFromLeft;
   }
