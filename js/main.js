@@ -195,9 +195,10 @@ function handleIntersection(entries, observer) {
                     // Append an image if it doesn't already exist
                     let meltingPotDiv = d3.select(`#${entry.target.id}`);
 
-                    meltingPotDiv.append("img")
+                    meltingPotDiv.insert("img", "h3")
                         .attr("src", "img/american-melting-pot.png") // Replace with your image path
                         .attr("class", "overlay-image")
+                        // .style("z-index", -1)
                         .style("opacity", 0); // Start with image invisible
 
                     // Fade in the image
