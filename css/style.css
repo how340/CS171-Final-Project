@@ -229,6 +229,12 @@ section {
     /*transform: translate(0%, 0%); !* Offset the image position to truly center it *!*/
 }
 
+.center-content {
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    height: 100%;
+}
+
 
 
 /***************************************************************
