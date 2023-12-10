@@ -116,6 +116,24 @@ class Quiz1 {
                     vis.updateVis()
                 }))
         vis.bar_label3 = vis.svg3.append('text')
+
+        //give graphs titles
+        vis.svg.append('text')
+        .attr('class', 'graph-title')
+        .attr('x', vis.width/2)
+        .attr("text-anchor", 'middle')
+        .text('In the United States')
+
+        vis.svg2.append('text')
+        .attr('x', vis.width/2)
+        .attr("text-anchor", 'middle')
+        .text('In North and South America')
+
+        vis.svg3.append('text')
+        .attr('x', vis.width/2)
+        .attr("text-anchor", 'middle')
+        .text('In the World')
+
         vis.wrangleData()
     }
 
