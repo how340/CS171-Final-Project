@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * *
-*          UsMapVis          *
+*          UsMapVis         *
 * * * * * * * * * * * * * */
 let languages;
 
@@ -124,18 +124,22 @@ class UsMapVis {
             .attr("id", "horizontalBarTooltip")
             .style("opacity", 0);
 
+        // vis.colorScale = d3.scaleOrdinal([
+        //     "#FF5733", "#FFC300", "#FF7F50", "#FF8C69", "#FFB07A",
+        //     "#FFD1A3", "#FFDAC1", "#FFE6D5", "#FFEFD9", "#FFF5E6",
+        //     "#F3E5AB", "#E6D693", "#D9C77A", "#CCB862", "#BFAC4F",
+        //     "#B3A23F", "#A69936", "#998F2D", "#8C8523", "#807C1A",
+        //     "#D3E2F9", "#B8D0F2", "#9DBFEB", "#82AEE4", "#669CDD",
+        //     "#4B8AD6", "#3078CF", "#1665C8", "#0053C1", "#0042BA"
+        // ]);
 
         vis.colorScale = d3.scaleOrdinal([
-            "#7B241C", "#216869", "#4E6A79",
-            "#E8A1A1", "#EFAFBF", "#FFD6DF",
-            "#F57F33", "#FFAD68", "#FFD6A0",
-            "#F4B141", "#5F7184", "#8B97A0",
-            "#E1E2E5", "#FCE0BA", "#FEEFDE",
-            "#3B5273", "#8C9DAF", "#B7C4CF",
-            "#F5BD61", "#FAD8A1", "#FFF9F0",
-            "#E6A286", "#D37320", "#C74B3E",
-            "#E05244", "#A3742C", "#8A7A2B",
-            "#2B6296", "#2874A6", "#2E86C1"
+            "#E6735A", "#E57A7A", "#E5947A", "#E6A759", "#E6B55A",
+            "#CC957A", "#D1A598", "#E6B8A2", "#E6C5A9", "#E6B17A",
+            "#A3CC93", "#97B897", "#93BCAC", "#A2C0CC", "#93B1CC",
+            "#8AA6BC", "#8196A3", "#81C0E1", "#75BBD0", "#6495A3",
+            "#CC8A9E", "#CC8A8A", "#CCAA00", "#CCAC6B", "#CCAC81",
+            "#B28F1A", "#CC7A36", "#CC6B50", "#CC604A", "#CC5F3A"
         ]);
 
         // Set the width of the horizontal bar
@@ -157,7 +161,7 @@ class UsMapVis {
 
         vis.horizontalBarSvg.append("g")
             .attr("class", "x-axis")
-            .attr("transform", "translate(0," + (60) + ")") // Adjust someYPosition to position the axis below your bars
+            .attr("transform", "translate(0," + (53) + ")") // Adjust someYPosition to position the axis below your bars
             .call(vis.xAxis);
 
 
