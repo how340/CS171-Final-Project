@@ -1,3 +1,7 @@
+/* * * * * * * * * * * * * *
+*       endangerMapVis     *
+* * * * * * * * * * * * * */
+
 let toolTipUpdateInterval;
 class EndangerMapVis {
 
@@ -59,13 +63,13 @@ class EndangerMapVis {
             .attr('class', 'state-boundaries')
             .attr('stroke', 'white')
             .selectAll('path')
-            .data(vis.stateMap) // Use vis.stateMap.features to bind data
+            .data(vis.stateMap)
             .enter().append('path')
             .attr('vector-effect', 'non-scaling-stroke')
             .attr('d', vis.path)
             .attr('fill', '#CCC') // Initial fill color
-            .transition() // Start transition
-            .duration(20000) // Duration of transition in milliseconds
+            .transition()
+            .duration(20000)
             .attr('fill', '#12242e'); // End fill color
 
 
@@ -89,10 +93,10 @@ class EndangerMapVis {
             .attr("transform", (d, i) => `translate(${legendXOffset}, ${legendTopPosition + i * legendYOffset})`);
 
         vis.legend.append("rect")
-            .attr("x", vis.width - 24) // Adjust position for squares
-            .attr("y", 5) // Adjust vertical position
-            .attr("width", 12) // Width of the square
-            .attr("height", 12) // Height of the square
+            .attr("x", vis.width - 24)
+            .attr("y", 5)
+            .attr("width", 12)
+            .attr("height", 12)
             .style("fill", d => d.color);
 
         vis.legend.append("text")
@@ -107,15 +111,6 @@ class EndangerMapVis {
             .attr("class", "tooltip")
             .attr("id", "mapTooltip")
             .style("opacity", 0);
-
-        // extinction counter
-        // Create a text element to display the extinction count
-        vis.extinctionCounterText = vis.svg.append("text")
-            .attr("x", 0) // Position this text element appropriately
-            .attr("y", vis.viewpoint.height - 50)
-            .attr("font-size", "30px")
-            .attr("fill", "black") // Choose a color that stands out
-            .text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} unique voices will be silenced forever.`);
         //this.wrangleData();
     }
 
@@ -123,9 +118,10 @@ class EndangerMapVis {
         let vis = this;
 
         vis.languageData.forEach(d => {
-            d.Num_Speakers = +d.Num_Speakers; // Ensure num_speakers is a number
-            d.Latitude = +d.Latitude;         // Ensure Latitude is a number
-            d.Longitude = +d.Longitude;       // Ensure Longitude is a number
+            // First, ensure variables converted to numbers
+            d.Num_Speakers = +d.Num_Speakers;
+            d.Latitude = +d.Latitude;
+            d.Longitude = +d.Longitude;
         });
 
         // Filter out data points that are outside the mainland U.S.
@@ -158,6 +154,15 @@ class EndangerMapVis {
             }
         }
 
+        // Extinction Counter
+        // Create a text element to display the extinction count
+        vis.extinctionCounterText = vis.svg.append("text")
+            .attr("x", 0) // Position this text element appropriately
+            .attr("y", vis.viewpoint.height - 50)
+            .attr("font-size", "30px")
+            .attr("fill", "black") // Choose a color that stands out
+            .text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} unique voices will be silenced forever.`);
+
         vis.circles = vis.svg.selectAll(".language-bubble")
             .data(vis.filteredLanguageData)
             .enter()
@@ -177,7 +182,6 @@ class EndangerMapVis {
             .attr("stroke", "black")
             .attr("stroke-width", 1)
             .attr("display", d => vis.projection([d.Longitude, d.Latitude]) ? null : "none");
-
 
         vis.circles.on("mouseover", function(event, d) {
             vis.tooltip.transition()
@@ -219,16 +223,10 @@ class EndangerMapVis {
             .attr("r", d => Math.log(d.Num_Speakers + 1) * 1.5)
             .style("opacity", 0.75);
 
-
-
-
-        // Sort the data by Num_Speakers so that you can make them disappear in that order
-        // vis.filteredLanguageData.sort((a, b) => a.Num_Speakers - b.Num_Speakers);
-
         let durationScale = d3.scaleLinear()
             .domain([d3.min(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1)),
                 d3.max(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1))])
-            .range([5000, 15000]); // Range from 2 seconds to 10 seconds for the transition
+            .range([5000, 15000]);
 
         vis.circles.transition()
             .delay(1000) // Start after the initial appearance transition
@@ -309,8 +307,6 @@ class EndangerMapVis {
                     vis.extinctionCount++;
                     vis.extinctionCounterText.text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} 
                     unique voices will be silenced forever.`);
-
-
                 }
 
                 // Remove the circle element
@@ -318,6 +314,7 @@ class EndangerMapVis {
             });
 
         const endYear = 2100;
+
         // Function to increment and update the year counter
         function incrementYearCounter() {
             if (vis.yearCounter < endYear) {
@@ -330,13 +327,8 @@ class EndangerMapVis {
         }
 
         // Set the interval for the year counter update
-        const yearUpdateInterval = 219; // Interval in milliseconds (e.g., 10 seconds)
+        const yearUpdateInterval = 219;
         d3.interval(incrementYearCounter, yearUpdateInterval);
-            //.remove();
-
-
-
-        //console.log("you're at the end");
 
     }
 }

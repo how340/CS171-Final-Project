@@ -11,7 +11,7 @@ body {
     color: #2e3133;
     font-family: 'Lato', sans-serif;
     font-size: 17px;
-    justify-content: center; /* Center content horizontally */
+    justify-content: center;
     margin: None;
     background-color: oldlace;
 
@@ -86,7 +86,7 @@ section {
 }
 
 /***************************************************************
-***************      Quiz 1 Styling    ****************
+***************      Quiz 1 Styling            ****************
 ***************************************************************/
 #quiz1-graph-row{
     height: 55vh;
@@ -111,8 +111,8 @@ section {
 
 .quiz1-graph {
     height:100%;
-
 }
+
 /***************************************************************
 ***************US Multilingual Proportion Styling****************
 ***************************************************************/
@@ -152,10 +152,8 @@ section {
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 4px solid #000; /* Change color as needed */
+    border-top: 4px solid #000;
 }
-
-
 
 /***************************************************************
 ***************      Donut Vis styling          ****************
@@ -207,7 +205,7 @@ section {
 }
 
 /***************************************************************
-*******           Misc. Animation Support       ****************
+*******    Transition Slide Animation Support   ****************
 ***************************************************************/
 .fixed-size-image {
     width: 200px;
@@ -219,13 +217,11 @@ section {
 
 .overlay-image {
     position: absolute;
-    z-index: 10; /* higher than the content of the div */
-    top: 50%; /* Position the top edge of the image in the middle of the viewport */
-    left: 50%; /* Position the left edge of the image in the middle of the viewport */
-    transform: translate(-50%, -50%); /* Offset the image position to truly center it */
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-
-
 
 /***************************************************************
 *******    How to help page    animate hack     ****************

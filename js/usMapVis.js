@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * *
-*          UsMapVis         *
+*          UsMapVis        *
 * * * * * * * * * * * * * */
 let languages;
 
@@ -9,14 +9,10 @@ class UsMapVis {
         this.parentElement = parentElement;
         this.geoData = geoData;
         this.usaData = usaData
-        //this.displayData = [];
 
         this.highlightedLanguage = null;
-        // parse date method
-        //this.parseDate = d3.timeParse("%m/%d/%Y");
 
         this.initVis()
-
     }
 
     initVis() {
@@ -56,8 +52,7 @@ class UsMapVis {
         vis.usa = vis.svg.append('g')
             .attr('class', 'usa-boundary')
             .append('path')
-            //.selectAll('path')
-            .datum(vis.usaMap) // Wrap vis.usaMap in an array
+            .datum(vis.usaMap)
             .attr('d', vis.path)
             .attr('fill', '#ADDEFF');
 
@@ -67,7 +62,7 @@ class UsMapVis {
             .attr('stroke', 'white')
             .attr('fill', '#CCC') // Set fill to 'none' for state boundaries
             .selectAll('path')
-            .data(vis.stateMap) // Use vis.stateMap.features to bind data
+            .data(vis.stateMap)
             .enter().append('path')
             .attr('vector-effect', 'non-scaling-stroke')
             .attr('d', vis.path);
@@ -87,6 +82,8 @@ class UsMapVis {
             .attr('x', d => {
                 const stateAbbreviation = new NameConverter().getAbbreviation(d.properties.name);
                 switch (stateAbbreviation) {
+                    // Some states are appear slightly off if going by the centroid.
+                    // This recalibrates the position of certain state labels.
                     case 'CA': return vis.path.centroid(d)[0] - 10; // Move CA slightly to the left
                     case 'LA': return vis.path.centroid(d)[0] - 7;  // Move LA slightly to the left
                     case 'FL': return vis.path.centroid(d)[0] + 12; // Move FL further to the right
@@ -109,9 +106,6 @@ class UsMapVis {
             .attr('alignment-baseline', 'central')
             .style('font-size', '10px'); // Adjust font size as needed
 
-
-
-
         // Add tooltip container
         vis.tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -124,15 +118,8 @@ class UsMapVis {
             .attr("id", "horizontalBarTooltip")
             .style("opacity", 0);
 
-        // vis.colorScale = d3.scaleOrdinal([
-        //     "#FF5733", "#FFC300", "#FF7F50", "#FF8C69", "#FFB07A",
-        //     "#FFD1A3", "#FFDAC1", "#FFE6D5", "#FFEFD9", "#FFF5E6",
-        //     "#F3E5AB", "#E6D693", "#D9C77A", "#CCB862", "#BFAC4F",
-        //     "#B3A23F", "#A69936", "#998F2D", "#8C8523", "#807C1A",
-        //     "#D3E2F9", "#B8D0F2", "#9DBFEB", "#82AEE4", "#669CDD",
-        //     "#4B8AD6", "#3078CF", "#1665C8", "#0053C1", "#0042BA"
-        // ]);
-
+        // Categorical color scale assigned to each language on the US Map.
+        // We have about 30 colors.
         vis.colorScale = d3.scaleOrdinal([
             "#E6735A", "#E57A7A", "#E5947A", "#E6A759", "#E6B55A",
             "#CC957A", "#D1A598", "#E6B8A2", "#E6C5A9", "#E6B17A",
@@ -164,7 +151,6 @@ class UsMapVis {
             .attr("transform", "translate(0," + (53) + ")") // Adjust someYPosition to position the axis below your bars
             .call(vis.xAxis);
 
-
         //this.wrangleData();
     }
 
@@ -178,10 +164,9 @@ class UsMapVis {
         } else {
             // Handle the undefined case, maybe set a default value or log an error
             console.error('Selected year is undefined or the element is not found');
-            // You can set a default value or return from the function if necessary
+            // Default year
             selectedYear = '2021';
         }
-
 
         // Filter the data by the selected year
         vis.filteredData = vis.usaData.filter(item => item.year == selectedYear);
@@ -213,8 +198,6 @@ class UsMapVis {
             vis.stateInfoObject[item.state] = stateInfo;
         });
 
-
-
         function getAllUniqueLanguages() {
             const uniqueLanguages = new Set();
 
@@ -236,13 +219,6 @@ class UsMapVis {
         // Assign each language a color
         vis.colorScale.domain(languages);
 
-
-        // vis.allLanguages = [...new Set(Object.values(vis.stateInfoObject)
-        //     .flatMap(stateInfo => {
-        //         const languageInfoArray = stateInfo.languages[sliderValue];
-        //         return languageInfoArray;
-        //     })
-        // )];
         vis.allLanguages = [...new Set(Object.values(vis.stateInfoObject)
             .flatMap(stateInfo => stateInfo.languages[sliderValue])
         )];
@@ -289,11 +265,6 @@ class UsMapVis {
         // Flag to track hover state
         let hoveredState = null;
 
-
-        // function setColor(d) {
-        //     var language = vis.stateInfoObject[d.properties.name].languages[sliderValue].language;
-        //     return vis.colorScale(language);
-        // }
         function setColor(d) {
             // Use optional chaining and nullish coalescing
             var language = vis.stateInfoObject[d.properties.name]?.languages[sliderValue]?.language ?? null;
@@ -313,53 +284,36 @@ class UsMapVis {
         // Add hover effects to the country paths
         vis.state
             .on("mouseover", function(event, d) {
-            //     hoveredState = d.properties.name;
-            // d3.select(this)
-            //     .attr('stroke-width', '2px')
-            //     .attr('stroke', 'white')
-            //     .style("fill", "rgb(215,84,35)"); // Hover color
+                // Set the highlighted language
+                vis.highlightedLanguage = vis.stateInfoObject[d.properties.name].languages[sliderValue].language;
 
-        // Set the highlighted language
-        vis.highlightedLanguage = vis.stateInfoObject[d.properties.name].languages[sliderValue].language;
-
-        // Apply highlighting logic
-        vis.state.each(function(stateData) {
-            d3.select(this)
-                .style("fill", stateData.properties.name === d.properties.name
-                || vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language === vis.highlightedLanguage
-                    ? vis.colorScale(vis.highlightedLanguage)
-                    : "#CCC"); // Gray out non-matching states
-        });
-
-                vis.state.transition().duration(300).style("fill", function(stateData) {
-                    const stateLanguage = vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language;
-                    return stateLanguage === vis.highlightedLanguage ? vis.colorScale(vis.highlightedLanguage) : "#CCC";
+                // Apply highlighting logic
+                vis.state.each(function(stateData) {
+                    d3.select(this)
+                        .style("fill", stateData.properties.name === d.properties.name
+                        || vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language === vis.highlightedLanguage
+                            ? vis.colorScale(vis.highlightedLanguage)
+                            : "#CCC"); // Gray out non-matching states
                 });
 
-            //debug
-            //console.log(vis.stateInfoObject[d.properties.name].languages[sliderValue].language);
+                        vis.state.transition().duration(300).style("fill", function(stateData) {
+                            const stateLanguage = vis.stateInfoObject[stateData.properties.name].languages[sliderValue].language;
+                            return stateLanguage === vis.highlightedLanguage ? vis.colorScale(vis.highlightedLanguage) : "#CCC";
+                        });
 
-            // Show tooltip
-            vis.tooltip
-                .style("opacity", 1)
-                .style("left", event.pageX + 20 + "px")
-                .style("top", event.pageY + "px")
-                .html(`
-                    <div>
-                        In ${vis.stateInfoObject[d.properties.name].state}, the ${getOrdinal(sliderValue)} most spoken language is 
-                        ${vis.stateInfoObject[d.properties.name].languages[sliderValue].language}. ${numberWithCommas(vis.stateInfoObject[d.properties.name].languages[sliderValue].numSpeakers)}
-                        residents speak it.
-                    </div>`);
-        })
+                    // Show tooltip
+                    vis.tooltip
+                        .style("opacity", 1)
+                        .style("left", event.pageX + 20 + "px")
+                        .style("top", event.pageY + "px")
+                        .html(`
+                            <div>
+                                In ${vis.stateInfoObject[d.properties.name].state}, the ${getOrdinal(sliderValue)} most spoken language is 
+                                ${vis.stateInfoObject[d.properties.name].languages[sliderValue].language}. ${numberWithCommas(vis.stateInfoObject[d.properties.name].languages[sliderValue].numSpeakers)}
+                                residents speak it.
+                            </div>`);
+            })
             .on("mouseout", function(event, d) {
-                // if (hoveredState === d.properties.name) {
-                //     hoveredState = null;
-                // }
-                // d3.select(this)
-                //     .attr('stroke-width', '0.5px')
-                //     //.style("fill", '#CCC'); // Reset color
-                //     .style("fill", setColor(d));
-
         // Reset the highlighted language
         vis.highlightedLanguage = null;
 
@@ -389,11 +343,6 @@ class UsMapVis {
         // Calculate width of each segment
         let segmentWidths = vis.horizontalBarData.map(value => (value / totalSum) * vis.totalHorizontalBarWidth);
         let segmentPercentages = vis.horizontalBarData.map(value => (value / totalSum) * 100);
-        // let segmentDetails = vis.horizontalBarData.map(value => {
-        //     let width = (value / totalSum) * vis.totalHorizontalBarWidth;
-        //     let percentage = (value / totalSum) * 100; // Convert to percentage
-        //     return { width, percentage };
-        // });
 
         // Select or append rectangles for each segment
         let bars = vis.horizontalBarSvg.selectAll("rect")
@@ -403,7 +352,6 @@ class UsMapVis {
             .merge(bars)
             .transition()
             .duration(1000)
-            //.attr("x", (d, i) => vis.xScale(segmentWidths.slice(0, i).reduce((a, b) => a + b, 0))) // Add padding to the x position
             .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0)) // Calculate x position
             .attr("y", 0)
             .attr("width", (d, i) => segmentWidths[i]) // Use the corresponding width
@@ -415,9 +363,8 @@ class UsMapVis {
 
         vis.horizontalBarSvg.selectAll("rect")
             .on("mouseover", function(event, d) {
-
                 // Set the highlighted language to the language of the hovered bar
-                vis.highlightedLanguage = d[0]; // Assuming d[0] contains the language name
+                vis.highlightedLanguage = d[0];
 
                 // Apply highlighting logic to states
                 vis.state.each(function(stateData) {
@@ -446,7 +393,6 @@ class UsMapVis {
                             ${d[0]} holds ${numberWithCommas(d[1])} (${speakerPercentTotal}%) speakers in this category.
                         </div>
                     `);
-
             })
             .on("mouseout", function(event, d) {
                 // Reset the highlighted language
@@ -465,18 +411,6 @@ class UsMapVis {
                 vis.horizontalBarTooltip
                     .style("opacity", 0);
             });
-
-        // // Append text labels to the bars
-        // vis.horizontalBarSvg.selectAll(".bar-label")
-        //     .data(vis.languageArray) // Use the same data binding as for the bars
-        //     .append("text")
-        //     .attr("class", "bar-label")
-        //     .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0) + (segmentWidths[i] / 2)) // Position in the middle of the bar
-        //     .attr("y", 25) // Vertically center in the bar, adjust as needed
-        //     .attr("text-anchor", "middle") // Center the text
-        //     .attr("fill", "white") // Text color, change as needed
-        //     .text((d, i) => segmentPercentages[i] >= 8 ? `${d[0]}: ${segmentPercentages[i].toFixed(1)}%` : '') // Display text only if >= 8%
-        //     .style("font-size", "12px");
 
         function updateLabels() {
             let languageCodeMap = {};
@@ -498,7 +432,6 @@ class UsMapVis {
                 .attr("y", 28)
                 .attr("text-anchor", "middle")
                 .attr("fill", "white")
-                //.text((d, i) => segmentPercentages[i] >= 6 ? `${d[0]}` : '')
                 .text((d, i) => {
                     let code = languageCodeMap[d[0]]; // Get the code from the map
                     return segmentPercentages[i] >= 4 && code ? `${code}` : ''; // Display code if percentage >= 6% and code exists
@@ -512,16 +445,13 @@ class UsMapVis {
         // After creating the bars
         updateLabels();
 
-
-
-
-
         // Exit
         bars.exit()
             .transition()
             .duration(750)
             .style("opacity", 0)
             .remove();
+
         // Call this function to update the colors when slider value changes
         // Function to update colors
         function updateColors() {
@@ -546,8 +476,6 @@ class UsMapVis {
         updateColors();
 
     }
-
-
 }
 
 

@@ -87,7 +87,7 @@ function initMainPage(dataArray) {
     quiz1 = new Quiz1('quiz-1', 'quiz-2', 'quiz-3')
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
 
-    // Usage:
+    // Population Illustration
     populationIllustration = new PopulationIllustration("population-transition");
 
     // US Map Data
@@ -112,20 +112,18 @@ function initMainPage(dataArray) {
     myDonutVis = new DonutVis('donut')
 }
 
-
-
 function internetLanguageVisOnChange(){
   internetLanguageVis.wrangleData();
 }
 
-
-
+// Function for the slider in the US Language Diversity Map
 function updateSliderDisplay(value) {
     // Update the display
     let output = document.getElementById("rangeValue");
     output.textContent = getOrdinal(value);
 }
 
+// These event listeners are for the US Language Diversity Map controls, including rank slider and year.
 document.addEventListener('DOMContentLoaded', (event) => {
     let slider = document.getElementById("customRange");
     let yearSelect = document.getElementById("yearSelect"); // Add this line to get the yearSelect dropdown
@@ -156,9 +154,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 });
 
-
-
 // Callback function for IntersectionObserver
+// This function triggers animations of certain visualizations and transition slides
+// once the section of the page has been reached
 function handleIntersection(entries, observer) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -169,26 +167,26 @@ function handleIntersection(entries, observer) {
                 case 'endangerMapDiv':
                     myEndangerMapVis.wrangleData();
                     break;
-                case 'quizTimeHeader':
+                case 'quiz-time-header':
                 case 'gazeGlobally':
                     d3.select(`#${entry.target.id}`)
                         .transition()
-                        .duration(1200)
+                        .duration(900)
                         .style("opacity", 1);
                     break;
                 case 'dwindlingDiversity':
                     ['dwindlingDiversity-1', 'dwindlingDiversity-2'].forEach((id, index) => {
                         d3.select(`#${id}`)
                             .transition()
-                            .delay(index * 1200) // 0 for the first, 1200 for the second
-                            .duration(1200)
+                            .delay(index * 900) // 0 for the first, 1200 for the second
+                            .duration(900)
                             .style("opacity", 1);
                     });
                     break;
                 case 'informationAge':
                     d3.select(`#${entry.target.id}`)
                         .transition()
-                        .duration(1200)
+                        .duration(900)
                         .style("opacity", 1);
                     break;
                 case 'american-melting-pot':
@@ -196,20 +194,20 @@ function handleIntersection(entries, observer) {
                     let meltingPotDiv = d3.select(`#${entry.target.id}`);
 
                     meltingPotDiv.append("img")
-                        .attr("src", "img/american-melting-pot.png") // Replace with your image path
+                        .attr("src", "img/american-melting-pot.png")
                         .attr("class", "overlay-image")
-                        .style("opacity", 0); // Start with image invisible
+                        .style("opacity", 0);
 
                     // Fade in the image
                     meltingPotDiv.select("img")
                         .transition()
-                        .duration(1000)
+                        .duration(900)
                         .style("opacity", 1);
                     break;
                 case 'information-technologies':
                     d3.select(`#${entry.target.id}`)
                         .transition()
-                        .duration(1200)
+                        .duration(900)
                         .style("opacity", 1);
                     break;
             }
@@ -219,18 +217,19 @@ function handleIntersection(entries, observer) {
     });
 }
 
-// Set up the observer
+// Set up the observer -- to be applied to all identified IDs
 let observer = new IntersectionObserver(handleIntersection, {
     root: null,
     rootMargin: '0px',
-    threshold: 0.5 // Adjust this threshold as needed
+    threshold: 0.5
 });
 
-// Start observing the target elements
-const elementIds = ["quizTimeHeader", "mapDiv", "endangerMapDiv",
+// Start observing the target elements by ID
+const elementIds = ["quiz-time-header", "mapDiv", "endangerMapDiv",
     "dwindlingDiversity", "gazeGlobally", "informationAge", "american-melting-pot",
     "information-technologies"];
 
+// Iterate through each target element to begin observing
 elementIds.forEach(id => {
     const element = document.getElementById(id);
     if (element) {

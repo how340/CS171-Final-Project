@@ -1,5 +1,11 @@
 
 /* * * * * * * * * * * * * *
+*        HELPERS           *
+* * * * * * * * * * * * * */
+
+// These are helper functions that can be applied elsewhere.
+
+/* * * * * * * * * * * * * *
 *      getOrdinal          *
 * * * * * * * * * * * * * */
 
@@ -104,6 +110,9 @@ class NameConverter {
 
 let nameConverter = new NameConverter()
 
+/* * * * * * * * * * * * * * * *
+*    ENDANGER MAP TOOLTIP      *
+* * * * * * * * * * * * * * * */
 
 const tooltipVariations = [
     ` - Silenced for eternity. A distinctive voice, a vibrant cultural legacy, forever vanished. Once uttered, now a mere whisper in the annals of time.`,
@@ -126,6 +135,10 @@ function setRandomTooltip() {
     shuffleArray(tooltipVariations);
     return tooltipVariations[0];
 }
+
+/* * * * * * * * * * * * * * * *
+* THREE-LETTER LANGUAGE CODES  *
+* * * * * * * * * * * * * * * */
 
 let languageCodes = [
     { language: "Vietnamese", code: "VIE" },
@@ -160,14 +173,12 @@ let languageCodes = [
     { language: "Navajo", code: "NAV" }
 ];
 
-
 /* * * * * * * * * * * * * *
 *         Carousel         *
 * * * * * * * * * * * * * */
 
 // Create bootstrap carousel, disabling rotating
 let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
-
 
 // on button click switch view
 function switchView() {
