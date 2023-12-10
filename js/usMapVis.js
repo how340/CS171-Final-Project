@@ -139,12 +139,26 @@ class UsMapVis {
         ]);
 
         // Set the width of the horizontal bar
-        vis.totalHorizontalBarWidth = vis.viewpoint.width;
+        vis.xAxisPadding = 25;
+        vis.totalHorizontalBarWidth = vis.viewpoint.width - vis.xAxisPadding;
 
         // Create a group for the horizontal bar below the map
         vis.horizontalBarSvg = vis.svg.append('g')
             .attr("transform", `translate(0, ${vis.viewpoint.height - 150})`) // Adjust 20 to your desired margin
             .attr("class", "horizontal-bar");
+
+        vis.xScale = d3.scaleLinear()
+            .domain([0, 100]) // Assuming your percentages sum up to 100%
+            .range([0, vis.totalHorizontalBarWidth]); // Assuming vis.totalHorizontalBarWidth is the total width of your bar
+
+        vis.xAxis = d3.axisBottom(vis.xScale)
+            .ticks(10) // Number of ticks
+            .tickFormat(d => d + '%'); // Format the tick labels as percentages
+
+        vis.horizontalBarSvg.append("g")
+            .attr("class", "x-axis")
+            .attr("transform", "translate(0," + (60) + ")") // Adjust someYPosition to position the axis below your bars
+            .call(vis.xAxis);
 
 
         //this.wrangleData();
@@ -370,6 +384,12 @@ class UsMapVis {
 
         // Calculate width of each segment
         let segmentWidths = vis.horizontalBarData.map(value => (value / totalSum) * vis.totalHorizontalBarWidth);
+        let segmentPercentages = vis.horizontalBarData.map(value => (value / totalSum) * 100);
+        // let segmentDetails = vis.horizontalBarData.map(value => {
+        //     let width = (value / totalSum) * vis.totalHorizontalBarWidth;
+        //     let percentage = (value / totalSum) * 100; // Convert to percentage
+        //     return { width, percentage };
+        // });
 
         // Select or append rectangles for each segment
         let bars = vis.horizontalBarSvg.selectAll("rect")
@@ -377,37 +397,20 @@ class UsMapVis {
 
         bars.enter().append("rect")
             .merge(bars)
+            .transition()
+            .duration(1000)
+            //.attr("x", (d, i) => vis.xScale(segmentWidths.slice(0, i).reduce((a, b) => a + b, 0))) // Add padding to the x position
             .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0)) // Calculate x position
             .attr("y", 0)
-            .transition()
-            .duration(1500)
             .attr("width", (d, i) => segmentWidths[i]) // Use the corresponding width
             .attr("height", 50)
             .attr("stroke", "white")
             .attr("stroke-width", 1)
             .attr("fill", d => vis.colorScale(d[0])); // Use the first element (language) for color
 
-        // bars.enter().append("rect")
-        //     .merge(bars)
-        //     .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0)) // Set starting x position
-        //     .attr("y", 0) // Set y position
-        //     .attr("width", 0) // Start with width 0
-        //     .attr("height", 50) // Set height of bars
-        //     .attr("stroke", "white")
-        //     .attr("stroke-width", 1)
-        //     .attr("fill", d => vis.colorScale(d[0])) // Use the first element (language) for color
-        //     .transition()
-        //     .duration(1500)
-        //     .attr("width", (d, i) => segmentWidths[i]); // Transition to the final width
-
-
 
         vis.horizontalBarSvg.selectAll("rect")
             .on("mouseover", function(event, d) {
-                // Actions to perform on mouseover (e.g., change color, display tooltip, etc.)
-                // d3.select(this)
-                //     .attr("stroke-width", 2)
-                //     .style("cursor", "default");
 
                 // Set the highlighted language to the language of the hovered bar
                 vis.highlightedLanguage = d[0]; // Assuming d[0] contains the language name
@@ -426,15 +429,20 @@ class UsMapVis {
                     return stateLanguage === vis.highlightedLanguage ? vis.colorScale(vis.highlightedLanguage) : "#CCC";
                 });
 
+                let speakerPercentTotal = d[1] / totalSum * 100;
+                speakerPercentTotal = speakerPercentTotal.toFixed(2);
+
                 // Show tooltip
                 vis.horizontalBarTooltip
                     .style("opacity", 1)
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
                     .html(`
-                    <div>
-                        ${d}
-                    </div>`);
+                        <div>
+                            ${d[0]} holds ${numberWithCommas(d[1])} (${speakerPercentTotal}%) speakers in this category.
+                        </div>
+                    `);
+
             })
             .on("mouseout", function(event, d) {
                 // Reset the highlighted language
@@ -453,6 +461,55 @@ class UsMapVis {
                 vis.horizontalBarTooltip
                     .style("opacity", 0);
             });
+
+        // // Append text labels to the bars
+        // vis.horizontalBarSvg.selectAll(".bar-label")
+        //     .data(vis.languageArray) // Use the same data binding as for the bars
+        //     .append("text")
+        //     .attr("class", "bar-label")
+        //     .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0) + (segmentWidths[i] / 2)) // Position in the middle of the bar
+        //     .attr("y", 25) // Vertically center in the bar, adjust as needed
+        //     .attr("text-anchor", "middle") // Center the text
+        //     .attr("fill", "white") // Text color, change as needed
+        //     .text((d, i) => segmentPercentages[i] >= 8 ? `${d[0]}: ${segmentPercentages[i].toFixed(1)}%` : '') // Display text only if >= 8%
+        //     .style("font-size", "12px");
+
+        function updateLabels() {
+            let languageCodeMap = {};
+            languageCodes.forEach(lang => {
+                languageCodeMap[lang.language] = lang.code;
+            });
+
+            let labels = vis.horizontalBarSvg.selectAll(".bar-label")
+                .data(vis.languageArray);
+
+            // Enter + Update
+            labels.enter()
+                .append("text")
+                .merge(labels) // Merge enter and update selections
+                .transition()
+                .duration(1000)
+                .attr("class", "bar-label")
+                .attr("x", (d, i) => segmentWidths.slice(0, i).reduce((a, b) => a + b, 0) + (segmentWidths[i] / 2))
+                .attr("y", 28)
+                .attr("text-anchor", "middle")
+                .attr("fill", "white")
+                //.text((d, i) => segmentPercentages[i] >= 6 ? `${d[0]}` : '')
+                .text((d, i) => {
+                    let code = languageCodeMap[d[0]]; // Get the code from the map
+                    return segmentPercentages[i] >= 4 && code ? `${code}` : ''; // Display code if percentage >= 6% and code exists
+                })
+                .style("font-size", "12px");
+
+            // Exit
+            labels.exit().remove();
+        }
+
+        // After creating the bars
+        updateLabels();
+
+
+
 
 
         // Exit

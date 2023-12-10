@@ -162,36 +162,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function handleIntersection(entries, observer) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Check which element is intersecting
-            // if (entry.target.id === 'mapDiv') {
-            //     myMapVis.wrangleData();
-            // } else if (entry.target.id === 'endangerMapDiv') {
-            //     myEndangerMapVis.wrangleData();
-            // } else if (entry.target.id === 'quizTimeHeader') {
-            //     //const heading = document.getElementById("quizTimeHeader");
-            //     d3.select("#quizTimeHeader")
-            //         .transition()
-            //         .duration(1200) // Adjust the duration as needed (in milliseconds)
-            //         .style("opacity", 1);
-            // } else if (entry.target.id === 'dwindlingDiversity') {
-            //     d3.select("#dwindlingDiversity-1")
-            //         .transition()
-            //         .delay(0) // Delay for the first element
-            //         .duration(1200)
-            //         .style("opacity", 1);
-            //
-            //     d3.select("#dwindlingDiversity-2")
-            //         .transition()
-            //         .delay(1200) // Delay for the second element after the first one has completed
-            //         .duration(1200)
-            //         .style("opacity", 1);
-            // } else if (entry.target.id === 'gazeGlobally') {
-            //     d3.select("#gazeGlobally")
-            //         .transition()
-            //         .delay(0)
-            //         .duration(1200)
-            //         .style("opacity", 1);
-            // }
             switch (entry.target.id) {
                 case 'mapDiv':
                     myMapVis.wrangleData();
@@ -221,13 +191,21 @@ function handleIntersection(entries, observer) {
                         .duration(1200)
                         .style("opacity", 1);
                     break;
-                case 'americanMeltingPot':
-                    d3.select(`#${entry.target.id}`)
-                        .transition()
-                        .duration(1200) // Duration of the fade effect
-                        .style("opacity", 1); // Target opacity
-                    break;
+                case 'american-melting-pot':
+                    // Append an image if it doesn't already exist
+                    let meltingPotDiv = d3.select(`#${entry.target.id}`);
 
+                    meltingPotDiv.append("img")
+                        .attr("src", "img/american-melting-pot.png") // Replace with your image path
+                        .attr("class", "overlay-image")
+                        .style("opacity", 0); // Start with image invisible
+
+                    // Fade in the image
+                    meltingPotDiv.select("img")
+                        .transition()
+                        .duration(1000)
+                        .style("opacity", 1);
+                    break;
             }
 
             observer.unobserve(entry.target);
@@ -244,7 +222,7 @@ let observer = new IntersectionObserver(handleIntersection, {
 
 // Start observing the target elements
 const elementIds = ["quizTimeHeader", "mapDiv", "endangerMapDiv",
-    "dwindlingDiversity", "gazeGlobally", "informationAge", "americanMeltingPot"];
+    "dwindlingDiversity", "gazeGlobally", "informationAge", "american-melting-pot"];
 
 elementIds.forEach(id => {
     const element = document.getElementById(id);

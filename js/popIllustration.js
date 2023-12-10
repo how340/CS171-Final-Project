@@ -2,7 +2,7 @@ class PopulationIllustration {
     constructor(containerId) {
         this.containerId = containerId;
         this.width = 1200;
-        this.height = 800;
+        this.height = 700;
         this.hasTransitioned = false;
         this.createSVG();
         this.createElements();
@@ -27,7 +27,7 @@ class PopulationIllustration {
         // Append text
         this.text = this.populationIllustration.append("text")
             .attr("x", 0)
-            .attr("y", 200)
+            .attr("y", 150)
             .attr("font-size", "30px")
             .attr("text-anchor", "left")
             .attr("opacity", 1) // Start with opacity 0
@@ -51,13 +51,13 @@ class PopulationIllustration {
     createSpeechBubbles() {
         // Define the possible bubble positions (adjust as needed)
         const bubbleData = [
-            { x: 300, y: 480, greeting: "¡Hola!", isLeft: false },           // Spanish
-            { x: 680, y: 610, greeting: "Kumusta!", isLeft: true },        // Tagalog
-            { x: 850, y: 355, greeting: "Ciao!", isLeft: true },           // Italian
-            { x: 850, y: 595, greeting: "こんにちは!", isLeft: true },       // Japanese (Konnichiwa!)
-            { x: 860, y: 430, greeting: "Привет!", isLeft: true },        // Russian (Privet!)
-            { x: 300, y: 560, greeting: "你好!", isLeft: false },           // Chinese (Nǐ hǎo!)
-            { x: 310, y: 390, greeting: "مرحبًا!", isLeft: false },        // Arabic (Marhaban!)
+            { x: 300, y: 430, greeting: "¡Hola!", isLeft: false },           // Spanish
+            { x: 680, y: 560, greeting: "Kumusta!", isLeft: true },          // Tagalog
+            { x: 850, y: 305, greeting: "Ciao!", isLeft: true },             // Italian
+            { x: 860, y: 545, greeting: "こんにちは!", isLeft: true },       // Japanese (Konnichiwa!)
+            { x: 860, y: 380, greeting: "Привет!", isLeft: true },           // Russian (Privet!)
+            { x: 300, y: 510, greeting: "你好!", isLeft: false },             // Chinese (Nǐ hǎo!)
+            { x: 310, y: 340, greeting: "مرحبًا!", isLeft: false },          // Arabic (Marhaban!)
         ];
 
         // Create a group for each speech bubble
@@ -139,7 +139,7 @@ class PopulationIllustration {
                     // Create and append a new text element for the additional information
                     this.populationIllustration.append("text")
                         .attr("x", 0)
-                        .attr("y", 240) // Adjust the y-position so it doesn't overlap with the existing text
+                        .attr("y", 190) // Adjust the y-position so it doesn't overlap with the existing text
                         .attr("font-size", "30px")
                         .attr("text-anchor", "left")
                         .attr("opacity", 0) // Start with opacity 0
