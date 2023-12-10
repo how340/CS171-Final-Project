@@ -222,9 +222,11 @@ section {
 .overlay-image {
     position: absolute;
     z-index: 0; /* higher than the content of the div */
-    top: 50%; /* Position the top edge of the image in the middle of the viewport */
-    left: 50%; /* Position the left edge of the image in the middle of the viewport */
-    transform: translate(-50%, -50%); /* Offset the image position to truly center it */
+    width: 60%;
+    height: 60%;
+    /*top: 100%; !* Position the top edge of the image in the middle of the viewport *!*/
+    /*left: 100%; !* Position the left edge of the image in the middle of the viewport *!*/
+    /*transform: translate(0%, 0%); !* Offset the image position to truly center it *!*/
 }
 
 
