@@ -368,7 +368,7 @@ class TreeGlobeVis {
             .style("fill", d => vis.color[d.length])
             .style("fill-opacity", 0.5)
 
-        vis.svg.call(vis.zoomH.transform, d3.zoomIdentity.translate(width/2,height/2).scale(width/Math.PI/2))
+        vis.svg.call(vis.zoomH.transform, d3.zoomIdentity.translate(vis.width/2,vis.height/2).scale(vis.width/Math.PI/2));
 
         vis.wrangleData()
     }

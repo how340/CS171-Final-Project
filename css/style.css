@@ -5,7 +5,9 @@ h1 {
 
 h3 {
     text-align: center;
+    z-index:5;
 }
+
 
 body {
     color: #2e3133;
@@ -219,7 +221,7 @@ section {
 
 .overlay-image {
     position: absolute;
-    z-index: 10; /* higher than the content of the div */
+    z-index: 0; /* higher than the content of the div */
     top: 50%; /* Position the top edge of the image in the middle of the viewport */
     left: 50%; /* Position the left edge of the image in the middle of the viewport */
     transform: translate(-50%, -50%); /* Offset the image position to truly center it */
