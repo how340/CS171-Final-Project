@@ -130,8 +130,11 @@ section {
 
 #rangeValue {
     color: #DE2129;
+    font-weight: bold;
 }
 #yearSelect {
+    color: #DE2129;
+    font-weight: bold;
     width: 70px; /* Adjust this value as needed */
 }
 
@@ -151,6 +154,7 @@ section {
     border-right: 4px solid transparent;
     border-top: 4px solid #000; /* Change color as needed */
 }
+
 
 
 /***************************************************************

@@ -6,6 +6,7 @@ class EndangerMapVis {
         this.geoData = geoData;
         this.languageData = languageData;
         this.extinctionCount = 0;
+        this.yearCounter = 2023;
 
         this.initVis()
     }a
@@ -110,19 +111,11 @@ class EndangerMapVis {
         // extinction counter
         // Create a text element to display the extinction count
         vis.extinctionCounterText = vis.svg.append("text")
-            .attr("x", 600) // Position this text element appropriately
-            .attr("y", 30)
-            .attr("font-size", "20px")
-            .attr("fill", "red") // Choose a color that stands out
-            .text(`Voices Silenced Forever: ${vis.extinctionCount}`);
-
-        vis.yearCounterText = vis.svg.append("text")
-            .attr("x", 600) // Position this text element appropriately
-            .attr("y", 50) // Adjust the vertical position as needed
-            .attr("font-size", "16px")
-            .attr("fill", "blue") // Choose a color that stands out
-            .text(`Year: 2023`);
-
+            .attr("x", 0) // Position this text element appropriately
+            .attr("y", vis.viewpoint.height - 50)
+            .attr("font-size", "30px")
+            .attr("fill", "black") // Choose a color that stands out
+            .text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} unique voices will be silenced forever.`);
         //this.wrangleData();
     }
 
@@ -314,7 +307,8 @@ class EndangerMapVis {
 
                     // Increment the extinction count and update the text
                     vis.extinctionCount++;
-                    vis.extinctionCounterText.text(`Voices Silenced Forever: ${vis.extinctionCount}`);
+                    vis.extinctionCounterText.text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} 
+                    unique voices will be silenced forever.`);
 
 
                 }
@@ -323,37 +317,21 @@ class EndangerMapVis {
                 d3.select(this).remove();
             });
 
-        // Define the start and end years
-        const startYear = 2023;
         const endYear = 2100;
-        let currentYear = startYear;
-
-        // Update the year counter text
-        function updateYearCounter() {
-            vis.yearCounterText.transition()
-                .delay(1000)
-                .duration(15000) // Transition duration in milliseconds
-                .tween("text", function () {
-                    const interpolator = d3.interpolateNumber(currentYear, endYear);
-                    return function (t) {
-                        currentYear = Math.round(interpolator(t));
-                        this.textContent = `Year: ${currentYear}`;
-                    };
-                });
+        // Function to increment and update the year counter
+        function incrementYearCounter() {
+            if (vis.yearCounter < endYear) {
+                vis.yearCounter++; // Increment the year
+                vis.extinctionCounterText.text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} 
+                    unique voices will be silenced forever.`);
+            } else {
+                d3.interval().stop(); // Stop the interval when the end year is reached
+            }
         }
 
-// Define the animation interval
-        const animationInterval = 10000; // 10 seconds
-
-// Call the updateYearCounter function repeatedly
-        const yearCounterInterval = d3.interval(updateYearCounter, animationInterval);
-
-// Call updateYearCounter to initialize the year counter text
-        updateYearCounter();
-
-
-
-
+        // Set the interval for the year counter update
+        const yearUpdateInterval = 219; // Interval in milliseconds (e.g., 10 seconds)
+        d3.interval(incrementYearCounter, yearUpdateInterval);
             //.remove();
 
 

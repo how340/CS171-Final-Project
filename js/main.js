@@ -206,6 +206,12 @@ function handleIntersection(entries, observer) {
                         .duration(1000)
                         .style("opacity", 1);
                     break;
+                case 'information-technologies':
+                    d3.select(`#${entry.target.id}`)
+                        .transition()
+                        .duration(1200)
+                        .style("opacity", 1);
+                    break;
             }
 
             observer.unobserve(entry.target);
@@ -222,7 +228,8 @@ let observer = new IntersectionObserver(handleIntersection, {
 
 // Start observing the target elements
 const elementIds = ["quizTimeHeader", "mapDiv", "endangerMapDiv",
-    "dwindlingDiversity", "gazeGlobally", "informationAge", "american-melting-pot"];
+    "dwindlingDiversity", "gazeGlobally", "informationAge", "american-melting-pot",
+    "information-technologies"];
 
 elementIds.forEach(id => {
     const element = document.getElementById(id);
