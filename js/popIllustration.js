@@ -51,13 +51,13 @@ class PopulationIllustration {
     createSpeechBubbles() {
         // Define the possible bubble positions (adjust as needed)
         const bubbleData = [
-            { x: 280, y: 470, greeting: "¡Hola!" },           // Spanish
-            { x: 630, y: 620, greeting: "Kumusta!" },        // Tagalog
-            { x: 790, y: 380, greeting: "Ciao!" },           // Italian
-            { x: 790, y: 620, greeting: "こんにちは!" },       // Japanese (Konnichiwa!)
-            { x: 790, y: 470, greeting: "Привет!" },        // Russian (Privet!)
-            { x: 300, y: 550, greeting: "你好!" },           // Chinese (Nǐ hǎo!)
-            { x: 320, y: 370, greeting: "مرحبًا!" },        // Arabic (Marhaban!)
+            { x: 300, y: 480, greeting: "¡Hola!", isLeft: false },           // Spanish
+            { x: 680, y: 610, greeting: "Kumusta!", isLeft: true },        // Tagalog
+            { x: 850, y: 355, greeting: "Ciao!", isLeft: true },           // Italian
+            { x: 850, y: 595, greeting: "こんにちは!", isLeft: true },       // Japanese (Konnichiwa!)
+            { x: 860, y: 430, greeting: "Привет!", isLeft: true },        // Russian (Privet!)
+            { x: 300, y: 560, greeting: "你好!", isLeft: false },           // Chinese (Nǐ hǎo!)
+            { x: 310, y: 390, greeting: "مرحبًا!", isLeft: false },        // Arabic (Marhaban!)
         ];
 
         // Create a group for each speech bubble
@@ -75,6 +75,31 @@ class PopulationIllustration {
             .attr("height", 40)
             .attr("rx", 10)
             .attr("ry", 10)
+            .attr("fill", "white");
+
+        // Append three small circles to each speech bubble group
+        this.speechBubbles
+            .selectAll(".circle")
+            .data(d => {
+                if (d.isLeft) {
+                    return [
+                        { x: d.x - 55, y: d.y + 20 },
+                        { x: d.x - 63, y: d.y + 30 }, // Slight adjustment for a curve
+                        { x: d.x - 74, y: d.y + 38 }  // Slight adjustment for a curve
+                    ];
+                } else {
+                    return [
+                        { x: d.x + 54, y: d.y + 24 },  // Adjusted position for right side
+                        { x: d.x + 65, y: d.y + 33 },  // Slight adjustment for a curve
+                        { x: d.x + 78, y: d.y + 35 }   // Slight adjustment for a curve
+                    ];
+                }
+            })
+            .enter()
+            .append("circle")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", 5)
             .attr("fill", "white");
 
         // Append text to each speech bubble group

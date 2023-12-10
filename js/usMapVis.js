@@ -126,16 +126,16 @@ class UsMapVis {
 
 
         vis.colorScale = d3.scaleOrdinal([
-            "#641E16", "#1B3B3A", "#34515E",
-            "#E57373", "#EF9A9A", "#FFCDD2",
-            "#F57C00", "#FFA726", "#FFCC80",
-            "#F49b11", "#566573", "#808B96",
-            "#D7DBDD", "#FAD7A0", "#FDEBD0",
-            "#2E4053", "#85929E", "#AEB6BF",
-            "#F5B041", "#F8C471", "#FEF5E7",
-            "#E59866", "#D35400", "#C0392B",
-            "#DE2129", "#9C640C", "#7D6608",
-            "#1A5276", "#1F618D", "#2471A3"
+            "#7B241C", "#216869", "#4E6A79",
+            "#E8A1A1", "#EFAFBF", "#FFD6DF",
+            "#F57F33", "#FFAD68", "#FFD6A0",
+            "#F4B141", "#5F7184", "#8B97A0",
+            "#E1E2E5", "#FCE0BA", "#FEEFDE",
+            "#3B5273", "#8C9DAF", "#B7C4CF",
+            "#F5BD61", "#FAD8A1", "#FFF9F0",
+            "#E6A286", "#D37320", "#C74B3E",
+            "#E05244", "#A3742C", "#8A7A2B",
+            "#2B6296", "#2874A6", "#2E86C1"
         ]);
 
         // Set the width of the horizontal bar

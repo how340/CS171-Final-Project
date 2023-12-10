@@ -167,6 +167,24 @@ function handleIntersection(entries, observer) {
                 myMapVis.wrangleData();
             } else if (entry.target.id === 'endangerMapDiv') {
                 myEndangerMapVis.wrangleData();
+            } else if (entry.target.id === 'quizTimeHeader') {
+                //const heading = document.getElementById("quizTimeHeader");
+                d3.select("#quizTimeHeader")
+                    .transition()
+                    .duration(1200) // Adjust the duration as needed (in milliseconds)
+                    .style("opacity", 1);
+            } else if (entry.target.id === 'dwindlingDiversity') {
+                d3.select("#dwindlingDiversity-1")
+                    .transition()
+                    .delay(0) // Delay for the first element
+                    .duration(1200)
+                    .style("opacity", 1);
+
+                d3.select("#dwindlingDiversity-2")
+                    .transition()
+                    .delay(1200) // Delay for the second element after the first one has completed
+                    .duration(1200)
+                    .style("opacity", 1);
             }
 
             // Optionally, unobserve the target element after the first intersection
@@ -183,7 +201,11 @@ let observer = new IntersectionObserver(handleIntersection, {
 });
 
 // Start observing the target elements
+const quizTimeHeader = document.getElementById("quizTimeHeader");
 const mapTarget = document.getElementById('mapDiv');
 const endangerMapTarget = document.getElementById('endangerMapDiv');
+const dwindlingDiversity = document.getElementById("dwindlingDiversity");
+observer.observe(quizTimeHeader);
 observer.observe(mapTarget);
 observer.observe(endangerMapTarget);
+observer.observe(dwindlingDiversity);

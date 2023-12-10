@@ -8,7 +8,7 @@ class EndangerMapVis {
         this.extinctionCount = 0;
 
         this.initVis()
-    }
+    }a
 
     initVis() {
         let vis = this;
@@ -19,7 +19,6 @@ class EndangerMapVis {
 
         //define viewpoint and zoom
         vis.viewpoint = {'width': 975, 'height': 800};
-        //vis.zoom = vis.width / vis.viewpoint.width;
         vis.zoom = vis.height /600;
 
 
@@ -33,15 +32,6 @@ class EndangerMapVis {
         vis.map = vis.svg.append("g") // group will contain all state paths
             .attr("class", "states")
             .attr('transform', `scale(${vis.zoom} ${vis.zoom})`);
-
-        //create projection
-        // vis.projection = d3.geoAlbersUsa()
-        //     //.scale(vis.viewpoint.width)
-        //     .scale(1200)
-        //     .translate([(vis.viewpoint.width /2.2), vis.viewpoint.height / 2.55]);
-        //     // .scale(vis.zoom * 1000) // Adjust the scale factor
-        //     // .translate([vis.viewpoint.width / 2, vis.viewpoint.height / 2]);
-
 
         vis.projection = d3.geoAlbersUsa()
             .translate([vis.viewpoint.width / 1.98, vis.viewpoint.height / 2.55]) // Center the map
@@ -120,6 +110,13 @@ class EndangerMapVis {
             .attr("font-size", "20px")
             .attr("fill", "red") // Choose a color that stands out
             .text(`Voices Silenced Forever: ${vis.extinctionCount}`);
+
+        vis.yearCounterText = vis.svg.append("text")
+            .attr("x", 140) // Position this text element appropriately
+            .attr("y", 50) // Adjust the vertical position as needed
+            .attr("font-size", "16px")
+            .attr("fill", "blue") // Choose a color that stands out
+            .text(`Year: 2023`);
 
         //this.wrangleData();
     }
@@ -220,7 +217,7 @@ class EndangerMapVis {
 
         // Transition to make the circles appear
         vis.circles.transition()
-            .duration(1500)
+            .duration(1000)
             .attr("r", d => Math.log(d.Num_Speakers + 1) * 1.5)
             .style("opacity", 0.75);
 
@@ -233,11 +230,11 @@ class EndangerMapVis {
         let durationScale = d3.scaleLinear()
             .domain([d3.min(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1)),
                 d3.max(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1))])
-            .range([10000, 30000]); // Range from 2 seconds to 10 seconds for the transition
+            .range([5000, 15000]); // Range from 2 seconds to 10 seconds for the transition
 
         vis.circles.transition()
-            .delay(1500) // Start after the initial appearance transition
-            .duration(25000) // Shorter duration for color transition
+            .delay(1000) // Start after the initial appearance transition
+            .duration(12500) // Shorter duration for color transition
             .style("fill", d => {
                 if (d.Language_Status === 'Developing' && d.language != 'American Sign Language') {
                     return "orange"; // Change Developing (blue) to orange
@@ -286,14 +283,21 @@ class EndangerMapVis {
                         .attr('d', `M ${coords[0]} ${coords[1]} L ${coords[0]} ${coords[1] - 20}`) // Extend line downward
                         .style('opacity', 1);  // Fade in
 
-                    // Attach tooltip events to the line
-                    line.on("mouseover", function(event, d) {
+                    // Create an invisible, wider path for easier tooltip triggering
+                    let invisibleLine = vis.svg.append('path')
+                        .attr('d', `M ${coords[0]} ${coords[1]} L ${coords[0]} ${coords[1] - 20}`)
+                        .attr('stroke', 'transparent')
+                        .attr('stroke-width', 10) // Wider stroke for easier mouseover
+                        .style('fill', 'none')
+                        .style('opacity', 0) // Make it invisible
+                        .datum(d);
+
+                    // Attach tooltip events to the invisible line
+                    invisibleLine.on("mouseover", function(event, d) {
                         vis.tooltip.transition()
                             .duration(200)
                             .style("opacity", 0.9);
-                        vis.tooltip.html(`${d.language} - now silenced forever. 
-                                A unique voice, a rich cultural heritage, irretrievably lost. 
-                                Once spoken, now only echoes in history.`)
+                        vis.tooltip.html(`${d.language} ${setRandomTooltip()}`)
                             .style("left", (event.pageX) + "px")
                             .style("top", (event.pageY - 28) + "px");
                     })
@@ -305,12 +309,46 @@ class EndangerMapVis {
 
                     // Increment the extinction count and update the text
                     vis.extinctionCount++;
-                    vis.extinctionCounterText.text(`Extinction Count: ${vis.extinctionCount}`);
+                    vis.extinctionCounterText.text(`Voices Silenced Forever: ${vis.extinctionCount}`);
+
+
                 }
 
                 // Remove the circle element
                 d3.select(this).remove();
             });
+
+        // Define the start and end years
+        const startYear = 2023;
+        const endYear = 2100;
+        let currentYear = startYear;
+
+        // Update the year counter text
+        function updateYearCounter() {
+            vis.yearCounterText.transition()
+                .delay(1000)
+                .duration(15000) // Transition duration in milliseconds
+                .tween("text", function () {
+                    const interpolator = d3.interpolateNumber(currentYear, endYear);
+                    return function (t) {
+                        currentYear = Math.round(interpolator(t));
+                        this.textContent = `Year: ${currentYear}`;
+                    };
+                });
+        }
+
+// Define the animation interval
+        const animationInterval = 10000; // 10 seconds
+
+// Call the updateYearCounter function repeatedly
+        const yearCounterInterval = d3.interval(updateYearCounter, animationInterval);
+
+// Call updateYearCounter to initialize the year counter text
+        updateYearCounter();
+
+
+
+
             //.remove();
 
 
