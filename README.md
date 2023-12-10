@@ -17,7 +17,9 @@ Just pop-in and follow the instruction on each page to be along for the ride!
 
 ## Technology Stack
 Frontend: HTML, CSS, JavaScript, bootstrap
+
 Data Visualization: D3.js
+
 Webpage scrolling/Pagination: fullpage.js - A copy is contained with submission in node_modules. But we are using CDN in the implementation of the website.  
 
 ## Code overview
