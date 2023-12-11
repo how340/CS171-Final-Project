@@ -104,7 +104,7 @@ function initMainPage(dataArray) {
         levels: 5,
         roundStrokes: true
     };
-    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[dataArray.length-1], eventHandler)
+    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[dataArray.length-1])
     myScatterPlot = new ScatterPlot('scatterDiv', dataArray[dataArray.length-1])
 
     //donut vis on percentage of endanged language
