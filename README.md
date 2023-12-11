@@ -7,7 +7,9 @@ This repository contains the source code for a web application designed to visua
 
 Our webpage is hosted at: https://how340.github.io/CS171-Final-Project/
 
-The screencast video is stored on our google drive shared folder at: _____
+The screencast video is stored on our google drive shared folder at: https://drive.google.com/drive/folders/1uI64wp5kH2PC1Egra5-02M9hDxUOJQlb?usp=sharing
+
+The video is stored at: https://drive.google.com/file/d/19dFw6ZFN1txUWcyBNschscWBEgLlvS-t/view?usp=drive_link
 
 The screencast video is also submitted in the zip file as well. 
 
