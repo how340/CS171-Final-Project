@@ -38,35 +38,20 @@ class ScatterPlot {
             .range([vis.height, vis.margin.bottom])
         vis.yAxis = d3.axisLeft(vis.y)
 
-        // // add title
-        // vis.svg.append('g')
-        //     .attr('class', 'title')
-        //     .attr('id', 'radar-title')
-        //     .append('text')
-        //     .transition()
-        //     .delay(2000)
-        //     .duration(500)
-        //     .text('LLM Performance vs. Internet Makeup %')
-        //     .style("font-weight", "bold")
-        //     .style("font-size", 15)
-        //     .attr('transform', `translate(${vis.width / 2}, ${vis.margin.top/2})`)
-        //     .attr('text-anchor', 'middle');
-
-        // axis labels
+        // y axis labels
         vis.svg.append("text")
             .attr("class", "y-axis axis-label")
             .attr("transform", "rotate(-90)")
             .attr("y", 0)
             .attr("x", 0)
-
             .transition()
             .delay(2000)
             .duration(500)
-            // .attr("transform", "rotate(-90)")
             .attr("y", -vis.margin.left/4)
             .attr("x", -vis.height/2 - vis.margin.top/2)
             .text("BLEU Score")
 
+        // x axis label
         vis.svg.append("text")
             .attr("class", "x-axis axis-label")
             .attr("x",0)
@@ -90,8 +75,6 @@ class ScatterPlot {
 
         // define new data formatting
         vis.displayData = []
-
-
         for (let i = 0; i < axes.length; i++) {
             let displayInfo = {
                 'Language': "",
@@ -111,7 +94,7 @@ class ScatterPlot {
             vis.displayData.push(displayInfo)
         }
 
-        console.log(vis.displayData)
+        // console.log(vis.displayData)
 
         vis.updateVis();
     }
@@ -119,6 +102,7 @@ class ScatterPlot {
     updateVis() {
         let vis = this;
 
+        // for domains
         let maxValueX = d3.max(vis.displayData, (d) => d['Internet Makeup %'])
         let maxValueY = d3.max(
             [
@@ -131,6 +115,7 @@ class ScatterPlot {
         vis.x.domain([0, maxValueX + 5]);
         vis.y.domain([0, maxValueY + 5]);
 
+        // scatter axis call
         vis.svg.append("g")
             .attr("class", "x-axis")
             .attr("transform", `translate(0, ${vis.height})`)
@@ -138,7 +123,6 @@ class ScatterPlot {
             .delay(2000)
             .duration(500)
             .call(vis.xAxis)
-
         vis.svg.append("g")
             .attr("class", "y-axis")
             .transition()
@@ -146,17 +130,17 @@ class ScatterPlot {
             .duration(500)
             .call(vis.yAxis)
 
-        // add points
+        // add point group
         let dots = vis.svg.append('g')
             .attr("class", "marks")
             .selectAll("dot")
             .data(vis.displayData)
 
-        // ChatGPT
+        // ChatGPT points
         dots.enter()
             .append("circle")
             .attr("class", (d) => "LLM-dots dot-" + String(d.index[1]))
-            .attr("cx", (d) => 0)
+            .attr("cx", (d) => 0) // animate in from bottom left of scatter
             .attr("cy", (d) => vis.height)
             .merge(dots)
             .transition()
@@ -168,7 +152,7 @@ class ScatterPlot {
             .style("fill", "#CC333F")
             .style("fill-opacity", 0.7)
 
-        // LLM Average
+        // LLM Average points
         dots.enter()
             .append("circle")
             .attr("class", (d) => "ChatGPT-dots dot-" + String(d.index[0]))

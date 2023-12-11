@@ -72,12 +72,13 @@ class RadarChart {
             },
         ]
 
-        // TODO: Interactive legend to highlight points based on type
+        // Legend
         let legend = vis.svg.append("g")
             .attr("id", "radarLegend")
             .selectAll("rect")
             .data(legendData)
 
+        // create legend rectangles
         legend.enter()
             .append("rect")
             .style("opacity", 0)
@@ -92,7 +93,7 @@ class RadarChart {
             .attr("height", 15)
             .attr("width", 15)
 
-
+        // create legend text
         legend.enter()
             .append("text")
             .style("opacity", 0)
@@ -161,7 +162,7 @@ class RadarChart {
             .append("text")
             .transition()
             .attr("x", 4)
-            .attr("y", function(d){return -d*radius/vis.radarConfig.levels;})
+            .attr("y", function(d){return -d*radius/vis.radarConfig.levels;}) // add labels to grid
             .attr("dy", "0.4em")
             .style("font-size", "10px")
             .attr("fill", "#737373")
@@ -198,6 +199,8 @@ class RadarChart {
             .style("font-size", "11px")
             .attr("text-anchor", "middle")
             .attr("dy", "0.35em")
+
+            // ellipsoid structure
             .attr("x",(d, i) => rScale(maxValue*0.91) * Math.cos(angleSlice*i - Math.PI/2))
             .attr("y", (d, i) => rScale(maxValue * 1.1) * Math.sin(angleSlice*i - Math.PI/2))
             .text((d) => {
@@ -209,24 +212,12 @@ class RadarChart {
 
             })
             .style("opacity", 0)
-            .call(vis.wrap, wrapWidth);
+            .call(vis.wrap, wrapWidth); // wrap text on svg
 
-        axisText.transition()
+        axisText.transition() // fade in
             .delay(2000)
             .style("opacity", 1)
 
-        // let languageMap = {axis:"Indo-Euro-Germanic",value:60.2, type: "Internet", index : "24"}, // English, German, Dutch, Swedish, Danish, Norwegian
-        // {axis:"Indo-Euro-Romance",value:15.6, type: "Internet", index : "25"}, // Spanish, French, Portuguese, Italian, Romanian, Catalan
-        // {axis:"Indo-Euro-Slavic",value:8.9, type: "Internet", index : "26"}, // Russian, Polish, Czech, Ukrainian, Slovak, Bulgarian, Serbian, Croatian, Lithuanian, Slovenian, Latvian
-        // {axis:"Indo-Euro-Indo-Aryan",value:1.6, type: "Internet", index : "27"}, // Persian, Hindi
-        // {axis:"Indo-Euro-Other",value:0.5, type: "Internet", index : "28"}, // Greek
-        // {axis:"Austronesian",value:2.2, type: "Internet", index : "29"}, // Vietnamese, Indonesian
-        // {axis:"Atlantic-Congo",value:0, type: "Internet", index : "30"}, //
-        // {axis:"Afro-Asiatic",value:1.2, type: "Internet", index : "31"}, // Arabic, Hebrew
-        // {axis:"Turkic",value:2.1, type: "Internet", index : "32"}, // Turkish
-        // {axis:"Dravidian",value:0, type: "Internet", index : "33"}, //
-        // {axis:"Sino-Tibetan",value:1.8, type: "Internet", index : "34"}, // Chinese, Thai
-        // {axis:"Other",value:5.9, type: "Internet", index : "35"}, // Japanese, Korean, Hungarian, Finnish, Estonian
 
         let languageMap = {
             "Indo-Euro-Germanic": ["English", "German", "Dutch", "Swedish", "Danish", "Norwegian"],
@@ -243,10 +234,11 @@ class RadarChart {
             "Other": ["Japanese", "Korean", "Hungarian", "Finnish", "Estonian"]
         }
 
-        for (let key_ in languageMap) {
+        for (let key_ in languageMap) { // just add a space between everything
             languageMap[key_].forEach((d, i) => {languageMap[key_][i] = " " + languageMap[key_][i]})
         }
 
+        // tooltip describing languages in a family
         axisText.on('mouseover', function(even, d){
                 d3.select(this)
                     .attr("font-weight", "bold")
@@ -286,13 +278,13 @@ class RadarChart {
             radarLine.curve(d3.curveCardinalClosed)
         }
 
-        // initialize radar areas
+        // initialize radar group
         let area = vis.svg.g.selectAll(".radarWrapper")
             .data(vis.displayData)
             .enter().append("g")
             .attr("class", "radarWrapper");
 
-        //Append the backgrounds
+        // add the radar areas
         area
             .append("path")
             .attr("class", "radarArea")
@@ -304,7 +296,7 @@ class RadarChart {
                     .transition("dimArea").duration(150)
                     .style("fill-opacity", 0.1);
 
-                // dim scatterplot
+                // dim scatterplot to link
                 if (d[0].type === "LLM") {
                     d3.selectAll(".ChatGPT-dots")
                         .transition("dimScatter").duration(150)
@@ -384,7 +376,7 @@ class RadarChart {
             .delay(250)
             .duration(250)
             .attr("r", 4)
-            .attr("cx", (d, i) => rScale(d.value) * Math.cos(angleSlice * i - Math.PI/2))
+            .attr("cx", (d, i) => rScale(d.value) * Math.cos(angleSlice * i - Math.PI/2)) // circular location
             .attr("cy", (d, i) => rScale(d.value) * Math.sin(angleSlice * i - Math.PI/2))
             .style("fill", (d, i, j) => vis.color(j))
             .style("fill-opacity", 0.8);
@@ -395,11 +387,12 @@ class RadarChart {
             .enter().append("g")
             .attr("class", "radarCircleWrapper");
 
+        // start tooltip invisible
         let tooltip = vis.svg.g.append("text")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        // generate invisible circle to display tooltip on hover
+        // generate invisible circle bigger than mark for easier hover
         areaCircleWrapper.selectAll(".radarInvisibleCircle")
             .data((d) => d)
             .enter().append("circle")
@@ -442,13 +435,6 @@ class RadarChart {
                     .style("font-weight", "bold")
                     .style("font-size", "11px")
                     .style('opacity', 1);
-
-
-                // // event handling to link to scatter
-                // vis.currentSelection = d;
-                // console.log(vis.currentSelection);
-                //
-                // vis.eventHandler.trigger("selectionChanged", vis.currentSelection)
             })
             // tooltip disappears
             .on("mouseout", function(event, d){
@@ -468,6 +454,7 @@ class RadarChart {
                     })
                     .attr("r", 4)
 
+                // tooltip fade out
                 tooltip.transition().duration(150)
                     .style("opacity", 0);
             });
