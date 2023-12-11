@@ -83,8 +83,14 @@ function initMainPage(dataArray) {
     // IF THINGS FAIL TO LOAD, log dataArray to see the ordering of the promise data
     console.log("dataarray", dataArray);
 
+    //quiz visualization
     quiz1 = new Quiz1('quiz-1', 'quiz-2', 'quiz-3')
+
+    // internet language visualization
     internetLanguageVis = new InternetLangVis('internetLang', dataArray[0]);
+
+    //donut vis on percentage of endanged language
+    myDonutVis = new DonutVis('donut')
 
     // Usage:
     populationIllustration = new PopulationIllustration("population-transition");
@@ -104,11 +110,9 @@ function initMainPage(dataArray) {
         levels: 5,
         roundStrokes: true
     };
-    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[dataArray.length-1], eventHandler)
+    myRadarChart = new RadarChart('radarDiv', myRadarConfig, dataArray[dataArray.length-1])
     myScatterPlot = new ScatterPlot('scatterDiv', dataArray[dataArray.length-1])
 
-    //donut vis on percentage of endanged language
-    myDonutVis = new DonutVis('donut')
 }
 
 function internetLanguageVisOnChange(){

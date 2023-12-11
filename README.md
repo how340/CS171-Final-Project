@@ -36,7 +36,7 @@ W3tech, and the US census. Harvard dataverse provided the language ethnologue da
 on the status of the global languages and most of the linguistic diversity data. 
 Wikipedia and W3tech contributed to the development of the languages landscape on 
 the internt visualization. The US census data was used to develop visualization 
-on linguistics in the US> 
+on linguistics in the US. The raw US census data is annotated with txt files in the same folder. 
 
 Each of our visualizations are fully created in D3 and styled either at initialization or through CSS. The techniques used in these visualizations are
 mostly covered in our courses and we further improved on these techniques to implement the novel visualizations. 
