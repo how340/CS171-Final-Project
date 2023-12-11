@@ -81,8 +81,10 @@
 | Column Name      | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                         |
 |------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | nodes          | array          | array of nodes with attributes {"id": node id, "name": language name", "country": most common country language is located in, "score": human-readable EGIDs endangerment score, "latitude": mean latitude of language subgroups, "longitude": mean longitude of language subgroups, "length": path length along language tree, "terminal": string indicator if language has no children |
-| links | array | array of edges with attributes {"source": source node id, "target": target node id, "length": position on path length the edge occurs} 
+| links | array | array of edges with attributes {"source": source node id, "target": target node id, "length": position on path length the edge occurs}
 
 ## world-110m.json
 World topojson dataset with longitudes and latitudes of all countries.                                                             
 
+## BLEU Scores (`nmtData`) in main.js
+Multilingual translation performance data sourced from (https://arxiv.org/pdf/2304.04675.pdf).Array of array where each element is ChatGPT, average of 9 LLMs, or internet makeup (https://en.wikipedia.org/wiki/Languages_used_on_the_Internet). Each element is an array of maps where *axis* is language family, *value* is BLEU score (% for internet element), *type* is the label, and *index* is the element index for linking between visualizations.

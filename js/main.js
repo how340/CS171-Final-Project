@@ -19,7 +19,6 @@ let internetLanguageVis,
     myEndangerMapVis,
     sliderValue,
     selectedYear,
-    eventHandler,
     myDonutVis;
 
 // initialize radar/scatter data - could just put this in a separate json
@@ -98,7 +97,7 @@ function initMainPage(dataArray) {
     myEndangerMapVis = new EndangerMapVis('endangerMapDiv', dataArray[1], dataArray[3]);
 
     // treeglobe map
-    myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', dataArray[5], dataArray[4], eventHandler)
+    myTreeGlobeVis = new TreeGlobeVis('treeGlobeDiv', dataArray[5], dataArray[4])
 
     // define radar configuration
     myRadarConfig = {

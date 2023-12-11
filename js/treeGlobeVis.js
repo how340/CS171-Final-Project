@@ -1,9 +1,8 @@
 class TreeGlobeVis {
-    constructor(parentElement, ethnoData, geoData, eventHandler) {
+    constructor(parentElement, ethnoData, geoData) {
         this.parentElement = parentElement;
         this.ethnoData = ethnoData;
         this.geoData = geoData;
-        this.eventHandler = eventHandler;
         this.currentSelection = {'longitude': 0, 'latitude': 0};
         this.sources = new Set()
         // initialize starting points
@@ -29,6 +28,7 @@ class TreeGlobeVis {
             .attr("height", vis.height)
             .attr('transform', `translate (${vis.margin.left}, ${vis.margin.top})`);
 
+        // add background for map
         vis.svg.append("rect")
             .attr("class", "border")
             .attr("width", vis.width)
@@ -40,10 +40,11 @@ class TreeGlobeVis {
             .attr('class', "tooltip")
             .attr('id', 'subgroupTooltip')
 
-        //d3.geoOrthographic()
+        // init zoom & rotate
         vis.rotate = [0, 0]
         vis.zoom = vis.height / 600;
 
+        // init projection
         vis.projection =  d3.geoMercator()
             .translate([vis.width / 2, vis.height / 2])
             .scale(249.5 * vis.zoom) // 249.5 is default. so multiply that by your zoom
@@ -63,16 +64,18 @@ class TreeGlobeVis {
             .attr("stroke", "rgba(129,129,129,0.35)")
             .attr("d", vis.path);
 
-
-        vis.grid = vis.svg.append("path") // grid (graticule) + overlay
+        // grid (graticule) + overlay
+        vis.grid = vis.svg.append("path")
             .datum(d3.geoGraticule())
             .attr("class", "graticule")
             .attr('fill', 'oldlace')
             .attr("stroke", "rgba(129,129,129,0.35)")
             .attr("d", vis.path);
 
+        // convert topojson to geoJSON
         let world = topojson.feature(vis.geoData, vis.geoData.objects.countries).features
 
+        // generate countries
         vis.countries = vis.svg.selectAll(".country")
             .data(world)
             .enter().append("path")
@@ -81,23 +84,23 @@ class TreeGlobeVis {
             .attr("fill", "lightgrey")
             .attr("stroke", "grey")
 
-        //zoom
+        // what to do on scrollwheel zoom
         vis.zoomH = d3.zoom()
             .on("zoom", function(event) {
                 let t = event.transform;
-                // update paths
+                // update path scale & translate to mouse pointer
                 vis.projection.scale(t.k).translate([t.x,t.y]);
                 vis.countries.attr("d", vis.path)
                 vis.sphere.attr("d", vis.path)
                 vis.grid.attr("d", vis.path)
 
-                // Update the nodes
+                // Update the language nodes
                 d3.selectAll(".subgroup")
                     .attr('cx', d => vis.projection([d.longitude, d.latitude])[0])
                     .attr('cy', d => vis.projection([d.longitude, d.latitude])[1])
 
 
-                // update the links
+                // update the language links (line object)
                 d3.selectAll(".link")
                     .attr("x1", function(d) { if(d.source !== -1) {
                         let sourceCoords = [vis.displayNodeData[d.source].longitude, vis.displayNodeData[d.source].latitude]
@@ -117,25 +120,25 @@ class TreeGlobeVis {
                     } })
             })
 
-        vis.svg.call(vis.zoomH).on("mousedown.zoom", null);
-
-        // Set up an initial projection translate and scale.
+        // initial zoom to reset back to later
         vis.svg.call(vis.zoomH.transform, d3.zoomIdentity.translate(vis.width/2,vis.height/2).scale(vis.width/Math.PI/2));
 
         // rotation
         let m0,
             o0;
 
-
+        // on drag, rotate map
         vis.svg.call(
             d3.drag()
                 .on("start", function (event) {
-
+                    // init
                     let lastRotationParams = vis.projection.rotate();
                     m0 = [event.x, event.y];
                     o0 = [-lastRotationParams[0], -lastRotationParams[1]];
                 })
                 .on("drag", function (event) {
+
+                    // define projection
                     if (m0) {
                         let m1 = [event.x, event.y],
                             o1 = [o0[0] + (m0[0] - m1[0]) / 4, o0[1] + (m1[1] - m0[1]) / 4];
@@ -199,8 +202,8 @@ class TreeGlobeVis {
                 vis.displayNodeData[d.id] = d
             }
         })
-        // might be nice to have a length of path from root to node so we can
-        // do neat colour gradient things...
+
+        // get links to nodes that are targets of all the current sources
         vis.displayLinkData = []
         vis.ethnoData.links.forEach(d => {
             if(vis.sources.has(d.target) && !vis.displayLinkData.includes(d) && d.source !== -1) {
@@ -221,7 +224,7 @@ class TreeGlobeVis {
         links.exit().remove()
         links.enter().append("line")
             .attr("class", "link")
-            // init position
+            // init position at source coordinate
             .attr("x1", function(d) { if(d.source !== -1) {
                 console.log()
                 let sourceCoords = [vis.currentSelection.longitude, vis.currentSelection.latitude]
@@ -246,7 +249,7 @@ class TreeGlobeVis {
             .transition()
             .duration(500)
 
-            // new position
+            // new position from source to target coordinate
             .attr("x1", function(d) { if(d.source !== -1) {
                 console.log()
                 let sourceCoords = [vis.displayNodeData[d.source].longitude, vis.displayNodeData[d.source].latitude]
@@ -264,6 +267,7 @@ class TreeGlobeVis {
                 let targetCoords = [vis.displayNodeData[d.target].longitude, vis.displayNodeData[d.target].latitude]
                 return vis.projection(targetCoords)[1];
             } })
+            // color terminal paths red, otw viridis gradient
             .style("stroke", d => {
                 if (vis.displayNodeData[d.target].terminal === "No"){
                     return vis.color[d.length]
@@ -279,6 +283,8 @@ class TreeGlobeVis {
         subgroups.exit().remove()
         subgroups.enter().append('circle')
             .attr('class', 'subgroup')
+
+            // colour terminal nodes red, otw viridis gradient
             .style("fill", d => {
                 if (d.terminal === "No"){
                     return vis.color[d.length]
@@ -286,6 +292,7 @@ class TreeGlobeVis {
                     return "#DE2129"
                 }
             })
+            // fill terminal nodes
             .style("fill-opacity", d => {
             if (d.terminal === "No"){
                 return 0.5
@@ -295,6 +302,8 @@ class TreeGlobeVis {
         })
             .attr('cx', vis.projection([vis.currentSelection.longitude, vis.currentSelection.latitude])[0])
             .attr('cy', vis.projection([vis.currentSelection.longitude, vis.currentSelection.latitude])[1])
+
+            // on click, extend links to new node
             .on('click', function(event, dSelect) {
 
                 d3.select(this)
@@ -314,14 +323,17 @@ class TreeGlobeVis {
                     }
                 })
                 vis.currentSelection = dSelect; // use for transitions
-                console.log(vis.currentSelection)
+                // console.log(vis.currentSelection)
                 vis.wrangleData()
             })
             .on('mouseover', function(even, d){
+
+                // indicate hovered node
                 d3.select(this)
                     .attr("stroke", 'black')
                     .style("fill", "#f49b11")
 
+                // add a tooltip
                 vis.tooltip
                     .style("opacity", 1)
                     .style("left", event.pageX + 20 + "px")
@@ -335,6 +347,7 @@ class TreeGlobeVis {
                             </div>`);
             })
             .on('mouseout', function (event, d) {
+                // return back to what just was
                 d3.select(this)
                     .attr("stroke", 'transparent')
                     .style("fill", d => {
@@ -360,6 +373,7 @@ class TreeGlobeVis {
     }
 
     resetTree(){
+        // on reset, reset zoom and reset current language tree
         let vis = this;
         vis.sources = new Set()
         // initialize starting points
@@ -367,7 +381,7 @@ class TreeGlobeVis {
         vis.svg.selectAll('.subgroup')
             .style("fill", d => vis.color[d.length])
             .style("fill-opacity", 0.5)
-
+        // init zoom
         vis.svg.call(vis.zoomH.transform, d3.zoomIdentity.translate(vis.width/2,vis.height/2).scale(vis.width/Math.PI/2));
 
         vis.wrangleData()
