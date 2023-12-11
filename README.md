@@ -5,7 +5,7 @@ This repository contains the source code for a web application designed to visua
 
 ## How to run the code
 
-Our webpage is hosted at: https://how340.github.io/CS171-Final-Project/
+Our webpage is hosted at: https://how340.github.io/CS171-Final-Project/ (for best performance please use Chrome!)
 
 The screencast video is stored on our google drive shared folder at: https://drive.google.com/drive/folders/1uI64wp5kH2PC1Egra5-02M9hDxUOJQlb?usp=sharing
 
