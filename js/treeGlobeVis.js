@@ -121,6 +121,7 @@ class TreeGlobeVis {
             })
 
         // initial zoom to reset back to later
+        vis.svg.call(vis.zoomH)
         vis.svg.call(vis.zoomH.transform, d3.zoomIdentity.translate(vis.width/2,vis.height/2).scale(vis.width/Math.PI/2));
 
         // rotation
