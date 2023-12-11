@@ -1,3 +1,9 @@
+/* * * * * * * * * * * * * *
+*  Population Illustration *
+* * * * * * * * * * * * * */
+
+// this class implements the US population illustration of monolingual to bilingual Americans
+// Aggreagate statistics derived from source: https://www.census.gov/library/publications/2022/acs/acs-50.html
 class PopulationIllustration {
     constructor(containerId) {
         this.containerId = containerId;
@@ -49,15 +55,15 @@ class PopulationIllustration {
     }
 
     createSpeechBubbles() {
-        // Define the possible bubble positions (adjust as needed)
+        // Define the possible bubble positions
         const bubbleData = [
-            { x: 300, y: 430, greeting: "¡Hola!", isLeft: false },           // Spanish
-            { x: 680, y: 560, greeting: "Kumusta!", isLeft: true },          // Tagalog
-            { x: 850, y: 305, greeting: "Ciao!", isLeft: true },             // Italian
-            { x: 860, y: 545, greeting: "こんにちは!", isLeft: true },       // Japanese (Konnichiwa!)
-            { x: 860, y: 380, greeting: "Привет!", isLeft: true },           // Russian (Privet!)
-            { x: 300, y: 510, greeting: "你好!", isLeft: false },             // Chinese (Nǐ hǎo!)
-            { x: 310, y: 340, greeting: "مرحبًا!", isLeft: false },          // Arabic (Marhaban!)
+            { x: 300, y: 430, greeting: "¡Hola!", isLeft: false }, // Spanish
+            { x: 680, y: 560, greeting: "Kumusta!", isLeft: true }, // Tagalog
+            { x: 850, y: 305, greeting: "Ciao!", isLeft: true }, // Italian
+            { x: 860, y: 545, greeting: "こんにちは!", isLeft: true }, // Japanese (Konnichiwa!)
+            { x: 860, y: 380, greeting: "Привет!", isLeft: true }, // Russian (Privet!)
+            { x: 300, y: 510, greeting: "你好!", isLeft: false }, // Chinese (Nǐ hǎo!)
+            { x: 310, y: 340, greeting: "مرحبًا!", isLeft: false },  // Arabic (Marhaban!)
         ];
 
         // Create a group for each speech bubble
@@ -83,15 +89,17 @@ class PopulationIllustration {
             .data(d => {
                 if (d.isLeft) {
                     return [
+                        // positions to make circles on left side
                         { x: d.x - 55, y: d.y + 20 },
-                        { x: d.x - 63, y: d.y + 30 }, // Slight adjustment for a curve
-                        { x: d.x - 74, y: d.y + 38 }  // Slight adjustment for a curve
+                        { x: d.x - 63, y: d.y + 30 },
+                        { x: d.x - 74, y: d.y + 38 }
                     ];
                 } else {
+                    // positions to make circles on right side
                     return [
-                        { x: d.x + 54, y: d.y + 24 },  // Adjusted position for right side
-                        { x: d.x + 65, y: d.y + 33 },  // Slight adjustment for a curve
-                        { x: d.x + 78, y: d.y + 35 }   // Slight adjustment for a curve
+                        { x: d.x + 54, y: d.y + 24 },
+                        { x: d.x + 65, y: d.y + 33 },
+                        { x: d.x + 78, y: d.y + 35 }
                     ];
                 }
             })
@@ -113,10 +121,6 @@ class PopulationIllustration {
             .text(d => d.greeting);
     }
 
-
-
-
-
     setupIntersectionObserver() {
         // Intersection Observer to trigger the transition
         const observer = new IntersectionObserver(entries => {
@@ -127,13 +131,13 @@ class PopulationIllustration {
 
                     // Apply transition when the image enters the viewport
                     this.grayImage.transition()
-                        .duration(1500) // Adjust duration as needed
+                        .duration(1500)
                         .ease(d3.easePolyIn.exponent(4))
                         .attr("opacity", 1);
 
                     // Transition the speech bubbles to fade in
                     this.speechBubbles.transition()
-                        .duration(2000) // Adjust duration to match the image transition
+                        .duration(2000)
                         .attr("opacity", 1);
 
                     // Create and append a new text element for the additional information
@@ -142,15 +146,15 @@ class PopulationIllustration {
                         .attr("y", 190) // Adjust the y-position so it doesn't overlap with the existing text
                         .attr("font-size", "30px")
                         .attr("text-anchor", "left")
-                        .attr("opacity", 0) // Start with opacity 0
+                        .attr("opacity", 0)
                         .text("But with 22% multilingual speakers, that's still 71.5 million people!")
                         .transition()
                         .delay(1000)
-                        .duration(2000) // Adjust duration for the new text fade-in
-                        .attr("opacity", 1); // Fade in the new text
+                        .duration(2000)
+                        .attr("opacity", 1);
                 }
             });
-        }, { threshold: 0.5 }); // Threshold - triggers when 50% of the element is visible
+        }, { threshold: 0.5 });
 
         // Observe the SVG element
         observer.observe(this.svg.node());

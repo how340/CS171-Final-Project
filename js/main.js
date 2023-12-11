@@ -111,13 +111,9 @@ function initMainPage(dataArray) {
     myDonutVis = new DonutVis('donut')
 }
 
-
-
 function internetLanguageVisOnChange(){
   internetLanguageVis.wrangleData();
 }
-
-
 
 function updateSliderDisplay(value) {
     // Update the display
@@ -125,6 +121,7 @@ function updateSliderDisplay(value) {
     output.textContent = getOrdinal(value);
 }
 
+// INTERSECTION OBSERVER: to improve/activate animations in certain transition slides
 document.addEventListener('DOMContentLoaded', (event) => {
     let slider = document.getElementById("customRange");
     let yearSelect = document.getElementById("yearSelect"); // Add this line to get the yearSelect dropdown
@@ -155,8 +152,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 });
 
-
-
 // Callback function for IntersectionObserver
 function handleIntersection(entries, observer) {
     entries.forEach(entry => {
@@ -179,7 +174,7 @@ function handleIntersection(entries, observer) {
                     ['dwindlingDiversity-1', 'dwindlingDiversity-2'].forEach((id, index) => {
                         d3.select(`#${id}`)
                             .transition()
-                            .delay(index * 1200) // 0 for the first, 1200 for the second
+                            .delay(index * 1200)
                             .duration(1200)
                             .style("opacity", 1);
                     });
@@ -213,7 +208,6 @@ function handleIntersection(entries, observer) {
                         .style("opacity", 1);
                     break;
             }
-
             observer.unobserve(entry.target);
         }
     });
@@ -223,10 +217,10 @@ function handleIntersection(entries, observer) {
 let observer = new IntersectionObserver(handleIntersection, {
     root: null,
     rootMargin: '0px',
-    threshold: 0.5 // Adjust this threshold as needed
+    threshold: 0.5
 });
 
-// Start observing the target elements
+// Start observing the chosen target elements
 const elementIds = ["quizTimeHeader", "mapDiv", "endangerMapDiv",
     "dwindlingDiversity", "gazeGlobally", "informationAge", "american-melting-pot",
     "information-technologies"];

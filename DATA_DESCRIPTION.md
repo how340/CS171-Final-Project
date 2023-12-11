@@ -84,7 +84,84 @@
 | links | array | array of edges with attributes {"source": source node id, "target": target node id, "length": position on path length the edge occurs}
 
 ## world-110m.json
-World topojson dataset with longitudes and latitudes of all countries.                                                             
+World topojson dataset with longitudes and latitudes of all countries.       
+
+## states-albers-10m.json
+GeoJSON file for a 10m Albers projection of US States
 
 ## BLEU Scores (`nmtData`) in main.js
 Multilingual translation performance data sourced from (https://arxiv.org/pdf/2304.04675.pdf).Array of array where each element is ChatGPT, average of 9 LLMs, or internet makeup (https://en.wikipedia.org/wiki/Languages_used_on_the_Internet). Each element is an array of maps where *axis* is language family, *value* is BLEU score (% for internet element), *type* is the label, and *index* is the element index for linking between visualizations.
+
+## us-endangered-languages.csv
+Filtered version table-of-languages.csv data for languages in the US.
+
+## all_years_acs_langs_data.csv
+**Description:** US Census American Community Survey 5-year data filtered by state, year, total population, and language populations.
+**Source:** Derived from US Census American Community Survey 5-year data from 2016 to 2021.
+
+| Column Name                                       | Type     | Description                                                                                         |
+|---------------------------------------------------|----------|-----------------------------------------------------------------------------------------------------|
+| Geographic Area Name                              | String   | The name of the state                                                                               |
+| Year                                              | Integer  | The year of the data collection, ranging from 2016 to 2021.                                         |
+| Estimate!!Total                                   | Integer  | The total population estimate for the specified geographic area.                                    |
+| Spanish                                           | Integer  | Count of individuals who speak Spanish as their primary language.                                   |
+| French (incl. Cajun)                             | Integer  | Count of individuals who speak French, including Cajun dialects.                                    |
+| Haitian                                           | Integer  | Count of individuals who speak Haitian Creole.                                                      |
+| Italian                                           | Integer  | Count of individuals who speak the Italian language.                                                |
+| Portuguese                                        | Integer  | Count of individuals who speak Portuguese.                                                          |
+| German                                            | Integer  | Count of individuals who speak German.                                                              |
+| Yiddish, Pennsylvania Dutch or other West Germanic languages | Integer  | Count of individuals who speak Yiddish, Pennsylvania Dutch, or other West Germanic languages.       |
+| Greek                                             | Integer  | Count of individuals who speak Greek.                                                               |
+| Russian                                           | Integer  | Count of individuals who speak Russian.                                                             |
+| Polish                                            | Integer  | Count of individuals who speak Polish.                                                              |
+| Serbo-Croatian                                    | Integer  | Count of individuals who speak Serbo-Croatian.                                                      |
+| Ukrainian or other Slavic languages               | Integer  | Count of individuals who speak Ukrainian or other Slavic languages.                                 |
+| Armenian                                          | Integer  | Count of individuals who speak Armenian.                                                            |
+| Persian (incl. Farsi, Dari)                      | Integer  | Count of individuals who speak Persian, including Farsi and Dari.                                   |
+| Gujarati                                          | Integer  | Count of individuals who speak Gujarati.                                                            |
+| Hindi                                             | Integer  | Count of individuals who speak Hindi.                                                               |
+| Urdu                                              | Integer  | Count of individuals who speak Urdu.                                                                |
+| Punjabi                                           | Integer  | Count of individuals who speak Punjabi.                                                             |
+| Bengali                                           | Integer  | Count of individuals who speak Bengali.                                                             |
+| Nepali, Marathi, or other Indic languages         | Integer  | Count of individuals who speak Nepali, Marathi, or other Indic languages.                           |
+| Other Indo-European languages                     | Integer  | Count of individuals who speak other Indo-European languages.                                       |
+| Telugu                                            | Integer  | Count of individuals who speak Telugu.                                                              |
+| Tamil                                             | Integer  | Count of individuals who speak Tamil.                                                               |
+| Malayalam, Kannada, or other Dravidian languages  | Integer  | Count of individuals who speak Malayalam, Kannada, or other Dravidian languages.                    |
+| Chinese (incl. Mandarin, Cantonese)               | Integer  | Count of individuals who speak Chinese, including Mandarin and Cantonese.                           |
+| Japanese                                          | Integer  | Count of individuals who speak Japanese.                                                            |
+| Korean                                            | Integer  | Count of individuals who speak Korean.                                                              |
+| Hmong                                             | Integer  | Count of individuals who speak Hmong.                                                               |
+| Vietnamese                                        | Integer  | Count of individuals who speak Vietnamese.                                                          |
+| Khmer                                             | Integer  | Count of individuals who speak Khmer.                                                               |
+| Thai, Lao, or other Tai-Kadai languages           | Integer  | Count of individuals who speak Thai, Lao, or other Tai-Kadai languages.                             |
+| Other languages of Asia                           | Integer  | Count of individuals who speak other languages of Asia.                                             |
+| Tagalog (incl. Filipino)                         | Integer  | Count of individuals who speak Tagalog, including Filipino.                                         |
+| Ilocano, Samoan, Hawaiian, or other Austronesian languages | Integer  | Count of individuals who speak Ilocano, Samoan, Hawaiian, or other Austronesian languages.          |
+| Arabic                                            | Integer  | Count of individuals who speak Arabic.                                                              |
+| Hebrew                                            | Integer  | Count of individuals who speak Hebrew.                                                              |
+| Amharic, Somali, or other Afro-Asiatic languages   | Integer  | Count of individuals who speak Amharic, Somali, or other Afro-Asiatic languages.                    |
+| Yoruba, Twi, Igbo, or other languages of Western Africa | Integer  | Count of individuals who speak Yoruba, Twi, Igbo, or other languages of Western Africa.             |
+| Swahili or other languages of Central, Eastern, and Southern Africa | Integer  | Count of individuals who speak Swahili or other languages of Central, Eastern, and Southern Africa. |
+| Navajo                                            | Integer  | Count of individuals who speak Navajo.                                                              |
+| Other Native languages of North America            | Integer  | Count of individuals who speak other Native languages of North America.                             |
+| Other and unspecified languages                   | Integer  | Count of individuals who speak other or unspecified languages.                                      |
+
+## us-lang-data.csv
+**Description:** A processed form of all_years_acs_langs_data.csv, that ranks the languages by the number of speakers by each state and the corresponding year.
+
+| Column Name   | Type     | Description                                           |
+|---------------|----------|-------------------------------------------------------|
+| state         | String   | The name of the state.                               |
+| year          | Integer  | The corresponding year.                              |
+| total_pop     | Integer  | The total population of the state in that year.      |
+| languageRank1 | Integer  | The rank of the first language by number of speakers. |
+| numSpeakers1  | Integer  | The number of speakers for the first language.       |
+| languageRank2 | Integer  | The rank of the second language by number of speakers.|
+| numSpeakers2  | Integer  | The number of speakers for the second language.      |
+| languageRank3 | Integer  | The rank of the third language by number of speakers. |
+| numSpeakers3  | Integer  | The number of speakers for the third language.       |
+| languageRank4 | Integer  | The rank of the fourth language by number of speakers.|
+| numSpeakers4  | Integer  | The number of speakers for the fourth language.      |
+| languageRank5 | Integer  | The rank of the fifth language by number of speakers. |
+| numSpeakers5  | Integer  | The number of speakers for the fifth language.       |
