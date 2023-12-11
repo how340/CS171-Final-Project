@@ -123,7 +123,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Set the height to 100% of the viewport height */
+    height: 100vh;
 }
 
 /***************************************************************
@@ -137,7 +137,7 @@ section {
 #yearSelect {
     color: #DE2129;
     font-weight: bold;
-    width: 70px; /* Adjust this value as needed */
+    width: 70px;
 }
 
 .dropdown {
@@ -154,7 +154,7 @@ section {
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 4px solid #000; /* Change color as needed */
+    border-top: 4px solid #000;
 }
 
 
@@ -221,17 +221,14 @@ section {
 
 .overlay-image {
     position: absolute;
-    z-index: 0; /* higher than the content of the div */
+    z-index: 0;
     width: 60%;
     height: 60%;
-    /*top: 100%; !* Position the top edge of the image in the middle of the viewport *!*/
-    /*left: 100%; !* Position the left edge of the image in the middle of the viewport *!*/
-    /*transform: translate(0%, 0%); !* Offset the image position to truly center it *!*/
 }
 
 .center-content {
     display: flex;
-    justify-content: center; /* Horizontally center the content */
+    justify-content: center;
     height: 100%;
 }
 

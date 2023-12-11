@@ -105,6 +105,9 @@ class NameConverter {
 let nameConverter = new NameConverter()
 
 
+/* * * * * * * * * * * * * *
+*  Endangered map tooltip  *
+* * * * * * * * * * * * * */
 const tooltipVariations = [
     ` - Silenced for eternity. A distinctive voice, a vibrant cultural legacy, forever vanished. Once uttered, now a mere whisper in the annals of time.`,
     ` - Permanently hushed. An exceptional linguistic identity, a profound cultural heritage, irreversibly extinguished. Formerly spoken, now a distant memory etched in history.`,
@@ -127,6 +130,10 @@ function setRandomTooltip() {
     return tooltipVariations[0];
 }
 
+
+/* * * * * * * * * * * * * *
+*  US MAP language codes   *
+* * * * * * * * * * * * * */
 let languageCodes = [
     { language: "Vietnamese", code: "VIE" },
     { language: "Russian", code: "RUS" },

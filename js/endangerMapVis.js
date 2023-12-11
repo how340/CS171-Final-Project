@@ -1,3 +1,9 @@
+/* * * * * * * * * * * * * *
+*       EndangerMapVis     *
+* * * * * * * * * * * * * */
+
+// this class implements the US Language Endangerment map
+
 let toolTipUpdateInterval;
 class EndangerMapVis {
 
@@ -22,21 +28,20 @@ class EndangerMapVis {
         vis.viewpoint = {'width': 975, 'height': 800};
         vis.zoom = vis.height /600;
 
-
-        // init drawing area
+        // initialize drawing area
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
             .attr("preserveAspectRatio", "xMidYMid meet")
             .attr("viewBox", `0 0 ${vis.viewpoint.width} ${vis.viewpoint.height}`)
-            .classed("svg-content-responsive", true); // Use a class to set width and height to 100%
+            .classed("svg-content-responsive", true);
 
         // adjust map position
-        vis.map = vis.svg.append("g") // group will contain all state paths
+        vis.map = vis.svg.append("g")
             .attr("class", "states")
             .attr('transform', `scale(${vis.zoom} ${vis.zoom})`);
 
         vis.projection = d3.geoAlbersUsa()
-            .translate([vis.viewpoint.width / 1.98, vis.viewpoint.height / 2.55]) // Center the map
-            .scale(1285); // Scale might need to be adjusted based on the actual size
+            .translate([vis.viewpoint.width / 1.98, vis.viewpoint.height / 2.55])
+            .scale(1285);
 
         // define geogenerator and pass your projection to it
         vis.path = d3.geoPath();
@@ -63,10 +68,10 @@ class EndangerMapVis {
             .enter().append('path')
             .attr('vector-effect', 'non-scaling-stroke')
             .attr('d', vis.path)
-            .attr('fill', '#CCC') // Initial fill color
-            .transition() // Start transition
-            .duration(20000) // Duration of transition in milliseconds
-            .attr('fill', '#12242e'); // End fill color
+            .attr('fill', '#CCC')
+            .transition()
+            .duration(20000)
+            .attr('fill', '#12242e');
 
 
         //Legend Data
@@ -89,17 +94,17 @@ class EndangerMapVis {
             .attr("transform", (d, i) => `translate(${legendXOffset}, ${legendTopPosition + i * legendYOffset})`);
 
         vis.legend.append("rect")
-            .attr("x", vis.width - 24) // Adjust position for squares
-            .attr("y", 5) // Adjust vertical position
-            .attr("width", 12) // Width of the square
-            .attr("height", 12) // Height of the square
+            .attr("x", vis.width - 24)
+            .attr("y", 5)
+            .attr("width", 12)
+            .attr("height", 12)
             .style("fill", d => d.color);
 
         vis.legend.append("text")
-            .attr("x", vis.width - 30) // Adjust position text to the left of the squares
-            .attr("y", 10) // Center vertically with the squares
-            .attr("dy", ".35em") // Vertically align the text with the square
-            .style("text-anchor", "end") // Align text to the right of the `x` position
+            .attr("x", vis.width - 30)
+            .attr("y", 10)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
             .text(d => d.status);
 
         // tooltip
@@ -108,24 +113,24 @@ class EndangerMapVis {
             .attr("id", "mapTooltip")
             .style("opacity", 0);
 
-        // extinction counter
+        // extinction count
         // Create a text element to display the extinction count
         vis.extinctionCounterText = vis.svg.append("text")
             .attr("x", 0) // Position this text element appropriately
             .attr("y", vis.viewpoint.height - 50)
             .attr("font-size", "30px")
-            .attr("fill", "black") // Choose a color that stands out
+            .attr("fill", "black")
             .text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} unique voices will be silenced forever.`);
-        //this.wrangleData();
     }
 
     wrangleData() {
         let vis = this;
 
+        // make sure
         vis.languageData.forEach(d => {
-            d.Num_Speakers = +d.Num_Speakers; // Ensure num_speakers is a number
-            d.Latitude = +d.Latitude;         // Ensure Latitude is a number
-            d.Longitude = +d.Longitude;       // Ensure Longitude is a number
+            d.Num_Speakers = +d.Num_Speakers;
+            d.Latitude = +d.Latitude;
+            d.Longitude = +d.Longitude;
         });
 
         // Filter out data points that are outside the mainland U.S.
@@ -191,7 +196,7 @@ class EndangerMapVis {
             // Start interval to update the tooltip content
             const initialRadius = Math.log(d.Num_Speakers + 1) * 1.3;
             const initialSpeakers = d.Num_Speakers;
-            const interval = 50; // Interval in milliseconds to update the tooltip
+            const interval = 50;
 
             toolTipUpdateInterval = setInterval(() => {
                 const currentRadius = parseFloat(d3.select(this).attr('r'));
@@ -219,20 +224,14 @@ class EndangerMapVis {
             .attr("r", d => Math.log(d.Num_Speakers + 1) * 1.5)
             .style("opacity", 0.75);
 
-
-
-
-        // Sort the data by Num_Speakers so that you can make them disappear in that order
-        // vis.filteredLanguageData.sort((a, b) => a.Num_Speakers - b.Num_Speakers);
-
         let durationScale = d3.scaleLinear()
             .domain([d3.min(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1)),
                 d3.max(vis.filteredLanguageData, d => Math.log(d.Num_Speakers + 1))])
-            .range([5000, 15000]); // Range from 2 seconds to 10 seconds for the transition
+            .range([5000, 15000]);
 
         vis.circles.transition()
-            .delay(1000) // Start after the initial appearance transition
-            .duration(12500) // Shorter duration for color transition
+            .delay(1000)
+            .duration(12500)
             .style("fill", d => {
                 if (d.Language_Status === 'Developing' && d.language != 'American Sign Language') {
                     return "orange"; // Change Developing (blue) to orange
@@ -279,15 +278,15 @@ class EndangerMapVis {
                     line.transition()
                         .duration(1000)
                         .attr('d', `M ${coords[0]} ${coords[1]} L ${coords[0]} ${coords[1] - 20}`) // Extend line downward
-                        .style('opacity', 1);  // Fade in
+                        .style('opacity', 1);
 
                     // Create an invisible, wider path for easier tooltip triggering
                     let invisibleLine = vis.svg.append('path')
                         .attr('d', `M ${coords[0]} ${coords[1]} L ${coords[0]} ${coords[1] - 20}`)
                         .attr('stroke', 'transparent')
-                        .attr('stroke-width', 10) // Wider stroke for easier mouseover
+                        .attr('stroke-width', 10)
                         .style('fill', 'none')
-                        .style('opacity', 0) // Make it invisible
+                        .style('opacity', 0)
                         .datum(d);
 
                     // Attach tooltip events to the invisible line
@@ -309,8 +308,6 @@ class EndangerMapVis {
                     vis.extinctionCount++;
                     vis.extinctionCounterText.text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} 
                     unique voices will be silenced forever.`);
-
-
                 }
 
                 // Remove the circle element
@@ -325,19 +322,13 @@ class EndangerMapVis {
                 vis.extinctionCounterText.text(`By the year ${vis.yearCounter}, another ${vis.extinctionCount} 
                     unique voices will be silenced forever.`);
             } else {
-                d3.interval().stop(); // Stop the interval when the end year is reached
+                d3.interval().stop();
             }
         }
 
         // Set the interval for the year counter update
-        const yearUpdateInterval = 219; // Interval in milliseconds (e.g., 10 seconds)
+        const yearUpdateInterval = 219;
         d3.interval(incrementYearCounter, yearUpdateInterval);
-            //.remove();
-
-
-
-        //console.log("you're at the end");
-
     }
 }
 
